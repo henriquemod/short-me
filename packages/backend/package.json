@@ -5,9 +5,30 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "precommit": "echo backend precomit running"
+    "watch": "tsc -w",
+    "compile": "tsc --build",
+    "clean": "rm -rf build/*",
+    "build": "yarn clean && yarn compile",
+    "dev": "nodemon build/index.js",
+    "lint": "eslint -c .eslintrc.js 'src/**/*.{ts,tsx}'",
+    "type-check": "npx tsc --noEmit",
+    "precommit": "yarn type-check && yarn lint"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@types/prettier": "^2.7.0",
+    "@typescript-eslint/eslint-plugin": "^5.34.0",
+    "eslint": "^8.22.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-config-standard-with-typescript": "^22.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-n": "^15.2.5",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-promise": "^6.0.0",
+    "nodemon": "^2.0.19",
+    "prettier": "^2.7.1",
+    "typescript": "4.7.4"
+  }
 }
