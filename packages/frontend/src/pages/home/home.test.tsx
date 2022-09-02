@@ -1,9 +1,9 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
-import App from '../App'
+import App from '../../App'
 
-test('renders hello world', () => {
+test('renders url input', () => {
     render(<App />)
-    const linkElement = screen.getByText(/Hello World/i)
+    const linkElement = screen.getByTestId('insert-url')
     expect(linkElement).toBeInTheDocument()
 })
