@@ -36,7 +36,7 @@ const makeFakeRequest = (props?: OverrideTypes): HttpRequest => ({
 const makeFakeBodyResponse = (props?: OverrideTypes): HttpResponse['body'] => ({
   id: 'any_id',
   url: 'original_url',
-  urlShort: 'shot_url',
+  key: 'url_key',
   ...props
 })
 
@@ -58,7 +58,7 @@ const makeSut = (): SutTypes => {
   }
 }
 
-describe('Create User Controller', () => {
+describe('Create Url Controller', () => {
   it('should return 400 if no url is provided', async () => {
     const { sut } = makeSut()
     const httpResponse = await sut.handle(makeFakeRequest({ url: undefined }))

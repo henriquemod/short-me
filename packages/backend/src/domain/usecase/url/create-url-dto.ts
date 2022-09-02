@@ -5,5 +5,5 @@ export interface InputCreateUrlDto {
 export interface OutputCreateUrlDto {
   id: string
   url: string
-  urlShort: string
+  key: string
 }

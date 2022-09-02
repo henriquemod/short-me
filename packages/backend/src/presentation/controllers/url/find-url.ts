@@ -1,26 +1,26 @@
-import { OutputCreateUrlDto } from '../../../domain/usecase/url'
-import { CreateUrl } from '../../../domain/usecase/url/url'
+import { OutputFindUrlDto } from '../../../domain/usecase/url'
+import { FindUrl } from '../../../domain/usecase/url/url'
 import { MissingParamError } from '../../error'
 import { badRequest, ok, serverError } from '../../helpers/http-helper'
 import { Controller, HttpRequest, HttpResponse } from '../../protocols'
 
-export default class CreateUrlController implements Controller {
-  constructor(private readonly createUrl: CreateUrl) {}
+export default class FindUrlController implements Controller {
+  constructor(private readonly findUrl: FindUrl) {}
 
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
-      const requiredFields = ['url']
+      const requiredFields = ['key']
       for (const field of requiredFields) {
         if (!httpRequest.body[field]) {
           return badRequest(new MissingParamError(field))
         }
       }
 
-      const { url: inputUrl } = httpRequest.body
+      const { key } = httpRequest.body
 
-      const url = await this.createUrl.create({ url: inputUrl })
+      const url = await this.findUrl.find({ key })
 
-      const urlDto: OutputCreateUrlDto = {
+      const urlDto: OutputFindUrlDto = {
         id: url.id,
         url: url.url,
         key: url.key
