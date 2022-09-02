@@ -1,7 +1,7 @@
 import styled from 'styled-components'
-import { Button } from '../../components/button'
 import { InsertUrlInput } from '../../components/insert-url-input'
 import { Colors } from '../../lib/colors'
+import ValidatePassword from '../../lib/password-validator'
 
 const Container = styled.div`
     height: 100vh;
@@ -12,19 +12,15 @@ const Container = styled.div`
 `
 
 export const Home = () => {
-    const renderButton = () => {
-        return (
-            <Button
-                label='Short me!'
-                // style={{ backgroundColor: `${Colors.secondary.dark}` }}
-                onClick={() => console.log('Ola Mundo')}
-            />
-        )
+    const handleCreateShortUrl = (url: string) => {
+        return Promise.resolve('test')
     }
-
     return (
         <Container>
-            <InsertUrlInput button={renderButton} />
+            <InsertUrlInput
+                validateUrl={ValidatePassword}
+                handleCreateShortUrl={handleCreateShortUrl}
+            />
         </Container>
     )
 }
