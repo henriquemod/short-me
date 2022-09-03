@@ -1,5 +1,6 @@
 import { createServer } from 'http'
 import { DataSource, DataSourceOptions } from 'typeorm'
+import urlModel from '../infra/url/model/url-model'
 import userModel from '../infra/user/model/user-model'
 import config from './config'
 import app from './config/app'
@@ -14,7 +15,7 @@ const typeOrmSettingsDev: DataSourceOptions = {
   database: ':memory:',
   synchronize: true,
   logging: false,
-  entities: [userModel],
+  entities: [userModel, urlModel],
   migrations: [],
   subscribers: []
 }
@@ -23,7 +24,7 @@ const typeOrmSettingsHml: DataSourceOptions = {
   type: 'postgres',
   synchronize: true,
   logging: true,
-  entities: [userModel],
+  entities: [userModel, urlModel],
   migrations: [],
   subscribers: [],
   host: 'localhost',

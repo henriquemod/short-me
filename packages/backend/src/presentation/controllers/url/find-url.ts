@@ -1,5 +1,6 @@
 import { OutputFindUrlDto } from '../../../domain/usecase/url'
 import { FindUrl } from '../../../domain/usecase/url/url'
+import log from '../../../main/logger'
 import { MissingParamError } from '../../error'
 import {
   badRequest,
@@ -16,12 +17,12 @@ export default class FindUrlController implements Controller {
     try {
       const requiredFields = ['key']
       for (const field of requiredFields) {
-        if (!httpRequest.body[field]) {
+        if (!httpRequest.params[field]) {
           return badRequest(new MissingParamError(field))
         }
       }
 
-      const { key } = httpRequest.body
+      const { key } = httpRequest.params
 
       const url = await this.findUrl.find({ key })
 
@@ -37,6 +38,7 @@ export default class FindUrlController implements Controller {
 
       return ok(urlDto)
     } catch (error) {
+      log.error(error)
       return serverError(error as Error)
     }
   }

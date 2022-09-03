@@ -27,7 +27,7 @@ interface OverrideTypes {
 }
 
 const makeFakeRequest = (props?: OverrideTypes): HttpRequest => ({
-  body: {
+  params: {
     key: 'any_key',
     ...props
   }
@@ -76,7 +76,7 @@ describe('Find Url Controller', () => {
     const findUrlSpy = jest.spyOn(findUrlStub, 'find')
     await sut.handle(makeFakeRequest())
     expect(findUrlSpy).toHaveBeenCalledWith(
-      makeFakeRequest({ url: undefined, id: undefined }).body
+      makeFakeRequest({ url: undefined, id: undefined }).params
     )
   })
 
