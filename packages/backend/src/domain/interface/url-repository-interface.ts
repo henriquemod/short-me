@@ -1,14 +1,11 @@
 import {
   InputCreateUrlDto,
-  OutputCreateUrlDto,
   InputFindUrlDto,
+  OutputCreateUrlDto,
   OutputFindUrlDto
-} from '.'
+} from '../usecase/url'
 
-export interface CreateUrl {
+export interface UrlRepositoryInterface {
   create: (input: InputCreateUrlDto) => Promise<OutputCreateUrlDto>
-}
-
-export interface FindUrl {
   find: (input: InputFindUrlDto) => Promise<OutputFindUrlDto | undefined>
 }
