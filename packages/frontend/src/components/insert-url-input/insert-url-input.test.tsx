@@ -1,15 +1,15 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
 import { InsertUrlInput } from '.'
-import ValidatePassword from '../../lib/password-validator'
+import ValidatePassword from '../../lib/url-validator'
 import userEvent from '@testing-library/user-event'
 import { act } from 'react-dom/test-utils'
 import ReactDOM from 'react-dom/client'
 
 globalThis.IS_REACT_ACT_ENVIRONMENT = true
 
-const handleCreateShortUrl = (url: string) => {
-    return Promise.resolve('test')
+const handleCreateShortUrl = async (url: string) => {
+    Promise.resolve('test')
 }
 
 let container: HTMLDivElement
@@ -24,6 +24,7 @@ test('should return default error message on invalid url', async () => {
         <InsertUrlInput
             validateUrl={ValidatePassword}
             handleCreateShortUrl={handleCreateShortUrl}
+            loading={false}
         />
     )
     const linkElement = screen.getByTestId('insert-url')
@@ -44,6 +45,7 @@ test('should return default error message on empty url', async () => {
         <InsertUrlInput
             validateUrl={ValidatePassword}
             handleCreateShortUrl={handleCreateShortUrl}
+            loading={false}
         />
     )
 
@@ -64,6 +66,7 @@ test('should return success message on valid url', async () => {
             <InsertUrlInput
                 validateUrl={ValidatePassword}
                 handleCreateShortUrl={handleCreateShortUrl}
+                loading={false}
             />
         )
     })
@@ -78,9 +81,7 @@ test('should return success message on valid url', async () => {
         })
     }
 
-    const message = screen.getByText(
-        'Your url was successfully shortened. Link: test'
-    )
+    const message = screen.getByText('Your url was successfully shortened.')
 
     expect(message).toBeInTheDocument()
 })

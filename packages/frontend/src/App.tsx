@@ -1,5 +1,6 @@
 import { ThemeProvider, createTheme } from '@mui/material'
 import { Colors } from './lib/colors'
+import { AppContainer } from './lib/app-container'
 import { Home } from './pages/home'
 
 const theme = createTheme({
@@ -13,7 +14,9 @@ const theme = createTheme({
 function App() {
     return (
         <ThemeProvider theme={theme}>
-            <Home />
+            <AppContainer>
+                <Home />
+            </AppContainer>
         </ThemeProvider>
     )
 }

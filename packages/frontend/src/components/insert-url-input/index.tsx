@@ -1,14 +1,13 @@
-import { Button, ButtonTypeMap, TextField } from '@mui/material'
-import { CSSProperties, useCallback, useState } from 'react'
-import styled from 'styled-components'
+import {
+    Button,
+    ButtonTypeMap,
+    CircularProgress,
+    Grid,
+    TextField
+} from '@mui/material'
+import { CSSProperties, useState } from 'react'
 import { Messages } from '../../lib/messages'
 import { useNotification } from '../../lib/useNotification'
-
-const Container = styled.div`
-    display: flex;
-    width: 100%;
-    justify-content: center;
-`
 
 const INPUT_STYLE: CSSProperties = {
     minWidth: '500px',
@@ -22,12 +21,14 @@ const ButtonProps: ButtonTypeMap['props'] = {
 
 interface IProps {
     validateUrl: (url: string) => boolean
-    handleCreateShortUrl: (url: string) => Promise<string>
+    handleCreateShortUrl: (url: string) => Promise<void>
+    loading: boolean
 }
 
 export const InsertUrlInput = ({
     validateUrl,
-    handleCreateShortUrl
+    handleCreateShortUrl,
+    loading
 }: IProps) => {
     const [value, setValue] = useState<string>('')
     const [error, setError] = useState(false)
@@ -43,40 +44,44 @@ export const InsertUrlInput = ({
 
     const handleClickButton = async () => {
         if (!error && value) {
-            const shortUrl = await handleCreateShortUrl(value)
-            notify(Messages.Success + ` Link: ${shortUrl}`, 'success')
+            await handleCreateShortUrl(value)
+            notify(Messages.Success, 'success')
         } else {
             notify(Messages.DefaultError, 'error')
         }
     }
 
-    const modalWrapper = useCallback(() => {
-        return snack
-    }, [snack])
+    const renderChild = loading ? <CircularProgress size={25} /> : 'Short me'
 
     return (
-        <>
-            <Container>
+        <Grid display='flex'>
+            <Grid xs={6} item>
                 <TextField
                     id='insert-url'
                     data-testid='insert-url'
                     label='URL'
                     variant='outlined'
+                    disabled={loading}
                     value={value}
                     onChange={handleChangeValue}
                     error={error}
                     style={INPUT_STYLE}
                     inputProps={{ id: 'insert-url-2', role: 'textbox' }}
                 />
+            </Grid>
+            <Grid xs={6} item>
                 <Button
                     {...ButtonProps}
                     id='insert-button'
+                    style={{ height: '100%', minWidth: '107px' }}
+                    disabled={loading}
                     data-testid='insert-button'
+                    fullWidth
                     onClick={handleClickButton}>
-                    Short me!
+                    {renderChild}
                 </Button>
-            </Container>
-            {modalWrapper()}
-        </>
+            </Grid>
+            {snack()}
+        </Grid>
     )
 }

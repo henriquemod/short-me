@@ -1,26 +1,32 @@
-import styled from 'styled-components'
+import { Fade, Grid } from '@mui/material'
 import { InsertUrlInput } from '../../components/insert-url-input'
-import { Colors } from '../../lib/colors'
-import ValidatePassword from '../../lib/password-validator'
+import { UrlList } from '../../components/url-list'
+import UrlValidator from '../../lib/url-validator'
+import { useUrl } from '../../lib/useUrl'
 
-const Container = styled.div`
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: ${Colors.primary.light};
-`
+const GRID_PROPS = {
+    alignSelf: 'center',
+    justifyContent: 'center',
+    marginBottom: 2,
+    alignItems: 'end'
+}
 
 export const Home = () => {
-    const handleCreateShortUrl = (url: string) => {
-        return Promise.resolve('test')
-    }
+    const { create, urlList, loading } = useUrl()
     return (
-        <Container>
-            <InsertUrlInput
-                validateUrl={ValidatePassword}
-                handleCreateShortUrl={handleCreateShortUrl}
-            />
-        </Container>
+        <>
+            <Grid {...GRID_PROPS}>
+                <InsertUrlInput
+                    validateUrl={UrlValidator}
+                    handleCreateShortUrl={create}
+                    loading={loading}
+                />
+            </Grid>
+            <Fade in={urlList.length > 0}>
+                <Grid alignSelf='center'>
+                    <UrlList itens={urlList} />
+                </Grid>
+            </Fade>
+        </>
     )
 }
