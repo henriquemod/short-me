@@ -46,6 +46,7 @@ export const InsertUrlInput = ({
         if (!error && value) {
             await handleCreateShortUrl(value)
             notify(Messages.Success, 'success')
+            setValue('')
         } else {
             notify(Messages.DefaultError, 'error')
         }

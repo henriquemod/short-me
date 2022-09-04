@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { useState } from 'react'
+import { Messages } from './messages'
 
 export interface IUrl {
     id: string
@@ -14,17 +15,17 @@ export const useUrl = () => {
         try {
             setLoading(true)
             const request = await axios.post<IUrl>(
-                'http://localhost:8080/api/url',
+                `${process.env.BACKEND_ENDPOINT}/api/url`,
                 {
                     url
                 }
             )
 
-            setTimeout(() => {
-                console.log('oi')
-                setUrlList([...urlList, request.data])
-                setLoading(false)
-            }, 3000)
+            if (request.status !== 200)
+                throw new Error(Messages.DefaultRequestError)
+
+            setUrlList([...urlList, request.data])
+            setLoading(false)
         } catch (error) {
             console.log(error)
         }

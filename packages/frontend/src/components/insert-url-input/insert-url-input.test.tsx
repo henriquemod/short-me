@@ -14,6 +14,9 @@ const handleCreateShortUrl = async (url: string) => {
 
 let container: HTMLDivElement
 
+const INVALID_URL = '1'
+const VALID_URL = 'https://validurl.com'
+
 beforeEach(() => {
     container = document.createElement('div')
     document.body.appendChild(container)
@@ -30,7 +33,7 @@ test('should return default error message on invalid url', async () => {
     const linkElement = screen.getByTestId('insert-url')
     const buttonElement = screen.getByTestId('insert-button')
 
-    userEvent.type(linkElement, '1')
+    userEvent.type(linkElement, INVALID_URL)
     userEvent.click(buttonElement)
     const message = screen.getByText(
         'An error ocurred, please try again later.'
@@ -76,7 +79,7 @@ test('should return success message on valid url', async () => {
 
     if (input && button) {
         await act(async () => {
-            userEvent.type(input, '1123')
+            userEvent.type(input, VALID_URL)
             userEvent.click(button)
         })
     }
