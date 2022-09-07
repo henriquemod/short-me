@@ -21,12 +21,12 @@ export const Home = () => {
                     handleCreateShortUrl={create}
                     loading={loading}
                 />
+                <Fade in={urlList.length > 0}>
+                    <Grid container justifyContent='center'>
+                        <UrlList itens={urlList} />
+                    </Grid>
+                </Fade>
             </Grid>
-            <Fade in={urlList.length > 0}>
-                <Grid alignSelf='center'>
-                    <UrlList itens={urlList} />
-                </Grid>
-            </Fade>
         </>
     )
 }

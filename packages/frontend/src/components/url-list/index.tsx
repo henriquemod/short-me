@@ -1,6 +1,6 @@
-import { Divider, List, ListItem, ListItemText } from '@mui/material'
-import React from 'react'
+import { List } from '@mui/material'
 import { IUrl } from '../../lib/useUrl'
+import { UrlCard } from '../url-card'
 
 interface IProps {
     itens: IUrl[]
@@ -8,17 +8,13 @@ interface IProps {
 
 export const UrlList = ({ itens }: IProps) => {
     return (
-        <List dense>
+        <List dense style={{ width: '100%' }}>
             {itens.map((element, i, a) => (
-                <>
-                    <ListItem>
-                        <ListItemText
-                            primary={`http://asd.com/${element.key}`}
-                            secondary={element.url}
-                        />
-                    </ListItem>
-                    {a.length !== i + 1 && <Divider />}
-                </>
+                <UrlCard
+                    key={element.id}
+                    shortUrl={`http://asd.com/${element.key}`}
+                    originalUrl={element.url}
+                />
             ))}
         </List>
     )
