@@ -8,7 +8,9 @@ export default (app: Express): void => {
   const router = Router()
   app.use('/api', router)
 
-  fb.sync(
-    `**/${isDevelopment ? 'src' : 'build'}/main/routes/**routes.+(js|ts)`
-  ).map(async (file) => (await import(`../../../${file}`)).default(router))
+  const filename = isDevelopment ? '**routes.ts' : '**routes.js'
+
+  fb.sync(`**/${isDevelopment ? 'src' : 'build'}/main/routes/${filename}`).map(
+    async (file) => (await import(`../../../${file}`)).default(router)
+  )
 }
