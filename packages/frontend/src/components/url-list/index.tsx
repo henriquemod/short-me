@@ -9,7 +9,7 @@ interface IProps {
 export const UrlList = ({ itens }: IProps) => {
     return (
         <List dense style={{ width: '100%' }}>
-            {itens.map((element, i, a) => (
+            {itens.map(element => (
                 <UrlCard
                     key={element.id}
                     shortUrl={`http://asd.com/${element.key}`}

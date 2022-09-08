@@ -6,7 +6,7 @@ import { AppContainer } from './lib/app-container'
 const theme = createTheme({
     palette: {
         primary: {
-            main: Colors.secondary.dark
+            main: Colors.primary
         }
     }
 })

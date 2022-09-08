@@ -32,6 +32,18 @@ module.exports = {
             {
                 test: /\.(s*)css$/,
                 use: ['style-loader', 'css-loader']
+            },
+            {
+                test: /\.(woff2?|eot|ttf|gif|png|jpg|jpeg|svg)$/i,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            esModule: false
+                        }
+                    }
+                ],
+                exclude: [/node_modules/]
             }
         ]
     },

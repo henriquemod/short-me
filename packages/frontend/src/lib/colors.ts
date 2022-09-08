@@ -1,10 +1,9 @@
-export const Colors = {
-    primary: {
-        dark: '#CFC7A9',
-        light: '#F6E9CB'
-    },
-    secondary: {
-        dark: '#786666',
-        light: '#B0594F'
-    }
+interface IColors {
+    primary: string
+    secondary: string
+}
+
+export const Colors: IColors = {
+    primary: '#6525C4',
+    secondary: '#FFE348'
 }
