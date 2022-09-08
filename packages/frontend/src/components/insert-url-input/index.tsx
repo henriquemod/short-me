@@ -2,6 +2,7 @@ import {
     Button,
     ButtonTypeMap,
     CircularProgress,
+    Container,
     Grid,
     TextField
 } from '@mui/material'
@@ -9,10 +10,7 @@ import { CSSProperties, useState } from 'react'
 import { Messages } from '../../lib/messages'
 import { useNotification } from '../../lib/useNotification'
 
-const INPUT_STYLE: CSSProperties = {
-    minWidth: '500px',
-    marginRight: '15px'
-}
+const INPUT_STYLE: CSSProperties = {}
 
 const ButtonProps: ButtonTypeMap['props'] = {
     color: 'primary',
@@ -55,34 +53,37 @@ export const InsertUrlInput = ({
     const renderChild = loading ? <CircularProgress size={25} /> : 'Short me'
 
     return (
-        <Grid display='flex'>
-            <Grid xs={6} item>
-                <TextField
-                    id='insert-url'
-                    data-testid='insert-url'
-                    label='URL'
-                    variant='outlined'
-                    disabled={loading}
-                    value={value}
-                    onChange={handleChangeValue}
-                    error={error}
-                    style={INPUT_STYLE}
-                    inputProps={{ id: 'insert-url-2', role: 'textbox' }}
-                />
+        <Container>
+            <Grid display='flex' container spacing={2} paddingX={25}>
+                <Grid xs item>
+                    <TextField
+                        id='insert-url'
+                        fullWidth
+                        data-testid='insert-url'
+                        label='URL'
+                        variant='outlined'
+                        disabled={loading}
+                        value={value}
+                        onChange={handleChangeValue}
+                        error={error}
+                        style={INPUT_STYLE}
+                        inputProps={{ id: 'insert-url-2', role: 'textbox' }}
+                    />
+                </Grid>
+                <Grid xs={2} item>
+                    <Button
+                        {...ButtonProps}
+                        fullWidth
+                        id='insert-button'
+                        style={{ height: '100%', minWidth: '107px' }}
+                        disabled={loading}
+                        data-testid='insert-button'
+                        onClick={handleClickButton}>
+                        {renderChild}
+                    </Button>
+                </Grid>
+                {snack()}
             </Grid>
-            <Grid xs={6} item>
-                <Button
-                    {...ButtonProps}
-                    id='insert-button'
-                    style={{ height: '100%', minWidth: '107px' }}
-                    disabled={loading}
-                    data-testid='insert-button'
-                    fullWidth
-                    onClick={handleClickButton}>
-                    {renderChild}
-                </Button>
-            </Grid>
-            {snack()}
-        </Grid>
+        </Container>
     )
 }

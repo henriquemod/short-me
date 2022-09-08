@@ -1,4 +1,4 @@
-import { List } from '@mui/material'
+import { Grid, List } from '@mui/material'
 import { IUrl } from '../../lib/useUrl'
 import { UrlCard } from '../url-card'
 
@@ -8,7 +8,7 @@ interface IProps {
 
 export const UrlList = ({ itens }: IProps) => {
     return (
-        <List dense style={{ width: '100%' }}>
+        <Grid item xs={7}>
             {itens.map(element => (
                 <UrlCard
                     key={element.id}
@@ -16,6 +16,6 @@ export const UrlList = ({ itens }: IProps) => {
                     originalUrl={element.url}
                 />
             ))}
-        </List>
+        </Grid>
     )
 }
