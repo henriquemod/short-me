@@ -1,6 +1,24 @@
-import { Button, Grid, Paper } from '@mui/material'
+import { ContentCopy, Delete } from '@mui/icons-material'
+import { Button, Paper } from '@mui/material'
 import { splitAt } from 'ramda'
 import styled from 'styled-components'
+import { Colors } from '../../lib/colors'
+
+const domain_from_url = (url: string) => {
+    var result
+    var match
+    if (
+        (match = url.match(
+            /^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:\/\n\?\=]+)/im
+        ))
+    ) {
+        result = match[1]
+        if ((match = result.match(/^[^\.]+\.(.+\..+)$/))) {
+            result = match[1]
+        }
+    }
+    return result
+}
 
 const CardContainer = styled.div`
     display: flex;
@@ -17,9 +35,18 @@ const CardActions = styled.div`
     }
 `
 
+const ButtonLabel = styled.div`
+    min-width: 100px;
+    min-height: 40px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+`
+
 const CardContent = styled.div`
     & h2 {
-        color: red;
+        color: ${Colors.primary};
+        margin-bottom: 20px;
     }
 
     & p {
@@ -45,11 +72,13 @@ export const UrlCard = ({ shortUrl, originalUrl }: IProps) => {
     const newString = head + '...' + tail
     const finalUrl = originalUrl.length > 40 ? newString : originalUrl
 
+    const handleCopyToClipboard = () => navigator.clipboard.writeText(shortUrl)
+
     return (
         <Paper elevation={5} style={{ padding: '15px', marginBottom: '25px' }}>
             <CardContainer>
                 <CardContent>
-                    <h2>Title</h2>
+                    <h2>{domain_from_url(originalUrl)}</h2>
                     <p>
                         Short URL:
                         <span>
@@ -69,11 +98,18 @@ export const UrlCard = ({ shortUrl, originalUrl }: IProps) => {
                     </p>
                 </CardContent>
                 <CardActions>
-                    <Button variant='contained' color='primary'>
-                        Copy
+                    <Button
+                        variant='contained'
+                        onClick={handleCopyToClipboard}
+                        color='primary'>
+                        <ButtonLabel>
+                            Copy <ContentCopy fontSize='small' />
+                        </ButtonLabel>
                     </Button>
                     <Button variant='contained' color='error'>
-                        Delete
+                        <ButtonLabel>
+                            Delete <Delete fontSize='small' />
+                        </ButtonLabel>
                     </Button>
                 </CardActions>
             </CardContainer>

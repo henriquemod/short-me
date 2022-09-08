@@ -1,3 +1,4 @@
+import { PhotoSizeSelectSmall } from '@mui/icons-material'
 import {
     Button,
     ButtonTypeMap,
@@ -7,10 +8,19 @@ import {
     TextField
 } from '@mui/material'
 import { CSSProperties, useState } from 'react'
+import styled from 'styled-components'
 import { Messages } from '../../lib/messages'
 import { useNotification } from '../../lib/useNotification'
 
 const INPUT_STYLE: CSSProperties = {}
+
+const ButtonLabel = styled.div`
+    width: 100%;
+    min-height: 40px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+`
 
 const ButtonProps: ButtonTypeMap['props'] = {
     color: 'primary',
@@ -50,7 +60,13 @@ export const InsertUrlInput = ({
         }
     }
 
-    const renderChild = loading ? <CircularProgress size={25} /> : 'Short me'
+    const renderChild = loading ? (
+        <CircularProgress size={25} />
+    ) : (
+        <ButtonLabel>
+            Short me <PhotoSizeSelectSmall fontSize='small' />
+        </ButtonLabel>
+    )
 
     return (
         <Container>
@@ -70,7 +86,7 @@ export const InsertUrlInput = ({
                         inputProps={{ id: 'insert-url-2', role: 'textbox' }}
                     />
                 </Grid>
-                <Grid xs={2} item>
+                <Grid xs={3} item>
                     <Button
                         {...ButtonProps}
                         fullWidth
