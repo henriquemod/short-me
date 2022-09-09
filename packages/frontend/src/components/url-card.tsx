@@ -66,9 +66,16 @@ const CardContent = styled.div`
 interface IProps {
     shortUrl: string
     originalUrl: string
+    id: string
+    handleDeleteUrl: (id: string) => Promise<void>
 }
 
-export const UrlCard = ({ shortUrl, originalUrl }: IProps) => {
+export const UrlCard = ({
+    shortUrl,
+    originalUrl,
+    handleDeleteUrl,
+    id
+}: IProps) => {
     const { notify } = useContext(AppContext)
     const [head] = splitAt(20, originalUrl)
     const [, tail] = splitAt(originalUrl.length - 20, originalUrl)
@@ -80,6 +87,15 @@ export const UrlCard = ({ shortUrl, originalUrl }: IProps) => {
         try {
             navigator.clipboard.writeText(shortUrl)
             if (notify) notify(Messages.SuccessShorten, 'info')
+        } catch (error) {
+            if (notify) notify(Messages.DefaultError, 'error')
+        }
+    }
+
+    const handleClickDelete = async () => {
+        try {
+            await handleDeleteUrl(id)
+            if (notify) notify(Messages.SuccessDelete, 'success')
         } catch (error) {
             if (notify) notify(Messages.DefaultError, 'error')
         }
@@ -117,7 +133,10 @@ export const UrlCard = ({ shortUrl, originalUrl }: IProps) => {
                             Copy <ContentCopy fontSize='small' />
                         </ButtonLabel>
                     </Button>
-                    <Button variant='contained' color='error'>
+                    <Button
+                        variant='contained'
+                        onClick={handleClickDelete}
+                        color='error'>
                         <ButtonLabel>
                             Delete <Delete fontSize='small' />
                         </ButtonLabel>

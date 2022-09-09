@@ -2,7 +2,7 @@
 import { Router } from 'express'
 import { adaptRoute } from '../adapters/express-route-adapter'
 import {
-  //   makeDeleteUserController,
+  makeDeleteUrlController,
   //   makeFindAllUsersController,
   makeFindUrlController,
   //   makeUpdateUserController,
@@ -11,7 +11,7 @@ import {
 export default (router: Router): void => {
   router.post('/url', adaptRoute(makeUrlController()))
   //   router.put('/user', adaptRoute(makeUpdateUserController()))
-  //   router.delete('/user', adaptRoute(makeDeleteUserController()))
+  router.delete('/url', adaptRoute(makeDeleteUrlController()))
   router.get('/url/:key', adaptRoute(makeFindUrlController()))
   //   router.get('/users', adaptRoute(makeFindAllUsersController()))
 }

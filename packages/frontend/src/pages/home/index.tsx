@@ -20,7 +20,7 @@ const LogoContainer = styled.img`
 `
 
 export const Home = () => {
-    const { create, urlList, loading } = useUrl()
+    const { create, remove, urlList, loading } = useUrl()
     return (
         <Grid {...GRID_PROPS} container maxWidth={768} flexDirection='column'>
             <LogoContainer src={Logo} alt='ShortMe Logo' />
@@ -36,7 +36,7 @@ export const Home = () => {
                         marginY={4}
                         display='flex'
                         justifyContent='center'>
-                        <UrlList itens={urlList} />
+                        <UrlList handleDeleteUrl={remove} itens={urlList} />
                     </Grid>
                 </Container>
             </Fade>
