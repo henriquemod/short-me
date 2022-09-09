@@ -1,12 +1,16 @@
 import { CreateUrlRepository } from '../../../../src/data/protocols/url/create-url-repository'
 import { FindUrlRepository } from '../../../../src/data/protocols/url/find-url-repository'
+import { DeleteUrlRepository } from '../../../../src/data/protocols/url/delete-url-repository'
 import { DbCreateUrl } from '../../../../src/data/usecases/url/db-create-url'
 import { DbFindUrl } from '../../../../src/data/usecases/url/db-find-url'
+import { DbDeleteUrl } from '../../../../src/data/usecases/url/db-delete-url'
 import {
   InputCreateUrlDto,
   InputFindUrlDto,
   OutputCreateUrlDto,
-  OutputFindUrlDto
+  OutputFindUrlDto,
+  InputDeleteUrlDto,
+  OutputDeleteUrlDto
 } from '../../../../src/domain/usecase/url'
 
 interface CreateSutTypes {
@@ -17,6 +21,11 @@ interface CreateSutTypes {
 interface FindSutTypes {
   sut: DbFindUrl
   findUrlRepositorySut: FindUrlRepository
+}
+
+interface DeleteSutTypes {
+  sut: DbDeleteUrl
+  deleteUrlRepositorySut: DeleteUrlRepository
 }
 
 interface FakeUrlProps {
@@ -73,6 +82,16 @@ const makeFindUrlRepository = (): FindUrlRepository => {
   return new FindUrlRepositoryStub()
 }
 
+const makeFakeDeleteUserRepository = (): DeleteUrlRepository => {
+  class DeleteUrlRepositoryStub implements DeleteUrlRepository {
+    async delete(_input: InputDeleteUrlDto): Promise<OutputDeleteUrlDto> {
+      return await new Promise((resolve) => resolve(makeFakeFindUrlResponse()))
+    }
+  }
+
+  return new DeleteUrlRepositoryStub()
+}
+
 const makeCreateSut = (): CreateSutTypes => {
   const createUrlRepositorySut = makeCreateUrlRepository()
   const sut = new DbCreateUrl(createUrlRepositorySut)
@@ -91,8 +110,16 @@ const makeFindSut = (): FindSutTypes => {
   }
 }
 
-describe('Url repository test', () => {
-  // NOTE - CREATE URL TESTS
+const makeDeleteSut = (): DeleteSutTypes => {
+  const deleteUrlRepositorySut = makeFakeDeleteUserRepository()
+  const sut = new DbDeleteUrl(deleteUrlRepositorySut)
+  return {
+    sut,
+    deleteUrlRepositorySut
+  }
+}
+
+describe('CREATE - Url repository test', () => {
   it('should call CreateUrlRepository with correct values', async () => {
     const { sut, createUrlRepositorySut } = makeCreateSut()
     const createSpy = jest.spyOn(createUrlRepositorySut, 'create')
@@ -120,8 +147,9 @@ describe('Url repository test', () => {
     const user = await sut.create(userData)
     expect(user).toEqual(makeFakeUrlResponse())
   })
+})
 
-  // NOTE - FIND URL TESTS
+describe('FIND - Url repository test', () => {
   it('it should find user', async () => {
     const { sut, findUrlRepositorySut } = makeFindSut()
     jest
@@ -148,6 +176,34 @@ describe('Url repository test', () => {
     })
 
     const promise = sut.find({ key: 'valid_key' })
+    await expect(promise).rejects.toThrow()
+  })
+})
+
+describe('DELETE - Url repository test', () => {
+  it('should call delete with correct values', async () => {
+    const { sut, deleteUrlRepositorySut } = makeDeleteSut()
+    const deleteSpy = jest.spyOn(deleteUrlRepositorySut, 'delete')
+
+    await sut.delete({ id: 'valid_id' })
+    expect(deleteSpy).toBeCalledWith({ id: 'valid_id' })
+  })
+
+  it('should delete user', async () => {
+    const { sut, deleteUrlRepositorySut } = makeDeleteSut()
+    const deleteSpy = jest.spyOn(deleteUrlRepositorySut, 'delete')
+
+    await sut.delete({ id: 'valid_id' })
+    expect(deleteSpy).toBeCalled()
+  })
+
+  it('should throw if delete throws', async () => {
+    const { sut, deleteUrlRepositorySut } = makeDeleteSut()
+    jest.spyOn(deleteUrlRepositorySut, 'delete').mockImplementationOnce(() => {
+      throw new Error()
+    })
+
+    const promise = sut.delete({ id: 'valid_id' })
     await expect(promise).rejects.toThrow()
   })
 })
