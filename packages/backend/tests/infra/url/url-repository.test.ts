@@ -67,7 +67,7 @@ describe('Server repository test', () => {
     }
   })
 
-  it('should find a user', async () => {
+  it('should find a url', async () => {
     const { sut } = makeSut()
 
     const url = await sut.create({
@@ -75,6 +75,22 @@ describe('Server repository test', () => {
     })
 
     const foundUrl = await sut.find({ key: url.key })
+
+    expect(foundUrl).toMatchObject({
+      id: url.id,
+      url: 'valid_url',
+      key: url.key
+    })
+  })
+
+  it('should delete a url', async () => {
+    const { sut } = makeSut()
+
+    const url = await sut.create({
+      url: 'valid_url'
+    })
+
+    const foundUrl = await sut.delete({ id: url.id })
 
     expect(foundUrl).toMatchObject({
       id: url.id,
