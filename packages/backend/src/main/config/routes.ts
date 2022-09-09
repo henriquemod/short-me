@@ -4,7 +4,7 @@ import env from 'dotenv'
 env.config()
 
 export default (app: Express): void => {
-  const isDevelopment = process.env.ENV === 'development'
+  const isDevelopment = process.env.NODE_ENV === 'development'
   const router = Router()
   app.use('/api', router)
 

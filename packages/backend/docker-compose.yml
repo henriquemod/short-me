@@ -1,0 +1,25 @@
+version: "3.4"
+
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:11.13
+    networks:
+      - test
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=123456
+
+  backend:
+    container_name: shortme-backend
+    image: shortme/backend
+    networks:
+      - test
+    ports:
+      - "8080:8080"
+    restart: always
+
+networks:
+  test:
+    driver: bridge

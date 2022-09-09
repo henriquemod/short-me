@@ -23,6 +23,7 @@ const defaultConfig: Config = {
   port: Number(process.env.PORT) || 8080,
   endpoint: endpoint ?? 'http://localhost',
   env: process.env.NODE_ENV ?? 'development',
+  dbHost: process.env.DB_HOST ?? 'localhost',
   logs: {
     color: true,
     level: logLevel,
@@ -40,7 +41,7 @@ function overrideConfig(env: string) {
     case 'production':
       return {
         port: process.env.PORT ?? 80,
-        endpoint: endpoint ?? 'https://illusiongames.com.br',
+        endpoint: endpoint ?? 'https://shortme.com',
         logs: { color: false, db: false }
       }
     default:

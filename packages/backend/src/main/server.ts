@@ -27,18 +27,18 @@ const typeOrmSettingsHml: DataSourceOptions = {
   entities: [userModel, urlModel],
   migrations: [],
   subscribers: [],
-  host: 'localhost',
+  host: config.dbHost,
   port: 5432,
   username: 'postgres',
   password: '123456',
-  database: 'illusiondb'
+  database: 'postgres'
 }
 
 const datasource = new DataSource(
   config.env === 'development' ? typeOrmSettingsDev : typeOrmSettingsHml
 )
 
-async function start(): Promise<void> {
+const start = async (): Promise<void> => {
   await datasource.initialize()
   server.listen(config.port, () => {
     log.info(`Server running at port ${config.port}`)
