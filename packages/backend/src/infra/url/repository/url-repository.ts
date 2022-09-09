@@ -4,7 +4,9 @@ import {
   InputCreateUrlDto,
   InputFindUrlDto,
   OutputCreateUrlDto,
-  OutputFindUrlDto
+  OutputFindUrlDto,
+  InputDeleteUrlDto,
+  OutputDeleteUrlDto
 } from '../../../domain/usecase/url'
 import { RandomGenerator } from '../../../presentation/protocols'
 import urlModel from '../model/url-model'
@@ -35,6 +37,16 @@ export default class UrlRepository implements UrlRepositoryInterface {
         url: result.url,
         key: result.key
       }
+    }
+  }
+
+  async delete({ id }: InputDeleteUrlDto): Promise<OutputDeleteUrlDto> {
+    const find = await urlModel.findOneOrFail({ where: { id } })
+    await urlModel.delete({ id: find.id })
+    return {
+      id: find.id,
+      url: find.url,
+      key: find.key
     }
   }
 }
