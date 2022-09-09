@@ -8,7 +8,7 @@ interface IProps {
 
 export const UrlList = ({ itens }: IProps) => {
     return (
-        <Grid item xs={7}>
+        <Grid item xs>
             {itens.map(element => (
                 <UrlCard
                     key={element.id}

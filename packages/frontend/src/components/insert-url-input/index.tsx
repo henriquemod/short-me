@@ -70,7 +70,7 @@ export const InsertUrlInput = ({
 
     return (
         <Container>
-            <Grid display='flex' container spacing={2} paddingX={25}>
+            <Grid display='flex' container spacing={2}>
                 <Grid xs item>
                     <TextField
                         id='insert-url'

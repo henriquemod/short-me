@@ -9,19 +9,21 @@ import { Container } from '@mui/system'
 
 const GRID_PROPS = {
     marginBottom: 2,
-    alignItems: 'center'
+    alignItems: 'center',
+    alignContent: 'center',
+    display: 'flex'
 }
 
 const LogoContainer = styled.img`
-    max-width: calc(100vw - 90%);
+    max-width: 30vw;
     align-self: center;
 `
 
 export const Home = () => {
     const { create, urlList, loading } = useUrl()
     return (
-        <Grid {...GRID_PROPS} container display='flex' flexDirection='column'>
-            <LogoContainer src={Logo} alt='' />
+        <Grid {...GRID_PROPS} container maxWidth={768} flexDirection='column'>
+            <LogoContainer src={Logo} alt='ShortMe Logo' />
             <InsertUrlInput
                 validateUrl={UrlValidator}
                 handleCreateShortUrl={create}

@@ -1,9 +1,11 @@
-import { Container, Grid } from '@mui/material'
+import { Container } from '@mui/material'
 
 interface IProps {
     children: JSX.Element
 }
 
 export const AppContainer = ({ children }: IProps) => (
-    <Container>{children}</Container>
+    <Container style={{ display: 'flex', justifyContent: 'center' }}>
+        {children}
+    </Container>
 )
