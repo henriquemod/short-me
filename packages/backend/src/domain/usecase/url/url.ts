@@ -2,7 +2,9 @@ import {
   InputCreateUrlDto,
   OutputCreateUrlDto,
   InputFindUrlDto,
-  OutputFindUrlDto
+  OutputFindUrlDto,
+  InputDeleteUrlDto,
+  OutputDeleteUrlDto
 } from '.'
 
 export interface CreateUrl {
@@ -11,4 +13,8 @@ export interface CreateUrl {
 
 export interface FindUrl {
   find: (input: InputFindUrlDto) => Promise<OutputFindUrlDto | undefined>
+}
+
+export interface DeleteUrl {
+  delete: (input: InputDeleteUrlDto) => Promise<OutputDeleteUrlDto>
 }
