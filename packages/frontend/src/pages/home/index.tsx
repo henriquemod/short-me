@@ -15,37 +15,31 @@ const GRID_PROPS = {
 }
 
 const LogoContainer = styled.img`
-    max-width: 30vw;
+    max-width: 20vw;
     align-self: center;
 `
 
 export const Home = () => {
     const { create, urlList, loading } = useUrl()
     return (
-        <>
-            <Grid
-                {...GRID_PROPS}
-                container
-                maxWidth={768}
-                flexDirection='column'>
-                <LogoContainer src={Logo} alt='ShortMe Logo' />
-                <InsertUrlInput
-                    validateUrl={UrlValidator}
-                    handleCreateShortUrl={create}
-                    loading={loading}
-                />
-                <Fade in={urlList.length > 0}>
-                    <Container>
-                        <Grid
-                            container
-                            marginY={4}
-                            display='flex'
-                            justifyContent='center'>
-                            <UrlList itens={urlList} />
-                        </Grid>
-                    </Container>
-                </Fade>
-            </Grid>
-        </>
+        <Grid {...GRID_PROPS} container maxWidth={768} flexDirection='column'>
+            <LogoContainer src={Logo} alt='ShortMe Logo' />
+            <InsertUrlInput
+                validateUrl={UrlValidator}
+                handleCreateShortUrl={create}
+                loading={loading}
+            />
+            <Fade in={urlList.length > 0}>
+                <Container>
+                    <Grid
+                        container
+                        marginY={4}
+                        display='flex'
+                        justifyContent='center'>
+                        <UrlList itens={urlList} />
+                    </Grid>
+                </Container>
+            </Fade>
+        </Grid>
     )
 }

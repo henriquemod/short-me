@@ -1,6 +1,6 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
-import { InsertUrlInput } from '.'
+import { InsertUrlInput } from '../insert-url-input'
 import ValidatePassword from '../../lib/url-validator'
 import userEvent from '@testing-library/user-event'
 import { act } from 'react-dom/test-utils'

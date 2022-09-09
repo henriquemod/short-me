@@ -7,12 +7,10 @@ import {
     Grid,
     TextField
 } from '@mui/material'
-import { CSSProperties, useContext, useState } from 'react'
+import { useContext, useState } from 'react'
 import styled from 'styled-components'
-import AppContext from '../../lib/app/app-context'
-import { Messages } from '../../lib/messages'
-
-const INPUT_STYLE: CSSProperties = {}
+import AppContext from '../lib/app/app-context'
+import { Messages } from '../lib/messages'
 
 const ButtonLabel = styled.div`
     width: 100%;
@@ -82,7 +80,6 @@ export const InsertUrlInput = ({
                         value={value}
                         onChange={handleChangeValue}
                         error={error}
-                        style={INPUT_STYLE}
                         inputProps={{ id: 'insert-url-2', role: 'textbox' }}
                     />
                 </Grid>

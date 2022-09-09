@@ -3,9 +3,9 @@ import { Button, Paper } from '@mui/material'
 import { splitAt } from 'ramda'
 import { useContext } from 'react'
 import styled from 'styled-components'
-import AppContext from '../../lib/app/app-context'
-import { Colors } from '../../lib/colors'
-import { Messages } from '../../lib/messages'
+import AppContext from '../lib/app/app-context'
+import { Colors } from '../lib/colors'
+import { Messages } from '../lib/messages'
 
 const domain_from_url = (url: string) => {
     var result
