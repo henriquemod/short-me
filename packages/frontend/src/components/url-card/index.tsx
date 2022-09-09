@@ -1,8 +1,11 @@
 import { ContentCopy, Delete } from '@mui/icons-material'
 import { Button, Paper } from '@mui/material'
 import { splitAt } from 'ramda'
+import { useContext } from 'react'
 import styled from 'styled-components'
+import AppContext from '../../lib/app/app-context'
 import { Colors } from '../../lib/colors'
+import { Messages } from '../../lib/messages'
 
 const domain_from_url = (url: string) => {
     var result
@@ -66,13 +69,21 @@ interface IProps {
 }
 
 export const UrlCard = ({ shortUrl, originalUrl }: IProps) => {
+    const { notify } = useContext(AppContext)
     const [head] = splitAt(20, originalUrl)
     const [, tail] = splitAt(originalUrl.length - 20, originalUrl)
 
     const newString = head + '...' + tail
     const finalUrl = originalUrl.length > 40 ? newString : originalUrl
 
-    const handleCopyToClipboard = () => navigator.clipboard.writeText(shortUrl)
+    const handleCopyToClipboard = () => {
+        try {
+            navigator.clipboard.writeText(shortUrl)
+            if (notify) notify(Messages.SuccessShorten, 'info')
+        } catch (error) {
+            if (notify) notify(Messages.DefaultError, 'error')
+        }
+    }
 
     return (
         <Paper elevation={5} style={{ padding: '15px', marginBottom: '25px' }}>

@@ -67,6 +67,7 @@
     "@types/ramda": "^0.28.15",
     "@types/styled-components": "5.1.26",
     "@types/validator": "13.7.6",
+    "eslint-plugin-prettier": "4.2.1",
     "webpack-cli": "^4.10.0",
     "webpack-dev-server": "4.10.1"
   }

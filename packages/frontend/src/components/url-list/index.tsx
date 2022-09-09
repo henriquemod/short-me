@@ -1,5 +1,5 @@
-import { Grid, List } from '@mui/material'
-import { IUrl } from '../../lib/useUrl'
+import { Grid } from '@mui/material'
+import { IUrl } from '../../lib/hooks/useUrl'
 import { UrlCard } from '../url-card'
 
 interface IProps {

@@ -1,7 +1,7 @@
 import { ThemeProvider, createTheme } from '@mui/material'
 import { Colors } from './lib/colors'
 import { Home } from './pages/home'
-import { AppContainer } from './lib/app-container'
+import { AppContainer } from './lib/app/app-container'
 
 const theme = createTheme({
     palette: {

@@ -7,10 +7,10 @@ import {
     Grid,
     TextField
 } from '@mui/material'
-import { CSSProperties, useState } from 'react'
+import { CSSProperties, useContext, useState } from 'react'
 import styled from 'styled-components'
+import AppContext from '../../lib/app/app-context'
 import { Messages } from '../../lib/messages'
-import { useNotification } from '../../lib/useNotification'
 
 const INPUT_STYLE: CSSProperties = {}
 
@@ -40,7 +40,7 @@ export const InsertUrlInput = ({
 }: IProps) => {
     const [value, setValue] = useState<string>('')
     const [error, setError] = useState(false)
-    const { notify, snack } = useNotification()
+    const { notify } = useContext(AppContext)
 
     const handleChangeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { value } = e.target
@@ -53,10 +53,10 @@ export const InsertUrlInput = ({
     const handleClickButton = async () => {
         if (!error && value) {
             await handleCreateShortUrl(value)
-            notify(Messages.Success, 'success')
+            if (notify) notify(Messages.Success, 'success')
             setValue('')
         } else {
-            notify(Messages.DefaultError, 'error')
+            if (notify) notify(Messages.DefaultError, 'error')
         }
     }
 
@@ -98,7 +98,6 @@ export const InsertUrlInput = ({
                         {renderChild}
                     </Button>
                 </Grid>
-                {snack()}
             </Grid>
         </Container>
     )

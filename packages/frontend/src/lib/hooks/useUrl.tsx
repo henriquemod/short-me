@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useState } from 'react'
-import { Messages } from './messages'
+import { Messages } from '../messages'
 
 export interface IUrl {
     id: string

@@ -5,7 +5,7 @@ import {
     Snackbar,
     SnackbarProps
 } from '@mui/material'
-import { useCallback, useState } from 'react'
+import { useMemo, useState } from 'react'
 
 interface ISnack
     extends Pick<AlertProps, 'severity'>,
@@ -27,7 +27,7 @@ const DEFAULT_SNACK_STATE: ISnack = {
 
 export const useNotification = () => {
     const [snackState, setSnackState] = useState<ISnack>(DEFAULT_SNACK_STATE)
-    const snack = useCallback(() => {
+    const snack = useMemo(() => {
         return (
             <Snackbar
                 anchorOrigin={snackState.anchorOrigin}
