@@ -111,7 +111,7 @@ export const UrlCard = ({
                         <span>
                             {' '}
                             <a
-                                href='http://#'
+                                href={shortUrl}
                                 target='_blank'
                                 rel='noopener noreferrer'>
                                 {' '}

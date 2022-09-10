@@ -14,7 +14,7 @@ export const UrlList = ({ itens, handleDeleteUrl }: IProps) => {
                 <UrlCard
                     key={element.id}
                     id={element.id}
-                    shortUrl={`http://asd.com/${element.key}`}
+                    shortUrl={`${process.env.ENDPOINT}/${element.key}`}
                     originalUrl={element.url}
                     handleDeleteUrl={handleDeleteUrl}
                 />

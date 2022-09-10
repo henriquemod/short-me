@@ -3,5 +3,6 @@ export enum Messages {
     DefaultRequestError = 'Unable to make request to backend.',
     Success = 'Your url was successfully shortened.',
     SuccessShorten = 'Url copied to your clipboard.',
-    SuccessDelete = 'Url has been deleted.'
+    SuccessDelete = 'Url has been deleted.',
+    UrlNotAvailable = 'The URL you tried either is wrong or no longer exists'
 }
