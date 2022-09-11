@@ -41,7 +41,11 @@ export const Home = () => {
                         marginY={4}
                         display='flex'
                         justifyContent='center'>
-                        <UrlList handleDeleteUrl={remove} itens={urlList} />
+                        <UrlList
+                            handleDeleteUrl={remove}
+                            itens={urlList}
+                            notify={notify}
+                        />
                     </Grid>
                 </Container>
             </Fade>

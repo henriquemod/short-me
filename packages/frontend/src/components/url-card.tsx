@@ -1,9 +1,7 @@
 import { ContentCopy, Delete } from '@mui/icons-material'
-import { Button, Paper } from '@mui/material'
+import { AlertColor, Button, Paper } from '@mui/material'
 import { splitAt } from 'ramda'
-import { useContext } from 'react'
 import styled from 'styled-components'
-import AppContext from '../lib/app/app-context'
 import { Colors } from '../lib/colors'
 import { Messages } from '../lib/messages'
 
@@ -54,6 +52,7 @@ interface IProps {
     id: string
     handleDeleteUrl: (id: string) => Promise<void>
     copyToClipboard: (value: string) => void
+    notify?: (message: string, severity: AlertColor) => void
 }
 
 export const UrlCard = ({
@@ -61,9 +60,9 @@ export const UrlCard = ({
     originalUrl,
     handleDeleteUrl,
     copyToClipboard,
+    notify,
     id
 }: IProps) => {
-    const { notify } = useContext(AppContext)
     const [head] = splitAt(20, originalUrl)
     const [, tail] = splitAt(originalUrl.length - 20, originalUrl)
 
@@ -73,7 +72,7 @@ export const UrlCard = ({
     const handleCopyToClipboard = () => {
         try {
             copyToClipboard(shortUrl)
-            if (notify) notify(Messages.SuccessShorten, 'info')
+            if (notify) notify(Messages.SuccessCopy, 'info')
         } catch (error) {
             if (notify) notify(Messages.DefaultError, 'error')
         }
@@ -124,6 +123,7 @@ export const UrlCard = ({
                         variant='contained'
                         onClick={handleCopyToClipboard}
                         data-testid='copy-button'
+                        id='copy-button'
                         color='primary'>
                         <ButtonLabel>
                             Copy <ContentCopy fontSize='small' />
@@ -133,6 +133,7 @@ export const UrlCard = ({
                         variant='contained'
                         onClick={handleClickDelete}
                         data-testid='delete-button'
+                        id='delete-button'
                         color='error'>
                         <ButtonLabel>
                             Delete <Delete fontSize='small' />
