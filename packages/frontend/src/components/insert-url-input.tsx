@@ -1,5 +1,6 @@
 import { PhotoSizeSelectSmall } from '@mui/icons-material'
 import {
+    AlertColor,
     Button,
     ButtonTypeMap,
     CircularProgress,
@@ -7,9 +8,8 @@ import {
     Grid,
     TextField
 } from '@mui/material'
-import { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
-import AppContext from '../lib/app/app-context'
 import { Messages } from '../lib/messages'
 
 const ButtonLabel = styled.div`
@@ -29,16 +29,17 @@ interface IProps {
     validateUrl: (url: string) => boolean
     handleCreateShortUrl: (url: string) => Promise<void>
     loading: boolean
+    notify?: (message: string, severity: AlertColor) => void
 }
 
 export const InsertUrlInput = ({
     validateUrl,
     handleCreateShortUrl,
+    notify,
     loading
 }: IProps) => {
     const [value, setValue] = useState<string>('')
     const [error, setError] = useState(false)
-    const { notify } = useContext(AppContext)
 
     const handleChangeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { value } = e.target
@@ -59,7 +60,7 @@ export const InsertUrlInput = ({
     }
 
     const renderChild = loading ? (
-        <CircularProgress size={25} />
+        <CircularProgress size={25} id='circular-progress' />
     ) : (
         <ButtonLabel>
             Short me <PhotoSizeSelectSmall fontSize='small' />

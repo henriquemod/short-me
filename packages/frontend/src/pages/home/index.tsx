@@ -1,11 +1,13 @@
 import { Fade, Grid } from '@mui/material'
+import { Container } from '@mui/system'
+import { useContext } from 'react'
+import styled from 'styled-components'
+import Logo from '../../../public/assets/logo.svg'
 import { InsertUrlInput } from '../../components/insert-url-input'
 import { UrlList } from '../../components/url-list'
-import UrlValidator from '../../lib/url-validator'
+import AppContext from '../../lib/app/app-context'
 import { useUrl } from '../../lib/hooks/useUrl'
-import Logo from '../../../public/assets/logo.svg'
-import styled from 'styled-components'
-import { Container } from '@mui/system'
+import UrlValidator from '../../lib/url-validator'
 
 const GRID_PROPS = {
     marginBottom: 2,
@@ -21,12 +23,15 @@ const LogoContainer = styled.img`
 
 export const Home = () => {
     const { create, remove, urlList, loading } = useUrl()
+    const { notify } = useContext(AppContext)
+
     return (
         <Grid {...GRID_PROPS} container maxWidth={768} flexDirection='column'>
             <LogoContainer src={Logo} alt='ShortMe Logo' />
             <InsertUrlInput
                 validateUrl={UrlValidator}
                 handleCreateShortUrl={create}
+                notify={notify}
                 loading={loading}
             />
             <Fade in={urlList.length > 0}>
