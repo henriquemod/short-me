@@ -21,6 +21,8 @@ const LogoContainer = styled.img`
     align-self: center;
 `
 
+const copyToClipboard = (value: string) => navigator.clipboard.writeText(value)
+
 export const Home = () => {
     const { create, remove, urlList, loading } = useUrl()
     const { notify } = useContext(AppContext)
@@ -45,6 +47,7 @@ export const Home = () => {
                             handleDeleteUrl={remove}
                             itens={urlList}
                             notify={notify}
+                            copyToClipboard={copyToClipboard}
                         />
                     </Grid>
                 </Container>

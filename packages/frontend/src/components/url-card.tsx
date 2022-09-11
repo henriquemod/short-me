@@ -97,7 +97,10 @@ export const UrlCard = ({
     }
 
     return (
-        <Paper elevation={5} style={{ padding: '15px', marginBottom: '25px' }}>
+        <Paper
+            elevation={5}
+            style={{ padding: '15px', marginBottom: '25px' }}
+            className='url-card'>
             <CardContainer>
                 <CardContent>
                     <h2>{handleExtractDomain(originalUrl)}</h2>

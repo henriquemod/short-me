@@ -6,11 +6,15 @@ interface IProps {
     itens: IUrl[]
     handleDeleteUrl: (id: string) => Promise<void>
     notify?: (message: string, severity: AlertColor) => void
+    copyToClipboard: (value: string) => void
 }
 
-const copyToClipboard = (value: string) => navigator.clipboard.writeText(value)
-
-export const UrlList = ({ itens, handleDeleteUrl, notify }: IProps) => {
+export const UrlList = ({
+    itens,
+    handleDeleteUrl,
+    notify,
+    copyToClipboard
+}: IProps) => {
     return (
         <Grid item xs>
             {itens.map(element => (
