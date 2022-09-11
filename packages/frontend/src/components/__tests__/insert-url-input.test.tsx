@@ -1,20 +1,21 @@
-import React from 'react'
-import { render, screen } from '@testing-library/react'
-import { InsertUrlInput } from '../insert-url-input'
-import ValidatePassword from '../../lib/url-validator'
 import userEvent from '@testing-library/user-event'
-import { act } from 'react-dom/test-utils'
 import ReactDOM from 'react-dom/client'
+import { act } from 'react-dom/test-utils'
+import { InsertUrlInput } from '../insert-url-input'
 
 globalThis.IS_REACT_ACT_ENVIRONMENT = true
 
-const handleCreateShortUrl = async (url: string) => {
-    Promise.resolve('test')
+const handleCreateShortUrlStub = async (_: string) => Promise.resolve()
+
+const handleValidateUrlStub = (_: string) => true
+
+const Sut = {
+    validateUrl: handleValidateUrlStub,
+    handleCreateShortUrl: handleCreateShortUrlStub
 }
 
 let container: HTMLDivElement
 
-const INVALID_URL = '1'
 const VALID_URL = 'https://validurl.com'
 
 beforeEach(() => {
@@ -22,69 +23,50 @@ beforeEach(() => {
     document.body.appendChild(container)
 })
 
-test('should return default error message on invalid url', async () => {
-    render(
-        <InsertUrlInput
-            validateUrl={ValidatePassword}
-            handleCreateShortUrl={handleCreateShortUrl}
-            loading={false}
-        />
-    )
-    const linkElement = screen.getByTestId('insert-url')
-    const buttonElement = screen.getByTestId('insert-button')
+describe('Insert URL Input unit tests', () => {
+    test('should call handleCreateShortUrl with correct values', async () => {
+        const spyCreateShortUrl = jest.spyOn(Sut, 'handleCreateShortUrl')
 
-    userEvent.type(linkElement, INVALID_URL)
-    userEvent.click(buttonElement)
-    const message = screen.getByText(
-        'An error ocurred, please try again later.'
-    )
-    expect(linkElement).toBeInTheDocument()
-    expect(buttonElement).toBeInTheDocument()
-    expect(message).toBeInTheDocument()
-})
+        act(() => {
+            ReactDOM.createRoot(container).render(
+                <InsertUrlInput {...Sut} loading={false} />
+            )
+        })
 
-test('should return default error message on empty url', async () => {
-    render(
-        <InsertUrlInput
-            validateUrl={ValidatePassword}
-            handleCreateShortUrl={handleCreateShortUrl}
-            loading={false}
-        />
-    )
+        const input = container.querySelector('#insert-url-2')
+        const button = container.querySelector('#insert-button')
 
-    const buttonElement = screen.getByTestId('insert-button')
-    userEvent.click(buttonElement)
+        if (input && button) {
+            await act(async () => {
+                userEvent.type(input, VALID_URL)
+                userEvent.click(button)
+            })
+        }
 
-    const message = screen.getByText(
-        'An error ocurred, please try again later.'
-    )
-
-    expect(buttonElement).toBeInTheDocument()
-    expect(message).toBeInTheDocument()
-})
-
-test('should return success message on valid url', async () => {
-    act(() => {
-        ReactDOM.createRoot(container).render(
-            <InsertUrlInput
-                validateUrl={ValidatePassword}
-                handleCreateShortUrl={handleCreateShortUrl}
-                loading={false}
-            />
-        )
+        expect(spyCreateShortUrl).toHaveBeenCalledWith('https://validurl.com')
     })
 
-    const input = container.querySelector('#insert-url-2')
-    const button = container.querySelector('#insert-button')
+    test('should call validateUrl with correct values', async () => {
+        const spyValidate = jest
+            .spyOn(Sut, 'validateUrl')
+            .mockReturnValue(false)
 
-    if (input && button) {
-        await act(async () => {
-            userEvent.type(input, VALID_URL)
-            userEvent.click(button)
+        act(() => {
+            ReactDOM.createRoot(container).render(
+                <InsertUrlInput {...Sut} loading={false} />
+            )
         })
-    }
 
-    const message = screen.getByText('Your url was successfully shortened.')
+        const input = container.querySelector('#insert-url-2')
+        const button = container.querySelector('#insert-button')
 
-    expect(message).toBeInTheDocument()
+        if (input && button) {
+            await act(async () => {
+                userEvent.type(input, VALID_URL)
+                userEvent.click(button)
+            })
+        }
+
+        expect(spyValidate).toHaveBeenCalledWith('https://validurl.com')
+    })
 })

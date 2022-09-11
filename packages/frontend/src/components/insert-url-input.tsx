@@ -80,7 +80,10 @@ export const InsertUrlInput = ({
                         value={value}
                         onChange={handleChangeValue}
                         error={error}
-                        inputProps={{ id: 'insert-url-2', role: 'textbox' }}
+                        inputProps={{
+                            id: 'insert-url-2',
+                            role: 'textbox'
+                        }}
                     />
                 </Grid>
                 <Grid xs={3} item>
