@@ -7,22 +7,6 @@ import AppContext from '../lib/app/app-context'
 import { Colors } from '../lib/colors'
 import { Messages } from '../lib/messages'
 
-const domain_from_url = (url: string) => {
-    var result
-    var match
-    if (
-        (match = url.match(
-            /^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:\/\n\?\=]+)/im
-        ))
-    ) {
-        result = match[1]
-        if ((match = result.match(/^[^\.]+\.(.+\..+)$/))) {
-            result = match[1]
-        }
-    }
-    return result
-}
-
 const CardContainer = styled.div`
     display: flex;
     justify-content: space-between;
@@ -60,6 +44,7 @@ const CardContent = styled.div`
     & span {
         font-size: 1.2em;
         font-weight: 500;
+        margin-left: 5px;
     }
 `
 
@@ -68,12 +53,14 @@ interface IProps {
     originalUrl: string
     id: string
     handleDeleteUrl: (id: string) => Promise<void>
+    copyToClipboard: (value: string) => void
 }
 
 export const UrlCard = ({
     shortUrl,
     originalUrl,
     handleDeleteUrl,
+    copyToClipboard,
     id
 }: IProps) => {
     const { notify } = useContext(AppContext)
@@ -85,7 +72,7 @@ export const UrlCard = ({
 
     const handleCopyToClipboard = () => {
         try {
-            navigator.clipboard.writeText(shortUrl)
+            copyToClipboard(shortUrl)
             if (notify) notify(Messages.SuccessShorten, 'info')
         } catch (error) {
             if (notify) notify(Messages.DefaultError, 'error')
@@ -101,33 +88,42 @@ export const UrlCard = ({
         }
     }
 
+    const handleExtractDomain = (url: string) => {
+        if (url.match('//')) {
+            const [, suffix] = url.split('//')
+            return suffix.split('/')[0]
+        } else {
+            return `https://${url.split('/')[0]}`
+        }
+    }
+
     return (
         <Paper elevation={5} style={{ padding: '15px', marginBottom: '25px' }}>
             <CardContainer>
                 <CardContent>
-                    <h2>{domain_from_url(originalUrl)}</h2>
+                    <h2>{handleExtractDomain(originalUrl)}</h2>
                     <p>
                         Short URL:
                         <span>
-                            {' '}
                             <a
                                 href={shortUrl}
                                 target='_blank'
-                                rel='noopener noreferrer'>
-                                {' '}
+                                data-testid='short-url'
+                                rel='noreferrer'>
                                 {shortUrl}
                             </a>
                         </span>
                     </p>
                     <p>
                         Original URL:
-                        <span> {finalUrl}</span>
+                        <span data-testid='original-url'>{finalUrl}</span>
                     </p>
                 </CardContent>
                 <CardActions>
                     <Button
                         variant='contained'
                         onClick={handleCopyToClipboard}
+                        data-testid='copy-button'
                         color='primary'>
                         <ButtonLabel>
                             Copy <ContentCopy fontSize='small' />
@@ -136,6 +132,7 @@ export const UrlCard = ({
                     <Button
                         variant='contained'
                         onClick={handleClickDelete}
+                        data-testid='delete-button'
                         color='error'>
                         <ButtonLabel>
                             Delete <Delete fontSize='small' />

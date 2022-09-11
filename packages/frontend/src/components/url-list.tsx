@@ -7,6 +7,8 @@ interface IProps {
     handleDeleteUrl: (id: string) => Promise<void>
 }
 
+const copyToClipboard = (value: string) => navigator.clipboard.writeText(value)
+
 export const UrlList = ({ itens, handleDeleteUrl }: IProps) => {
     return (
         <Grid item xs>
@@ -14,6 +16,7 @@ export const UrlList = ({ itens, handleDeleteUrl }: IProps) => {
                 <UrlCard
                     key={element.id}
                     id={element.id}
+                    copyToClipboard={copyToClipboard}
                     shortUrl={`${process.env.ENDPOINT}/${element.key}`}
                     originalUrl={element.url}
                     handleDeleteUrl={handleDeleteUrl}

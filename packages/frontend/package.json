@@ -21,6 +21,7 @@
     "axios": "0.27.2",
     "babel-loader": "8.2.5",
     "html-webpack-plugin": "5.5.0",
+    "psl": "1.9.0",
     "ramda": "^0.28.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -37,10 +38,11 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "citest": "CI=true react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint -c .eslintrc 'src/**/*.{ts,tsx}'",
     "type-check": "npx tsc --noEmit",
-    "precommit": "yarn type-check && yarn lint",
+    "precommit": "yarn type-check && yarn lint && yarn citest",
     "serve": "webpack serve --color --progress --config webpack/webpack.js",
     "dev": "NODE_ENV=development yarn serve --open"
   },
@@ -65,11 +67,12 @@
   "devDependencies": {
     "@pmmmwh/react-refresh-webpack-plugin": "0.5.7",
     "@types/axios": "0.14.0",
+    "@types/psl": "1.1.0",
     "@types/ramda": "^0.28.15",
     "@types/styled-components": "5.1.26",
     "@types/validator": "13.7.6",
     "eslint-plugin-prettier": "4.2.1",
-    "webpack-cli": "^4.10.0",
+    "webpack-cli": "4.10.0",
     "webpack-dev-server": "4.10.1"
   }
 }
