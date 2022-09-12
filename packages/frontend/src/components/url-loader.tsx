@@ -117,6 +117,7 @@ export const UrlLoader = (props: IProps) => {
                             variant='contained'
                             id='url-button'
                             fullWidth
+                            role='action-button'
                             style={{ minHeight: '75px' }}
                             onClick={handleChangePage}
                             disabled={timeLimit !== 0}>

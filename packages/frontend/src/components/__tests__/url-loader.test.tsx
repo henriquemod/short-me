@@ -1,16 +1,34 @@
-import Enzyme, { shallow } from 'enzyme'
-import Adapter from 'enzyme-adapter-react-16'
-import ReactDOM from 'react-dom/client'
-import { act } from 'react-dom/test-utils'
+import { render, screen, waitFor } from '@testing-library/react'
+import { rest } from 'msw'
+import { setupServer } from 'msw/node'
 import { UrlLoader } from '../url-loader'
 
-Enzyme.configure({ adapter: new Adapter() })
+const server = setupServer(
+    rest.get('http://localhost/undefined/api/url/', (req, res, ctx) => {
+        return res(
+            ctx.json({
+                id: '02f68cc0-db56-4539-9ad9-78905a7fa470',
+                url: 'www.google.com.br',
+                key: 'wLzfZ'
+            })
+        )
+    })
+)
 
 globalThis.IS_REACT_ACT_ENVIRONMENT = true
 let container: HTMLDivElement
 beforeEach(() => {
+    server.listen()
     container = document.createElement('div')
     document.body.appendChild(container)
+})
+
+afterEach(() => {
+    server.resetHandlers()
+})
+
+afterAll(() => {
+    server.close()
 })
 
 const handleChangePageStub = (_: string) => {}
@@ -20,31 +38,19 @@ const Sut = {
 }
 
 describe('Url list unit tests', () => {
-    test('should render loader', () => {
-        act(() => {
-            ReactDOM.createRoot(container).render(<UrlLoader {...Sut} />)
-        })
-    })
-
-    test('should render with url link disabled', () => {
-        const wrapper = shallow(<UrlLoader {...Sut} />)
-        const button = wrapper.find('#url-button')
-        const txt = button.text()
-        expect(txt).toEqual('Just a second...')
-    })
-
-    test('should enable url link', async () => {
-        const wrapper = shallow(<UrlLoader time={0} {...Sut} />)
-        const button = wrapper.find('#url-button')
-        const txt = button.text()
-        expect(txt).toEqual('Open link')
+    test('should render with url link disabled', async () => {
+        render(<UrlLoader {...Sut} />)
+        const finish = await waitFor(() => screen.getByText('Just a second...'))
+        const button = screen.getByRole('action-button')
+        expect(finish).toBeInTheDocument()
+        expect(button).toBeDisabled()
     })
 
     test('should be able to click in url link', async () => {
-        const wrapper = shallow(<UrlLoader time={0} {...Sut} />)
-        const button = wrapper.find('#url-button')
-        const txt = button.text()
-        expect(txt).toEqual('Open link')
-        button.simulate('click')
+        render(<UrlLoader time={0} {...Sut} />)
+        const finish = await waitFor(() => screen.getByText('Open link'))
+        const button = screen.getByRole('action-button')
+        expect(finish).toBeInTheDocument()
+        expect(button).not.toBeDisabled()
     })
 })
