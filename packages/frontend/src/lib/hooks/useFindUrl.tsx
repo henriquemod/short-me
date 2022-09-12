@@ -4,6 +4,10 @@ import { IUrl } from './useUrl'
 
 const URL_API_PATH = '/api/url/'
 
+export const changePage = (url: string) => window.location.assign(url)
+
+const ENDPOINT = process.env.BACKEND_ENDPOINT ?? 'http://localhost:8080'
+
 export const useFindUrl = (key: string) => {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(false)
@@ -12,9 +16,7 @@ export const useFindUrl = (key: string) => {
     const findUrl = useCallback(async (key: string) => {
         setLoading(true)
         try {
-            const request = await axios.get<IUrl>(
-                process.env.BACKEND_ENDPOINT + URL_API_PATH + key
-            )
+            const request = await axios.get<IUrl>(ENDPOINT + URL_API_PATH + key)
             setUrl(request.data.url)
             setLoading(false)
             return request.data.url
@@ -30,7 +32,7 @@ export const useFindUrl = (key: string) => {
     }, [key, findUrl])
 
     const handleChangePage = useCallback(() => {
-        if (url) window.location.assign(url)
+        if (url) changePage(url)
     }, [url])
 
     return {

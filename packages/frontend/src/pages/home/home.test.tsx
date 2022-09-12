@@ -6,7 +6,7 @@ import { act } from 'react-dom/test-utils'
 import { Home } from '.'
 
 const server = setupServer(
-    rest.post('http://localhost/undefined/api/url', (req, res, ctx) => {
+    rest.post('http://localhost:8080/api/url', (req, res, ctx) => {
         return res(
             ctx.json({
                 id: '02f68cc0-db56-4539-9ad9-78905a7fa470',

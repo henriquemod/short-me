@@ -4,7 +4,7 @@ import { setupServer } from 'msw/node'
 import { UrlLoader } from '../url-loader'
 
 const server = setupServer(
-    rest.get('http://localhost/undefined/api/url/', (req, res, ctx) => {
+    rest.get('http://localhost:8080/api/url/', (req, res, ctx) => {
         return res(
             ctx.json({
                 id: '02f68cc0-db56-4539-9ad9-78905a7fa470',

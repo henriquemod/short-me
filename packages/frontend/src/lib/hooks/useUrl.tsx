@@ -10,6 +10,7 @@ export interface IUrl {
 }
 
 const URL_API_PATH = '/api/url'
+const ENDPOINT = process.env.BACKEND_ENDPOINT ?? 'http://localhost:8080'
 
 export const useUrl = () => {
     const [urlList, setUrlList] = useState<IUrl[]>([])
@@ -18,12 +19,9 @@ export const useUrl = () => {
     const create = async (url: string) => {
         try {
             setLoading(true)
-            const request = await axios.post<IUrl>(
-                process.env.BACKEND_ENDPOINT + URL_API_PATH,
-                {
-                    url
-                }
-            )
+            const request = await axios.post<IUrl>(ENDPOINT + URL_API_PATH, {
+                url
+            })
 
             if (request.status !== 200)
                 throw new Error(Messages.DefaultRequestError)
