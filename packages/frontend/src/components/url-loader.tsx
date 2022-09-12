@@ -61,7 +61,6 @@ const CircularProgressWithLabel = (
 )
 
 interface IProps {
-    handleChangePage: (url: string) => void
     time?: number
 }
 

@@ -31,15 +31,9 @@ afterAll(() => {
     server.close()
 })
 
-const handleChangePageStub = (_: string) => {}
-
-const Sut = {
-    handleChangePage: handleChangePageStub
-}
-
 describe('Url list unit tests', () => {
     test('should render with url link disabled', async () => {
-        render(<UrlLoader {...Sut} />)
+        render(<UrlLoader />)
         const finish = await waitFor(() => screen.getByText('Just a second...'))
         const button = screen.getByRole('action-button')
         expect(finish).toBeInTheDocument()
@@ -47,7 +41,7 @@ describe('Url list unit tests', () => {
     })
 
     test('should be able to click in url link', async () => {
-        render(<UrlLoader time={0} {...Sut} />)
+        render(<UrlLoader time={0} />)
         const finish = await waitFor(() => screen.getByText('Open link'))
         const button = screen.getByRole('action-button')
         expect(finish).toBeInTheDocument()

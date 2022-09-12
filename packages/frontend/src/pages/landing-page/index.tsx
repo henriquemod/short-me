@@ -16,12 +16,15 @@ const GRID_PROPS = {
 }
 
 export const LandingPage = () => {
-    const handleChangePage = (url: string) => window.location.assign(url)
-
     return (
-        <Grid {...GRID_PROPS} container maxWidth={768} flexDirection='column'>
+        <Grid
+            {...GRID_PROPS}
+            container
+            maxWidth={768}
+            flexDirection='column'
+            data-testid='landingpage-grid'>
             <LogoContainer src={Logo} alt='ShortMe Logo' />
-            <UrlLoader handleChangePage={handleChangePage} />
+            <UrlLoader />
         </Grid>
     )
 }
