@@ -81,5 +81,14 @@
     "msw": "^0.47.1",
     "webpack-cli": "4.10.0",
     "webpack-dev-server": "4.10.1"
-  }
+  },
+  "jest": {
+  "collectCoverageFrom": [
+    "src/**/*.{ts,tsx}",
+    "!src/index.tsx",
+    "!src/App.tsx",
+    "!src/global.d.ts",
+    "!src/reportWebVitals.ts"
+  ]
+}
 }

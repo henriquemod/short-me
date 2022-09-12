@@ -1,7 +1,7 @@
 import { Grid } from '@mui/material'
 import styled from 'styled-components'
-import Logo from '../../../public/assets/logo.svg'
-import { UrlLoader } from '../../components/url-loader'
+import Logo from '../../public/assets/logo.svg'
+import { UrlLoader } from '../components/url-loader'
 
 const LogoContainer = styled.img`
     max-width: 20vw;

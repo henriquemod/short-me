@@ -2,12 +2,12 @@ import { Fade, Grid } from '@mui/material'
 import { Container } from '@mui/system'
 import { useContext } from 'react'
 import styled from 'styled-components'
-import Logo from '../../../public/assets/logo.svg'
-import { InsertUrlInput } from '../../components/insert-url-input'
-import { UrlList } from '../../components/url-list'
-import AppContext from '../../lib/app/app-context'
-import { useUrl } from '../../lib/hooks/useUrl'
-import UrlValidator from '../../lib/url-validator'
+import Logo from '../../public/assets/logo.svg'
+import { InsertUrlInput } from '../components/insert-url-input'
+import { UrlList } from '../components/url-list'
+import AppContext from '../lib/app/app-context'
+import { useUrl } from '../lib/hooks/useUrl'
+import UrlValidator from '../lib/url-validator'
 
 const GRID_PROPS = {
     marginBottom: 2,

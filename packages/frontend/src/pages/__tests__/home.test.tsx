@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event'
 import { rest } from 'msw'
 import { setupServer } from 'msw/node'
 import { act } from 'react-dom/test-utils'
-import { Home } from '.'
+import { Home } from '../home'
 
 const server = setupServer(
     rest.post('http://localhost:8080/api/url', (req, res, ctx) => {
@@ -35,7 +35,7 @@ describe('Home unit tests', () => {
         const linkElement = screen.getByTestId('insert-url')
         expect(linkElement).toBeInTheDocument()
     })
-    jest.mock('.')
+    jest.mock('../home.tsx')
     test('should call copy to clipboard', async () => {
         render(<Home />)
 
