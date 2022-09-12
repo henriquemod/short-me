@@ -1,7 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios'
 import { pipe, reject } from 'ramda'
 import { useState } from 'react'
-import { Messages } from '../messages'
 
 export interface IUrl {
     id: string
@@ -23,9 +22,6 @@ export const useUrl = () => {
                 url
             })
 
-            if (request.status !== 200)
-                throw new Error(Messages.DefaultRequestError)
-
             setUrlList([...urlList, request.data])
             setLoading(false)
         } catch (error) {
@@ -41,13 +37,7 @@ export const useUrl = () => {
         }
         try {
             setLoading(true)
-            const request = await axios.delete<IUrl>(
-                process.env.BACKEND_ENDPOINT + URL_API_PATH,
-                config
-            )
-
-            if (request.status !== 200)
-                throw new Error(Messages.DefaultRequestError)
+            await axios.delete<IUrl>(ENDPOINT + URL_API_PATH, config)
 
             const wasRemoved = (obj: IUrl) => obj.id === id
 
