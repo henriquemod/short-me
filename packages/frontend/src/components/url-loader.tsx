@@ -1,12 +1,13 @@
+import LaunchIcon from '@mui/icons-material/Launch'
 import { Box, Button, Grid, Typography } from '@mui/material'
-import { useCallback, useEffect, useMemo, useState } from 'react'
 import CircularProgress, {
     CircularProgressProps
 } from '@mui/material/CircularProgress'
-import { useFindUrl } from '../lib/hooks/useFindUrl'
+import { useMemo } from 'react'
 import { useParams } from 'react-router-dom'
-import LaunchIcon from '@mui/icons-material/Launch'
 import styled from 'styled-components'
+import { useFindUrl } from '../lib/hooks/useFindUrl'
+import { useTimer } from '../lib/hooks/useTimer'
 import { Messages } from '../lib/messages'
 
 const GRID_PROPS = {
@@ -59,40 +60,30 @@ const CircularProgressWithLabel = (
     </Box>
 )
 
-export const UrlLoader = () => {
+interface IProps {
+    handleChangePage: (url: string) => void
+    time?: number
+}
+
+export const UrlLoader = (props: IProps) => {
     const { key } = useParams()
-    const [enabled, setEnabled] = useState(false)
-    const [timeLimit, setTimeLimit] = useState(100)
-    const { url, error } = useFindUrl(key ?? '')
-
-    useEffect(() => {
-        const timer = setInterval(() => {
-            setTimeLimit(prev => (prev === 0 ? 0 : prev - 10))
-        }, 1000)
-
-        if (timeLimit === 0) {
-            setEnabled(true)
-        }
-        return () => {
-            clearInterval(timer)
-        }
-    }, [timeLimit])
-
-    const handleClickButton = useCallback(() => {
-        if (url) window.location.assign(url)
-    }, [url])
+    const { error, handleChangePage } = useFindUrl(key ?? '')
+    const { timeLimit } = useTimer({
+        time: props?.time
+    })
 
     const renderLabel = useMemo(() => {
-        if (enabled) {
+        if (timeLimit === 0) {
             return (
                 <ButtonLabel>
-                    Open link <LaunchIcon />
+                    Open link
+                    <LaunchIcon />
                 </ButtonLabel>
             )
         } else {
             return 'Just a second...'
         }
-    }, [enabled])
+    }, [timeLimit])
 
     return (
         <Grid
@@ -124,10 +115,11 @@ export const UrlLoader = () => {
                         <Button
                             size='large'
                             variant='contained'
+                            id='url-button'
                             fullWidth
                             style={{ minHeight: '75px' }}
-                            onClick={handleClickButton}
-                            disabled={!enabled}>
+                            onClick={handleChangePage}
+                            disabled={timeLimit !== 0}>
                             {renderLabel}
                         </Button>
                     </Grid>

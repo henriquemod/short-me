@@ -68,10 +68,14 @@
   "devDependencies": {
     "@pmmmwh/react-refresh-webpack-plugin": "0.5.7",
     "@types/axios": "0.14.0",
+    "@types/enzyme": "3.10.12",
+    "@types/enzyme-adapter-react-16": "1.0.6",
     "@types/psl": "1.1.0",
-    "@types/ramda": "^0.28.15",
+    "@types/ramda": "0.28.15",
     "@types/styled-components": "5.1.26",
     "@types/validator": "13.7.6",
+    "enzyme": "3.11.0",
+    "enzyme-adapter-react-16": "1.15.6",
     "eslint-plugin-prettier": "4.2.1",
     "webpack-cli": "4.10.0",
     "webpack-dev-server": "4.10.1"

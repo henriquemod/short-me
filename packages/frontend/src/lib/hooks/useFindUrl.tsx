@@ -29,9 +29,14 @@ export const useFindUrl = (key: string) => {
         findUrl(key)
     }, [key, findUrl])
 
+    const handleChangePage = useCallback(() => {
+        if (url) window.location.assign(url)
+    }, [url])
+
     return {
         url,
         loading,
-        error
+        error,
+        handleChangePage
     }
 }

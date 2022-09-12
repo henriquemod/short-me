@@ -15,9 +15,13 @@ const GRID_PROPS = {
     display: 'flex'
 }
 
-export const LandingPage = () => (
-    <Grid {...GRID_PROPS} container maxWidth={768} flexDirection='column'>
-        <LogoContainer src={Logo} alt='ShortMe Logo' />
-        <UrlLoader />
-    </Grid>
-)
+export const LandingPage = () => {
+    const handleChangePage = (url: string) => window.location.assign(url)
+
+    return (
+        <Grid {...GRID_PROPS} container maxWidth={768} flexDirection='column'>
+            <LogoContainer src={Logo} alt='ShortMe Logo' />
+            <UrlLoader handleChangePage={handleChangePage} />
+        </Grid>
+    )
+}
