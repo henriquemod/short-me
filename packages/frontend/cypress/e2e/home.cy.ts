@@ -5,7 +5,7 @@ beforeEach(() => {
     cy.visit(Cypress.env('ENDPOINT_FRONTEND'))
 })
 
-describe('Home Tests', () => {
+describe('Home Page Tests', () => {
     it('I create a short url', () => {
         cy.get(`input[id=insert-url-2]`).type(VALID_URL)
         cy.get('button[id=insert-button]').click()

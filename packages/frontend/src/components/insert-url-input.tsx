@@ -2,13 +2,12 @@ import { PhotoSizeSelectSmall } from '@mui/icons-material'
 import {
     AlertColor,
     Button,
-    ButtonTypeMap,
     CircularProgress,
     Container,
     Grid,
     TextField
 } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import styled from 'styled-components'
 import { Messages } from '../lib/messages'
 
@@ -20,10 +19,7 @@ const ButtonLabel = styled.div`
     align-items: center;
 `
 
-const ButtonProps: ButtonTypeMap['props'] = {
-    color: 'primary',
-    variant: 'contained'
-}
+const BUTTON_STYLE = { height: '100%', minWidth: '107px' }
 
 interface IProps {
     validateUrl: (url: string) => boolean
@@ -43,7 +39,6 @@ export const InsertUrlInput = ({
 
     const handleChangeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { value } = e.target
-
         const isValidUrl = validateUrl(value)
         setError(!isValidUrl)
         setValue(value)
@@ -59,12 +54,16 @@ export const InsertUrlInput = ({
         }
     }
 
-    const renderChild = loading ? (
-        <CircularProgress size={25} id='circular-progress' />
-    ) : (
-        <ButtonLabel>
-            Short me <PhotoSizeSelectSmall fontSize='small' />
-        </ButtonLabel>
+    const buttonLabel = useMemo(
+        () =>
+            loading ? (
+                <CircularProgress size={25} id='circular-progress' />
+            ) : (
+                <ButtonLabel>
+                    Short me <PhotoSizeSelectSmall fontSize='small' />
+                </ButtonLabel>
+            ),
+        [loading]
     )
 
     return (
@@ -89,14 +88,15 @@ export const InsertUrlInput = ({
                 </Grid>
                 <Grid xs={3} item>
                     <Button
-                        {...ButtonProps}
                         fullWidth
+                        color='primary'
+                        variant='contained'
                         id='insert-button'
-                        style={{ height: '100%', minWidth: '107px' }}
+                        style={BUTTON_STYLE}
                         disabled={loading}
                         data-testid='insert-button'
                         onClick={handleClickButton}>
-                        {renderChild}
+                        {buttonLabel}
                     </Button>
                 </Grid>
             </Grid>
