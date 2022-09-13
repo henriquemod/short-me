@@ -74,6 +74,9 @@
     "@types/ramda": "0.28.15",
     "@types/styled-components": "5.1.26",
     "@types/validator": "13.7.6",
+    "cypress": "10.7.0",
+    "cypress-real-events": "1.7.1",
+    "cypress-wait-until": "1.7.2",
     "enzyme": "3.11.0",
     "enzyme-adapter-react-16": "1.15.6",
     "eslint-plugin-prettier": "4.2.1",
@@ -83,12 +86,12 @@
     "webpack-dev-server": "4.10.1"
   },
   "jest": {
-  "collectCoverageFrom": [
-    "src/**/*.{ts,tsx}",
-    "!src/index.tsx",
-    "!src/App.tsx",
-    "!src/global.d.ts",
-    "!src/reportWebVitals.ts"
-  ]
-}
+    "collectCoverageFrom": [
+      "src/**/*.{ts,tsx}",
+      "!src/index.tsx",
+      "!src/App.tsx",
+      "!src/global.d.ts",
+      "!src/reportWebVitals.ts"
+    ]
+  }
 }
