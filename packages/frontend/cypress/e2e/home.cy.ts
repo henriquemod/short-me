@@ -1,9 +1,8 @@
 const VALID_URL = 'http://google.com.br'
 const INVALID_URL = '1'
-const ENDPOINT_FRONTEND = 'http://localhost:3000'
 
 beforeEach(() => {
-    cy.visit(ENDPOINT_FRONTEND)
+    cy.visit(Cypress.env('ENDPOINT_FRONTEND'))
 })
 
 describe('Home Tests', () => {
@@ -40,7 +39,7 @@ describe('Home Tests', () => {
         cy.waitUntil(() => cy.contains('Url has been deleted.').should('exist'))
     })
 
-    it('I create a short url with invalid url', () => {
+    it('I try to create a short url with invalid url', () => {
         cy.get(`input[id=insert-url-2]`).type(INVALID_URL)
         cy.get('button[id=insert-button]').click()
         cy.waitUntil(() =>

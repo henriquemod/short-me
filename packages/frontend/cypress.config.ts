@@ -5,5 +5,9 @@ export default defineConfig({
         setupNodeEvents(on, config) {
             // implement node event listeners here
         }
+    },
+    env: {
+        ENDPOINT: 'http://localhost:8080',
+        ENDPOINT_FRONTEND: 'http://localhost:3000'
     }
 })
