@@ -1,4 +1,5 @@
 import { DataSource } from 'typeorm'
+import urlModel from '../../url/model/url-model'
 import userModel from '../../user/model/user-model'
 
 export const DbHelper = {
@@ -9,7 +10,7 @@ export const DbHelper = {
       database: ':memory:',
       synchronize: true,
       logging: false,
-      entities: [userModel],
+      entities: [userModel, urlModel],
       migrations: [],
       subscribers: []
     })

@@ -19,12 +19,12 @@ export default class CreateUrlController implements Controller {
 
       const { url: inputUrl } = httpRequest.body
 
-      const url = await this.createUrl.create({ url: inputUrl })
+      const { id, url, key } = await this.createUrl.create({ url: inputUrl })
 
       const urlDto: OutputCreateUrlDto = {
-        id: url.id,
-        url: url.url,
-        key: url.key
+        id,
+        url,
+        key
       }
 
       return ok(urlDto)
