@@ -7,7 +7,8 @@ import { MissingParamError } from '../../../../src/presentation/error'
 import {
   badRequest,
   ok,
-  serverError
+  serverError,
+  notFoundRequest
 } from '../../../../src/presentation/helpers/http-helper'
 import FindUrlController from '../../../../src/presentation/controllers/url/find-url'
 import {
@@ -69,6 +70,13 @@ describe('Find Url Controller', () => {
     const { sut } = makeSut()
     const httpResponse = await sut.handle(makeFakeRequest())
     expect(httpResponse).toEqual(ok(makeFakeBodyResponse()))
+  })
+
+  it('should return 404 not found if key is does not exists', async () => {
+    const { sut, findUrlStub } = makeSut()
+    jest.spyOn(findUrlStub, 'find').mockResolvedValue(undefined)
+    const httpResponse = await sut.handle(makeFakeRequest())
+    expect(httpResponse).toEqual(notFoundRequest(new Error('Entity not found')))
   })
 
   it('should call FindUrl with correct values', async () => {
