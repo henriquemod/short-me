@@ -16,7 +16,7 @@
     "dev:ts": "ts-node src/main/server.ts",
     "lint": "eslint -c .eslintrc.js 'src/**/*.{ts,tsx}'",
     "type-check": "npx tsc --noEmit",
-    "precommit": "yarn type-check && yarn lint && yarn test"
+    "precommit": "yarn type-check && yarn lint && NODE_ENV=development yarn test"
   },
   "keywords": [],
   "author": "",

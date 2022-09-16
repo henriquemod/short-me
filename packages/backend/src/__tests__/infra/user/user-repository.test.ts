@@ -1,8 +1,8 @@
 import argon2 from 'argon2'
 import { DataSource } from 'typeorm'
-import userModel from '../../../src/infra/user/model/user-model'
-import UserRepository from '../../../src/infra/user/repository/user-repository'
-import { Encrypter } from '../../../src/presentation/protocols'
+import userModel from '../../../infra/user/model/user-model'
+import UserRepository from '../../../infra/user/repository/user-repository'
+import { Encrypter } from '../../../presentation/protocols'
 
 interface SutTypes {
   sut: UserRepository

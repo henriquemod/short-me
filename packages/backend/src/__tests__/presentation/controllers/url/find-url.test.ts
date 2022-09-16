@@ -1,20 +1,17 @@
 import {
   InputFindUrlDto,
   OutputFindUrlDto
-} from '../../../../src/domain/usecase/url'
-import { FindUrl } from '../../../../src/domain/usecase/url/url'
-import { MissingParamError } from '../../../../src/presentation/error'
+} from '../../../../domain/usecase/url'
+import { FindUrl } from '../../../../domain/usecase/url/url'
+import { MissingParamError } from '../../../../presentation/error'
 import {
   badRequest,
   ok,
   serverError,
   notFoundRequest
-} from '../../../../src/presentation/helpers/http-helper'
-import FindUrlController from '../../../../src/presentation/controllers/url/find-url'
-import {
-  HttpRequest,
-  HttpResponse
-} from '../../../../src/presentation/protocols'
+} from '../../../../presentation/helpers/http-helper'
+import FindUrlController from '../../../../presentation/controllers/url/find-url'
+import { HttpRequest, HttpResponse } from '../../../../presentation/protocols'
 
 interface SutTypes {
   sut: FindUrlController

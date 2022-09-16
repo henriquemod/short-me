@@ -1,19 +1,16 @@
 import {
   InputCreateUrlDto,
   OutputCreateUrlDto
-} from '../../../../src/domain/usecase/url'
-import { CreateUrl } from '../../../../src/domain/usecase/url/url'
-import { MissingParamError } from '../../../../src/presentation/error'
+} from '../../../../domain/usecase/url'
+import { CreateUrl } from '../../../../domain/usecase/url/url'
+import { MissingParamError } from '../../../../presentation/error'
 import {
   badRequest,
   ok,
   serverError
-} from '../../../../src/presentation/helpers/http-helper'
-import CreateUrlController from '../../../../src/presentation/controllers/url/create-url'
-import {
-  HttpRequest,
-  HttpResponse
-} from '../../../../src/presentation/protocols'
+} from '../../../../presentation/helpers/http-helper'
+import CreateUrlController from '../../../../presentation/controllers/url/create-url'
+import { HttpRequest, HttpResponse } from '../../../../presentation/protocols'
 
 interface SutTypes {
   sut: CreateUrlController

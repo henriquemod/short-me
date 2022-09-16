@@ -1,19 +1,16 @@
 import {
   InputDeleteUrlDto,
   OutputDeleteUrlDto
-} from '../../../../src/domain/usecase/url'
-import { DeleteUrl } from '../../../../src/domain/usecase/url/url'
-import { MissingParamError } from '../../../../src/presentation/error'
+} from '../../../../domain/usecase/url'
+import { DeleteUrl } from '../../../../domain/usecase/url/url'
+import { MissingParamError } from '../../../../presentation/error'
 import {
   badRequest,
   ok,
   serverError
-} from '../../../../src/presentation/helpers/http-helper'
-import DeleteUrlController from '../../../../src/presentation/controllers/url/delete-url'
-import {
-  HttpRequest,
-  HttpResponse
-} from '../../../../src/presentation/protocols'
+} from '../../../../presentation/helpers/http-helper'
+import DeleteUrlController from '../../../../presentation/controllers/url/delete-url'
+import { HttpRequest, HttpResponse } from '../../../../presentation/protocols'
 
 interface SutTypes {
   sut: DeleteUrlController

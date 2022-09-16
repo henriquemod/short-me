@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 import request from 'supertest'
-import { DbHelper } from '../../src/infra/@shared/helpers/db-helper'
-import app from '../../src/main/config/app'
+import { DbHelper } from '../../infra/@shared/helpers/db-helper'
+import app from '../../main/config/app'
 describe('User Routes', () => {
   beforeEach(async () => {
     await DbHelper.connect()
@@ -24,7 +24,6 @@ describe('User Routes', () => {
   //     })
   //     .expect(200)
   // })
-
 
   it('Should return a bad request error on missing name', async () => {
     await request(app)

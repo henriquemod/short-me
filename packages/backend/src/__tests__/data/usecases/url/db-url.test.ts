@@ -1,9 +1,9 @@
-import { CreateUrlRepository } from '../../../../src/data/protocols/url/create-url-repository'
-import { FindUrlRepository } from '../../../../src/data/protocols/url/find-url-repository'
-import { DeleteUrlRepository } from '../../../../src/data/protocols/url/delete-url-repository'
-import { DbCreateUrl } from '../../../../src/data/usecases/url/db-create-url'
-import { DbFindUrl } from '../../../../src/data/usecases/url/db-find-url'
-import { DbDeleteUrl } from '../../../../src/data/usecases/url/db-delete-url'
+import { CreateUrlRepository } from '../../../../data/protocols/url/create-url-repository'
+import { FindUrlRepository } from '../../../../data/protocols/url/find-url-repository'
+import { DeleteUrlRepository } from '../../../../data/protocols/url/delete-url-repository'
+import { DbCreateUrl } from '../../../../data/usecases/url/db-create-url'
+import { DbFindUrl } from '../../../../data/usecases/url/db-find-url'
+import { DbDeleteUrl } from '../../../../data/usecases/url/db-delete-url'
 import {
   InputCreateUrlDto,
   InputFindUrlDto,
@@ -11,7 +11,7 @@ import {
   OutputFindUrlDto,
   InputDeleteUrlDto,
   OutputDeleteUrlDto
-} from '../../../../src/domain/usecase/url'
+} from '../../../../domain/usecase/url'
 
 interface CreateSutTypes {
   sut: DbCreateUrl

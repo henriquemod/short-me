@@ -1,13 +1,13 @@
-import { CreateUserRepository } from '../../../../src/data/protocols/user/create-user-repository'
-import { DeleteUserRepository } from '../../../../src/data/protocols/user/delete-user-repository'
-import { FindAllUsersRepository } from '../../../../src/data/protocols/user/find-all-users-repository'
-import { FindUserRepository } from '../../../../src/data/protocols/user/find-user-repository'
-import { UpdateUserRepository } from '../../../../src/data/protocols/user/update-user-repository'
-import { DbCreateUser } from '../../../../src/data/usecases/user/db-create-user'
-import { DbDeleteUser } from '../../../../src/data/usecases/user/db-delete-user'
-import { DbFindAllUsers } from '../../../../src/data/usecases/user/db-find-all-users'
-import { DbFindUser } from '../../../../src/data/usecases/user/db-find-user'
-import { DbUpdateUser } from '../../../../src/data/usecases/user/db-update-user'
+import { CreateUserRepository } from '../../../../data/protocols/user/create-user-repository'
+import { DeleteUserRepository } from '../../../../data/protocols/user/delete-user-repository'
+import { FindAllUsersRepository } from '../../../../data/protocols/user/find-all-users-repository'
+import { FindUserRepository } from '../../../../data/protocols/user/find-user-repository'
+import { UpdateUserRepository } from '../../../../data/protocols/user/update-user-repository'
+import { DbCreateUser } from '../../../../data/usecases/user/db-create-user'
+import { DbDeleteUser } from '../../../../data/usecases/user/db-delete-user'
+import { DbFindAllUsers } from '../../../../data/usecases/user/db-find-all-users'
+import { DbFindUser } from '../../../../data/usecases/user/db-find-user'
+import { DbUpdateUser } from '../../../../data/usecases/user/db-update-user'
 import {
   OutputCreateUserDto,
   OutputFindUserDto,
@@ -19,8 +19,8 @@ import {
   OutputFindAllUsersDto,
   OutputUpdateUserDto,
   InputUpdatePasswordDto
-} from '../../../../src/domain/usecase/user'
-import { Encrypter } from '../../../../src/presentation/protocols'
+} from '../../../../domain/usecase/user'
+import { Encrypter } from '../../../../presentation/protocols'
 
 interface CreateSutTypes {
   sut: DbCreateUser

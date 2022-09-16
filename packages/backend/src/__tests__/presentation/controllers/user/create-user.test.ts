@@ -1,22 +1,19 @@
 import {
   InputCreateUserDto,
   OutputCreateUserDto
-} from '../../../../src/domain/usecase/user'
-import { CreateUser } from '../../../../src/domain/usecase/user/user'
+} from '../../../../domain/usecase/user'
+import { CreateUser } from '../../../../domain/usecase/user/user'
 import {
   CustomMessageError,
   MissingParamError
-} from '../../../../src/presentation/error'
+} from '../../../../presentation/error'
 import {
   badRequest,
   ok,
   serverError
-} from '../../../../src/presentation/helpers/http-helper'
-import CreateUserController from '../../../../src/presentation/controllers/user/create-user'
-import {
-  HttpRequest,
-  HttpResponse
-} from '../../../../src/presentation/protocols'
+} from '../../../../presentation/helpers/http-helper'
+import CreateUserController from '../../../../presentation/controllers/user/create-user'
+import { HttpRequest, HttpResponse } from '../../../../presentation/protocols'
 
 interface SutTypes {
   sut: CreateUserController

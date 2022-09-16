@@ -1,7 +1,7 @@
 import { DataSource } from 'typeorm'
-import urlModel from '../../../src/infra/url/model/url-model'
-import UrlRepository from '../../../src/infra/url/repository/url-repository'
-import { RandomGenerator } from '../../../src/presentation/protocols'
+import urlModel from '../../../infra/url/model/url-model'
+import UrlRepository from '../../../infra/url/repository/url-repository'
+import { RandomGenerator } from '../../../presentation/protocols'
 
 interface SutTypes {
   sut: UrlRepository
