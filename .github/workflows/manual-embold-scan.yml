@@ -1,0 +1,17 @@
+name: Manual Cypress Run
+
+on:
+  workflow_dispatch:
+    inputs:
+      container_name:
+        description: "Manually run Cypress test"
+        default: "henriquemod/shortme-backend"
+        required: true
+
+jobs:
+  embold:
+    uses: actions/embold-github-action@v1
+    with:
+      emboldUrl: ${{ secrets.EMB_URL }}
+      emboldToken: ${{ secrets.EMB_TOKEN }}
+      emboldRepoUid: ${{ secrets.EMB_REPOUID }}
