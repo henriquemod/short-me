@@ -6,25 +6,29 @@ jobs:
       image: ubuntu-2204:2022.07.1
       docker_layer_caching: true
     resource_class: medium
+    working_directory: ~/packages/frontend
     steps:
       - checkout
       # Whatever you want to do
-      - run: cd packages/frontend && yarn && yarn test:coverage
+      - run: yarn && yarn test:coverage
   
   e2e-tests:
     machine:
       image: ubuntu-2204:2022.07.1
       docker_layer_caching: true
     resource_class: medium
-    working_directory: ~/packages/frontend
     steps:
       - checkout
       # Whatever you want to do
       - run: sudo apt update
       - run: sudo apt-get install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
       - run: sudo apt install -y docker-compose
+      - attach_workspace:
+          at: packages/backend
       - run: docker-compose -f ../../packages/backend/docker-compose.yml up -d
-      - run: cd packages/frontend && yarn && yarn dev & npx cypress --project packages/frontend run
+      - attach_workspace:
+          at: packages/frontend
+      - run: yarn && yarn dev & npx cypress --project packages/frontend run
 
   test:
     # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
