@@ -17,7 +17,14 @@ jobs:
       - run: cd ./packages/backend && docker-compose up -d
       - run: sudo apt install -y docker-compose
       - run: cd ../../
+      - run: cd ./packages/backend
+      - run: pwd
+      - run: ls -lah
+      - run: docker-compose up -d
+      - run: cd ../../
       - run: cd ./packages/frontend
+      - run: pwd
+      - run: ls -lah
       - run: yarn
       - run: yarn dev & yarn cypress run
   test:
