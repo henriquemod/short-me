@@ -22,7 +22,9 @@ jobs:
       - run: sudo apt install -y docker-compose
       - run: docker-compose -f packages/backend/docker-compose.yml up -d
       # - run: yarn global add cypress@10.7.0
-      - run: cd packages/frontend && yarn && yarn dev & cd packages/frontend/ && ../../node_modules/.bin/cypress run
+      - run: cd packages/frontend && yarn && yarn dev &
+      - run: cp -R node_modules packages/frontend/node_modules
+      - run: cd packages/frontend/ && yarn cypress run
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
