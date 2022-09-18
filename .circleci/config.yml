@@ -53,10 +53,10 @@ workflows:
           executor: cypress/base-16-14-2-slim
           working_directory: packages/frontend
           start: cd ../../ \
-                  ls sudo apt update \
-                  sudo apt install -y docker-compose \
-                  docker-compose -f packages/backend/docker-compose.yml up -d \
-                  cd packages/frontend \
+                  ls sudo apt update &&
+                  sudo apt install -y docker-compose &&
+                  docker-compose -f packages/backend/docker-compose.yml up -d &&
+                  cd packages/frontend &&
                   yarn & yarn dev
 
   # orb-free-workflow:
