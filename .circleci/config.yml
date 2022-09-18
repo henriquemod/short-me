@@ -36,6 +36,7 @@ workflows:
     jobs:
       - cypress/run:
           yarn: true
+          executor: cypress/base-14
           working_directory: packages/frontend
   orb-free-workflow:
     jobs:
