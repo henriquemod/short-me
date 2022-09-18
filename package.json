@@ -8,7 +8,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "commit": "cz",
     "pre-commit": "lint-staged",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "ci:docker:build": "cd packages/backend && yarn && yarn build && mv build ../../ && cd ../../"
   },
   "keywords": [],
   "author": "",

@@ -13,7 +13,7 @@ services:
 
   backend:
     container_name: shortme-backend
-    image: shortme/backend
+    image: henriquemod/shortme-backend
     networks:
       - test
     ports:
