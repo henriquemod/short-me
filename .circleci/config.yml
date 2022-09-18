@@ -32,4 +32,4 @@ workflows:
   orb-free-workflow:
     jobs:
       - unit-tests
-      - e2e-tests
+      # - e2e-tests
