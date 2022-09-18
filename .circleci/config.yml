@@ -57,12 +57,15 @@ workflows:
       # - unit-tests
       - cypress/run:
           yarn: true
+          working_directory: packages/frontend
           executor: cypress/base-16-14-2-slim
           start: cd packages/backend &&
+                  pwd && ls -lah &&
                   yarn &&
                   yarn build &&
                   yarn dev &
                   cd ../frontend &&
+                  pwd && ls -lah &&
                   yarn & yarn dev
 
   # orb-free-workflow:
