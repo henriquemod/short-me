@@ -23,7 +23,7 @@ jobs:
       - run: docker-compose -f packages/backend/docker-compose.yml up -d
       # - run: yarn global add cypress@10.7.0
       - run: cd packages/frontend && yarn && yarn dev &
-      - run: cp -R node_modules packages/frontend/node_modules
+      - run: ls -lah && cp -R node_modules packages/frontend/node_modules
       - run: cd packages/frontend/ && yarn cypress run
 
 # Invoke jobs via workflows
