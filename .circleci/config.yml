@@ -12,6 +12,18 @@ jobs:
     steps:
       - checkout
       - run: cd packages/frontend && yarn && yarn test:coverage
+
+  up-backend:
+    machine:
+      image: ubuntu-2204:2022.07.1
+      docker_layer_caching: true
+    resource_class: medium
+    steps:
+      - checkout
+      - run: sudo apt update
+      - run: sudo apt-get install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
+      - run: sudo apt install -y docker-compose
+      - run: docker-compose -f packages/backend/docker-compose.yml up -d
   
   e2e-tests:
     machine:
@@ -34,11 +46,12 @@ jobs:
 workflows:
   build:
     jobs:
+      - up-backend
       - cypress/run:
           yarn: true
           executor: cypress/base-16-14-2-slim
           working_directory: packages/frontend
-  orb-free-workflow:
-    jobs:
-      - unit-tests
-      # - e2e-tests
+  # orb-free-workflow:
+  #   jobs:
+  #     - unit-tests
+  #     # - e2e-tests
