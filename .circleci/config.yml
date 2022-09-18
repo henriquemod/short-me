@@ -60,5 +60,5 @@ jobs:
 workflows:
   orb-free-workflow:
     jobs:
-      # - unit-tests
-      - e2e-tests
+      - unit-tests
+      # - e2e-tests
