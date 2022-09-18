@@ -20,37 +20,8 @@ jobs:
       - run: sudo apt update
       - run: sudo apt-get install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
       - run: sudo apt install -y docker-compose
-      - attach_workspace:
-          at: packages/backend
-      - run: docker-compose -f ../../packages/backend/docker-compose.yml up -d
-      - attach_workspace:
-          at: packages/frontend
-      - run: yarn && yarn dev & npx cypress --project packages/frontend run
-
-  test:
-    # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
-    # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
-    docker:
-      - image: cimg/node:15.1
-    # Add steps to the job
-    # See: https://circleci.com/docs/2.0/configuration-reference/#steps
-    steps:
-      - checkout
-      - restore_cache:
-          # See the configuration reference documentation for more details on using restore_cache and save_cache steps
-          # https://circleci.com/docs/2.0/configuration-reference/?section=reference#save_cache
-          keys:
-            - node-deps-v1-{{ .Branch }}-{{checksum "package-lock.json"}}
-      - run:
-          name: install packages
-          command: npm ci
-      - save_cache:
-          key: node-deps-v1-{{ .Branch }}-{{checksum "package-lock.json"}}
-          paths:
-            - ~/.npm
-      - run:
-          name: Run Tests
-          command: npm run test
+      - run: docker-compose -f packages/backend/docker-compose.yml up -d
+      - run: cd packages/frontend && yarn && yarn dev & cd packages/frontend && npx cypress run
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
@@ -58,4 +29,4 @@ workflows:
   orb-free-workflow:
     jobs:
       - unit-tests
-      # - e2e-tests
+      - e2e-tests
