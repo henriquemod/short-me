@@ -1,0 +1,22 @@
+name: Manual Cypress Run
+
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        # Friendly description to be shown in the UI instead of 'name'
+        description: 'Manually run Cypress test'
+        # Default value if no value is explicitly provided
+        default: 'World'
+        # Input has to be provided for the workflow to run
+        required: true
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Run docker images
+      run: |
+        echo "Hello ${{ github.event.inputs.name }}"
+        docker run hello-world
