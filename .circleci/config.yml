@@ -46,13 +46,11 @@ jobs:
 workflows:
   build:
     jobs:
-      - cypress/install:
-          build: ls
       - cypress/run:
           yarn: true
           executor: cypress/base-16-14-2-slim
           working_directory: packages/frontend
-          start: cd ../../ \
+          start: cd ../../ &&
                   ls sudo apt update &&
                   sudo apt install -y docker-compose &&
                   docker-compose -f packages/backend/docker-compose.yml up -d &&
