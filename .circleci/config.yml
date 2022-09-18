@@ -6,7 +6,7 @@ jobs:
       image: ubuntu-2204:2022.07.1
       docker_layer_caching: true
     resource_class: medium
-    working_directory: ~/packages/frontend
+    working_directory: ~/project/packages/frontend
     steps:
       - checkout
       # Whatever you want to do
@@ -60,5 +60,5 @@ jobs:
 workflows:
   orb-free-workflow:
     jobs:
-      - unit-tests
+      # - unit-tests
       - e2e-tests
