@@ -11,10 +11,13 @@ import {
 } from '../../../../presentation/helpers/http-helper'
 import CreateUrlController from '../../../../presentation/controllers/url/create-url'
 import { HttpRequest, HttpResponse } from '../../../../presentation/protocols'
+import { InvalidParamError } from '../../../../presentation/error/invalid-param-error'
+import { UrlValidator } from '../../../../presentation/protocols/url-validator'
 
 interface SutTypes {
   sut: CreateUrlController
   createUrlStub: CreateUrl
+  urlValidatorStub: UrlValidator
 }
 
 interface OverrideTypes {
@@ -25,7 +28,7 @@ interface OverrideTypes {
 
 const makeFakeRequest = (props?: OverrideTypes): HttpRequest => ({
   body: {
-    url: 'any_url',
+    url: 'valid_url',
     ...props
   }
 })
@@ -46,12 +49,24 @@ const makeCreateUrl = (): CreateUrl => {
   return new CreateUrlStub()
 }
 
+const makeValidator = (): UrlValidator => {
+  class ValidatorStub implements UrlValidator {
+    validate(_: any): boolean {
+      return true
+    }
+  }
+
+  return new ValidatorStub()
+}
+
 const makeSut = (): SutTypes => {
   const createUrlStub = makeCreateUrl()
-  const sut = new CreateUrlController(createUrlStub)
+  const urlValidatorStub = makeValidator()
+  const sut = new CreateUrlController(createUrlStub, urlValidatorStub)
   return {
     sut,
-    createUrlStub
+    createUrlStub,
+    urlValidatorStub
   }
 }
 
@@ -60,6 +75,15 @@ describe('Create Url Controller', () => {
     const { sut } = makeSut()
     const httpResponse = await sut.handle(makeFakeRequest({ url: undefined }))
     expect(httpResponse).toEqual(badRequest(new MissingParamError('url')))
+  })
+
+  it('should return 400 if invalid url is provided', async () => {
+    const { sut, urlValidatorStub } = makeSut()
+    jest.spyOn(urlValidatorStub, 'validate').mockReturnValueOnce(false)
+    const httpResponse = await sut.handle(
+      makeFakeRequest({ url: 'invalid_url' })
+    )
+    expect(httpResponse).toEqual(badRequest(new InvalidParamError('url')))
   })
 
   it('should create a url short if all data is provided', async () => {

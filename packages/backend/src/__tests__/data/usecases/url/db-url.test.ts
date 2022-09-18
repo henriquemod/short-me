@@ -140,7 +140,7 @@ describe('CREATE - Url repository test', () => {
     await expect(promise).rejects.toThrow()
   })
 
-  it('should return an user if CreateUrlRepository returns an user', async () => {
+  it('should return an url if CreateUrlRepository returns an url', async () => {
     const { sut } = makeCreateSut()
     const userData = makeFakeUrlRequest()
 

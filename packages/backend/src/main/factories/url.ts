@@ -6,14 +6,19 @@ import FindUrlController from '../../presentation/controllers/url/find-url'
 import DeleteUrlController from '../../presentation/controllers/url/delete-url'
 import { Controller } from '../../presentation/protocols'
 import { LogControllerDecorator } from '../decorators/log'
+import { UrlValidator } from '../../@core/lib/validator/url'
 
 const randomGenerator = new RandomGeneratorAdapter()
 
 export const makeUrlController = (): Controller => {
   const urlRepository = new UrlRepository(randomGenerator)
   const logErrorRepository = new LogPGRepository()
+  const urlValidator = new UrlValidator()
 
-  const createUrlController = new CreateUrlController(urlRepository)
+  const createUrlController = new CreateUrlController(
+    urlRepository,
+    urlValidator
+  )
 
   return new LogControllerDecorator(createUrlController, logErrorRepository)
 }
