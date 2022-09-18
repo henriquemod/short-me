@@ -6,12 +6,9 @@ jobs:
       image: ubuntu-2204:2022.07.1
       docker_layer_caching: true
     resource_class: medium
-    working_directory: ~/project/packages/frontend
     steps:
       - checkout
-      # Whatever you want to do
-      - run: pwd && ls -lah
-      - run: yarn && yarn test:coverage
+      - run: cd packages/frontend && yarn && yarn test:coverage
   
   e2e-tests:
     machine:
@@ -20,7 +17,6 @@ jobs:
     resource_class: medium
     steps:
       - checkout
-      # Whatever you want to do
       - run: sudo apt update
       - run: sudo apt-get install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
       - run: sudo apt install -y docker-compose
