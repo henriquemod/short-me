@@ -1,9 +1,37 @@
+import * as Sentry from '@sentry/react'
+import { BrowserTracing } from '@sentry/tracing'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import './index.css'
+import {
+    BrowserRouter,
+    createRoutesFromChildren,
+    matchRoutes,
+    useLocation,
+    useNavigationType
+} from 'react-router-dom'
 import App from './App'
+import './index.css'
 import reportWebVitals from './reportWebVitals'
-import { BrowserRouter } from 'react-router-dom'
+
+Sentry.init({
+    dsn: 'https://3fc66be0a830481482fffd338ed2f21b@o1410595.ingest.sentry.io/6748098',
+    integrations: [
+        new BrowserTracing({
+            routingInstrumentation: Sentry.reactRouterV6Instrumentation(
+                React.useEffect,
+                useLocation,
+                useNavigationType,
+                createRoutesFromChildren,
+                matchRoutes
+            )
+        })
+    ],
+
+    // Set tracesSampleRate to 1.0 to capture 100%
+    // of transactions for performance monitoring.
+    // We recommend adjusting this value in production
+    tracesSampleRate: 1.0
+})
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(

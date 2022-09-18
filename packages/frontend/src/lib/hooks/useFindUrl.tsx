@@ -1,3 +1,4 @@
+import { captureException } from '@sentry/react'
 import axios from 'axios'
 import { useCallback, useEffect, useState } from 'react'
 import { IUrl } from './useUrl'
@@ -23,7 +24,7 @@ export const useFindUrl = (key: string) => {
         } catch (error) {
             setError(true)
             setLoading(false)
-            console.log(error)
+            captureException(error)
         }
     }, [])
 
