@@ -1,6 +1,7 @@
 import axios, { AxiosRequestConfig } from 'axios'
 import { pipe, reject } from 'ramda'
 import { useState } from 'react'
+import { captureException } from '@sentry/react'
 
 export interface IUrl {
     id: string
@@ -25,7 +26,7 @@ export const useUrl = () => {
             setUrlList([...urlList, request.data])
             setLoading(false)
         } catch (error) {
-            console.log(error)
+            captureException(error)
         }
     }
 
@@ -45,7 +46,7 @@ export const useUrl = () => {
             pipe(reject(wasRemoved), setUrlList)(urlList)
             setLoading(false)
         } catch (error) {
-            console.log(error)
+            captureException(error)
         }
     }
 
