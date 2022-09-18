@@ -59,7 +59,7 @@ workflows:
           yarn: true
           working_directory: packages/frontend
           executor: cypress/base-16-14-2-slim
-          start: cd packages/backend &&
+          start: cd ../backend &&
                   pwd && ls -lah &&
                   yarn &&
                   yarn build &&
