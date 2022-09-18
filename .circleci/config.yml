@@ -1,10 +1,21 @@
 version: 2.1
 
 jobs:
-  build:
+  unit-tests:
     machine:
       image: ubuntu-2204:2022.07.1
       docker_layer_caching: true
+    resource_class: medium
+    steps:
+      - checkout
+      # Whatever you want to do
+      - run: cd packages/frontend && yarn && yarn test:coverage
+  
+  e2e-tests:
+    machine:
+      image: ubuntu-2204:2022.07.1
+      docker_layer_caching: true
+    resource_class: medium
     steps:
       - checkout
       # Whatever you want to do
@@ -12,11 +23,8 @@ jobs:
       - run: sudo apt-get install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
       - run: sudo apt install -y docker-compose
       - run: docker-compose -f packages/backend/docker-compose.yml up -d
-      - run: cd packages/frontend && pwd && ls -lah
-      - run: pwd
-      - run: ls -lah
-      - run: yarn
-      - run: yarn dev & yarn cypress run
+      - run: cd packages/frontend && yarn && yarn test
+
   test:
     # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
     # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
@@ -47,4 +55,5 @@ jobs:
 workflows:
   orb-free-workflow:
     jobs:
-      - build
+      - unit-tests
+      - e2e-tests
