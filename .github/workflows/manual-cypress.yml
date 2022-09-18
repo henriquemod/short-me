@@ -3,12 +3,9 @@ name: Manual Cypress Run
 on:
   workflow_dispatch:
     inputs:
-      name:
-        # Friendly description to be shown in the UI instead of 'name'
-        description: 'Manually run Cypress test'
-        # Default value if no value is explicitly provided
-        default: 'World'
-        # Input has to be provided for the workflow to run
+      container_name:
+        description: "Manually run Cypress test"
+        default: "henriquemod/shortme-backend"
         required: true
 
 jobs:
@@ -16,7 +13,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Run docker images
-      run: |
-        echo "Hello ${{ github.event.inputs.name }}"
-        docker run hello-world
+      - name: Install Cypress Dependencies
+        run: sudo apt-get install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
+
+      - name: Install docker compose
+        run: sudo apt install -y docker-compose
+
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run docker images
+        run: |
+          cd ./packages/backend
+          docker-compose up -d
+          echo "Hello ${{ github.event.inputs.container_name }}"
+          cd ../../
+
+      - name: Run Cypress
+        run: |
+          cd ./packages/frontend
+          yarn
+          yarn dev & yarn cypress run
