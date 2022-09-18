@@ -54,18 +54,16 @@ jobs:
 workflows:
   build:
     jobs:
-      - unit-tests
-      # - cypress/run:
-      #     yarn: true
-      #     executor: cypress/base-16-14-2-slim
-      #     working_directory: packages/frontend
-      #     start: cd ../../ &&
-      #             apt update &&
-      #             apt install ca-certificates curl gnupg lsb-release
-      #             apt install -y docker-compose &&
-      #             docker-compose -f packages/backend/docker-compose.yml up -d &&
-      #             cd packages/frontend &&
-      #             yarn & yarn dev
+      # - unit-tests
+      - cypress/run:
+          yarn: true
+          executor: cypress/base-16-14-2-slim
+          start: cd packages/backend &&
+                  yarn &&
+                  yarn build &&
+                  yarn dev &
+                  cd ../frontend &&
+                  yarn & yarn dev
 
   # orb-free-workflow:
   #   jobs:
