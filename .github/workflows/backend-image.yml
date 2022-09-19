@@ -19,11 +19,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Build Application
-        run: |
-          cd ./packages/backend
-          yarn
-          yarn build
-          cd ../../
+        run: yarn ci:docker:build
 
       - name: Build and push Docker image
         id: docker_build
