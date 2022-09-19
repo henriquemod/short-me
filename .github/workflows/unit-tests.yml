@@ -23,6 +23,6 @@ jobs:
           yarn
           yarn test:coverage
       - run: |
-          cd ../backend
+          cd ./packages/backend
           yarn
           yarn test:ci
