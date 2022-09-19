@@ -1,4 +1,4 @@
-name: Manual Cypress Run
+name: Embold Scan
 
 on:
   workflow_dispatch:
@@ -7,10 +7,13 @@ on:
         description: "Manually run Cypress test"
         default: "henriquemod/shortme-backend"
         required: true
-
 jobs:
-  uses: actions/embold-github-action@v1
-  with:
-    emboldUrl: ${{ secrets.EMB_URL }}
-    emboldToken: ${{ secrets.EMB_TOKEN }}
-    emboldRepoUid: ${{ secrets.EMB_REPOUID }}
+  embold_scan_job:
+    runs-on: ubuntu-latest
+    name: Embold scan
+    steps:
+      - uses: actions/embold-github-action@v1
+      - with:
+        emboldUrl: ${{ secrets.EMB_URL }}
+        emboldToken: ${{ secrets.EMB_TOKEN }}
+        emboldRepoUid: ${{ secrets.EMB_REPOUID }}
