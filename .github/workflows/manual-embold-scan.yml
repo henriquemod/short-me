@@ -9,9 +9,8 @@ on:
         required: true
 
 jobs:
-  embold:
-    uses: actions/embold-github-action@v1
-    with:
-      emboldUrl: ${{ secrets.EMB_URL }}
-      emboldToken: ${{ secrets.EMB_TOKEN }}
-      emboldRepoUid: ${{ secrets.EMB_REPOUID }}
+  uses: actions/embold-github-action@v1
+  with:
+    emboldUrl: ${{ secrets.EMB_URL }}
+    emboldToken: ${{ secrets.EMB_TOKEN }}
+    emboldRepoUid: ${{ secrets.EMB_REPOUID }}
