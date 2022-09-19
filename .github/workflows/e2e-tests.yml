@@ -1,12 +1,8 @@
 name: Cypress Tests
 
 on:
-  workflow_dispatch:
-    inputs:
-      container_name:
-        description: "Manually run Cypress test"
-        default: "henriquemod/shortme-backend"
-        required: true
+  pull_request:
+    branches: ["main"]
 
 jobs:
   backend:
