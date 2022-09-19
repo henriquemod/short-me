@@ -1,4 +1,4 @@
-name: Embold Scan
+name: Embold
 
 on:
   workflow_dispatch:
@@ -12,6 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Embold scan
     steps:
+      - uses: actions/checkout@v2
       - uses: actions/embold-github-action@v1
       - with:
         emboldUrl: ${{ secrets.EMB_URL }}

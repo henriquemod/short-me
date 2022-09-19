@@ -1,4 +1,4 @@
-name: Release Backend Image to Docker Hub
+name: Build Backend Image
 
 on:
   push:
