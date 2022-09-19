@@ -1,4 +1,5 @@
 [![Cypress Tests](https://github.com/henriquemod/short-me/actions/workflows/e2e-tests.yml/badge.svg)](https://github.com/henriquemod/short-me/actions/workflows/e2e-tests.yml)
+[![Unit Tests](https://github.com/henriquemod/short-me/actions/workflows/unit-tests.yml/badge.svg)](https://github.com/henriquemod/short-me/actions/workflows/unit-tests.yml)
 
 <p align="center">
   <a href="https://example.com/">
