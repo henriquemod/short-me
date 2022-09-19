@@ -10,6 +10,7 @@ ENV NODE_ENV hml
 ENV DB_HOST postgres
 
 COPY packages/backend/ ./
+COPY docker-entrypoint.sh ./
 RUN yarn install --production
 
 RUN ["chmod", "+x", "./docker-entrypoint.sh"]
