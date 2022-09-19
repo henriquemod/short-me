@@ -9,9 +9,8 @@ WORKDIR /var/app
 ENV NODE_ENV hml
 ENV DB_HOST postgres
 
-COPY packages/backend/build ./build
-COPY node_modules ./node_modules
-COPY docker-entrypoint.sh ./
+COPY packages/backend/ ./
+RUN yarn install --production
 
 RUN ["chmod", "+x", "./docker-entrypoint.sh"]
 

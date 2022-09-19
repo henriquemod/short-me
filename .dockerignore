@@ -1,0 +1,4 @@
+packages/backend
+!packages/backend/build
+!packages/backend/docker-entrypoint.sh
+!packages/backend/package.json
