@@ -5,6 +5,7 @@ import userModel from '../infra/user/model/user-model'
 import config from './config'
 import app from './config/app'
 import log from './logger'
+import { captureException } from '@sentry/node'
 
 log.info(`Process id: ${process.pid}`)
 
@@ -46,7 +47,6 @@ const start = async (): Promise<void> => {
 }
 
 start().catch((err) => {
-  log.error(err)
-  log.error(err.stack)
+  captureException(err)
   process.exit(1)
 })
