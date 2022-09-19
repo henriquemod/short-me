@@ -1,3 +1,5 @@
+[![Cypress Tests](https://github.com/henriquemod/short-me/actions/workflows/e2e-tests.yml/badge.svg)](https://github.com/henriquemod/short-me/actions/workflows/e2e-tests.yml)
+
 <p align="center">
   <a href="https://example.com/">
     <img src="https://user-images.githubusercontent.com/43145168/190028991-b3e30dfe-8d51-4737-94b0-2bff87e62c88.png" alt="Logo" width="250">
