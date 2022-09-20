@@ -19,11 +19,10 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: |
+          cd ./packages/backend
+          yarn
+          NODE_ENV=development yarn test:ci
+      - run: |
           cd ./packages/frontend
           yarn
           yarn test:coverage
-      - run: |
-          rm -rf node_modules
-          cd ./packages/backend
-          yarn
-          yarn test:ci
