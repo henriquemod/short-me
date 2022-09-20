@@ -40,7 +40,7 @@ function overrideConfig(env: string) {
       }
     case 'production':
       return {
-        port: process.env.PORT ?? 80,
+        port: process.env.PORT ?? 8080,
         endpoint: endpoint ?? 'https://shortme.com',
         logs: { color: false, db: false }
       }
