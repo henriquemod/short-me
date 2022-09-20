@@ -1,0 +1,9 @@
+version: "3.4"
+
+services:
+  frontend:
+    container_name: shortme-frontend
+    image: henriquemod/shortme-frontend
+    ports:
+      - "3000:3000"
+    restart: always
