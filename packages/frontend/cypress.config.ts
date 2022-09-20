@@ -9,5 +9,6 @@ export default defineConfig({
     env: {
         ENDPOINT: 'http://localhost:8080',
         ENDPOINT_FRONTEND: 'http://localhost:3000'
-    }
+    },
+    video: false
 })
