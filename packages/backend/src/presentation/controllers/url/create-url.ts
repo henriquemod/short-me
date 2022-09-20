@@ -1,6 +1,6 @@
+import { captureException } from '@sentry/node'
 import { OutputCreateUrlDto } from '../../../domain/usecase/url'
 import { CreateUrl } from '../../../domain/usecase/url/url'
-import log from '../../../main/logger'
 import { MissingParamError } from '../../error'
 import { InvalidParamError } from '../../error/invalid-param-error'
 import { badRequest, ok, serverError } from '../../helpers/http-helper'
@@ -40,7 +40,9 @@ export default class CreateUrlController implements Controller {
 
       return ok(urlDto)
     } catch (error) {
-      log.error(error)
+      if (process.env.NODE_ENV !== 'development') {
+        captureException(error)
+      }
       return serverError(error as Error)
     }
   }

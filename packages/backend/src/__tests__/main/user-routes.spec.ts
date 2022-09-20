@@ -1,7 +1,7 @@
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import request from 'supertest'
 import { DbHelper } from '../../infra/@shared/helpers/db-helper'
 import app from '../../main/config/app'
+
 describe('User Routes', () => {
   beforeEach(async () => {
     await DbHelper.connect()
@@ -14,16 +14,10 @@ describe('User Routes', () => {
       console.log('Error destroying datasource: ', error)
     }
   })
-  // it('Should return a user on success', async () => {
-  //   await request(app)
-  //     .post('/api/user')
-  //     .send({
-  //       username: 'username',
-  //       password: '123123',
-  //       passwordConfirmation: '123123'
-  //     })
-  //     .expect(200)
-  // })
+
+  afterAll((done) => {
+    done()
+  })
 
   it('Should return a bad request error on missing name', async () => {
     await request(app)

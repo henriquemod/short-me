@@ -1,6 +1,6 @@
+import { captureException } from '@sentry/node'
 import { OutputFindUrlDto } from '../../../domain/usecase/url'
 import { FindUrl } from '../../../domain/usecase/url/url'
-import log from '../../../main/logger'
 import { MissingParamError } from '../../error'
 import {
   badRequest,
@@ -38,7 +38,9 @@ export default class FindUrlController implements Controller {
 
       return ok(urlDto)
     } catch (error) {
-      log.error(error)
+      if (process.env.NODE_ENV !== 'development') {
+        captureException(error)
+      }
       return serverError(error as Error)
     }
   }

@@ -1,6 +1,7 @@
 import request from 'supertest'
 import { DbHelper } from '../../infra/@shared/helpers/db-helper'
 import app from '../../main/config/app'
+
 describe('Url Routes', () => {
   beforeEach(async () => {
     await DbHelper.connect()
@@ -12,6 +13,10 @@ describe('Url Routes', () => {
     } catch (error) {
       console.log('Error destroying datasource: ', error)
     }
+  })
+
+  afterAll((done) => {
+    done()
   })
 
   it('Should return 200 on success', async () => {
