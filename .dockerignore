@@ -1,3 +1,8 @@
-packages/backend
+/*
+!packages/
+
 !packages/backend/build
 !packages/backend/package.json
+
+!packages/frontend/node_modules
+!packages/frontend/build

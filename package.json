@@ -9,7 +9,8 @@
     "commit": "cz",
     "pre-commit": "lint-staged",
     "prepare": "husky install",
-    "ci:docker:build": "cd packages/backend && yarn && yarn build && cd ../../"
+    "ci:docker:build": "cd packages/backend && yarn && yarn build && cd ../../",
+    "build:frontend": "cd packages/frontend && yarn && yarn build && cd ../../"
   },
   "keywords": [],
   "author": "",

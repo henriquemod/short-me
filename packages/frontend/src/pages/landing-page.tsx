@@ -1,9 +1,9 @@
 import { Grid } from '@mui/material'
 import styled from 'styled-components'
-import Logo from '../../public/assets/logo.svg'
 import { UrlLoader } from '../components/url-loader'
+import LogoSVG from '../lib/svgs/logo'
 
-const LogoContainer = styled.img`
+const LogoContainer = styled.div`
     max-width: 20vw;
     align-self: center;
 `
@@ -23,7 +23,9 @@ export const LandingPage = () => {
             maxWidth={768}
             flexDirection='column'
             data-testid='landingpage-grid'>
-            <LogoContainer src={Logo} alt='ShortMe Logo' />
+            <LogoContainer>
+                <LogoSVG />
+            </LogoContainer>
             <UrlLoader />
         </Grid>
     )
