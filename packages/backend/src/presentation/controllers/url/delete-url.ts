@@ -29,7 +29,9 @@ export default class DeleteUrlController implements Controller {
 
       return ok(urlDto)
     } catch (error) {
-      captureException(error)
+      if (process.env.NODE_ENV !== 'development') {
+        captureException(error)
+      }
       return serverError(error as Error)
     }
   }

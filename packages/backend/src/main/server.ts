@@ -10,6 +10,7 @@ import { captureException } from '@sentry/node'
 log.info(`Process id: ${process.pid}`)
 
 const server = createServer(app)
+const isDevelopment = config.env === 'development'
 
 const typeOrmSettingsDev: DataSourceOptions = {
   type: 'sqlite',
@@ -36,7 +37,7 @@ const typeOrmSettingsHml: DataSourceOptions = {
 }
 
 const datasource = new DataSource(
-  config.env === 'development' ? typeOrmSettingsDev : typeOrmSettingsHml
+  isDevelopment ? typeOrmSettingsDev : typeOrmSettingsHml
 )
 
 const start = async (): Promise<void> => {
@@ -47,6 +48,6 @@ const start = async (): Promise<void> => {
 }
 
 start().catch((err) => {
-  captureException(err)
+  if (!isDevelopment) captureException(err)
   process.exit(1)
 })
