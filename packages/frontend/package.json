@@ -23,6 +23,7 @@
     "axios": "0.27.2",
     "babel-loader": "8.2.5",
     "html-webpack-plugin": "5.5.0",
+    "path": "0.12.7",
     "psl": "1.9.0",
     "ramda": "^0.28.0",
     "react": "18.2.0",
@@ -68,8 +69,14 @@
     ]
   },
   "devDependencies": {
+    "@babel/core": "^7.19.1",
+    "@babel/preset-env": "^7.19.1",
+    "@badeball/cypress-cucumber-preprocessor": "13.0.2",
+    "@bahmutov/cypress-esbuild-preprocessor": "2.1.4",
+    "@cypress/webpack-preprocessor": "5.12.2",
     "@pmmmwh/react-refresh-webpack-plugin": "0.5.7",
     "@types/axios": "0.14.0",
+    "@types/cypress-cucumber-preprocessor": "4.0.1",
     "@types/enzyme": "3.10.12",
     "@types/enzyme-adapter-react-16": "1.0.6",
     "@types/prettier": "2.7.0",
@@ -77,7 +84,9 @@
     "@types/ramda": "0.28.15",
     "@types/styled-components": "5.1.26",
     "@types/validator": "13.7.6",
+    "babel-loader": "8.2.5",
     "cypress": "10.8.0",
+    "cypress-cucumber-preprocessor": "4.3.1",
     "cypress-real-events": "1.7.1",
     "cypress-wait-until": "1.7.2",
     "enzyme": "3.11.0",
@@ -86,6 +95,7 @@
     "flush-promises": "^1.0.2",
     "msw": "^0.47.1",
     "prettier": "2.7.1",
+    "webpack": "5.74.0",
     "webpack-cli": "4.10.0",
     "webpack-dev-server": "4.11.1"
   },
@@ -97,5 +107,10 @@
       "!src/global.d.ts",
       "!src/reportWebVitals.ts"
     ]
+  },
+  "cypress-cucumber-preprocessor": {
+    "nonGlobalStepDefinitions": true,
+    "moduleResolution": "node",
+    "stepDefinitions": "cypress/integration/common/**/*.ts"
   }
 }
