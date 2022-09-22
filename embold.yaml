@@ -1,0 +1,17 @@
+sources:
+  #Files or Directories to be Excluded are mentioned in exclusions
+  exclusions:
+    - "node_modules"
+    - "build"
+    - ".git"
+    - ".github"
+    - ".vscode"
+    - ".husky"
+    - ".dockerignore"
+    - "__tests__"
+    - "*.test.ts"
+    - "*.spec.ts"
+    - "cypress"
+    - "*.feature"
+
+languages: "TypeScript"
