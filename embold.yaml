@@ -1,5 +1,7 @@
+version: 1
+languages: "TypeScript"
+
 sources:
-  #Files or Directories to be Excluded are mentioned in exclusions
   exclusions:
     - "node_modules"
     - "build"
@@ -13,5 +15,3 @@ sources:
     - "*.spec.ts"
     - "cypress"
     - "*.feature"
-
-languages: "TypeScript"
