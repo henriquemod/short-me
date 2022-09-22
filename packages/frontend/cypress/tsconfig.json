@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "target": "es2015",
-    "types": ["cypress", "cypress-real-events"]
+    "types": ["cypress", "cypress-real-events"],
+    "moduleResolution": "node"
   }
 }
