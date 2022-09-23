@@ -16,3 +16,16 @@ sources:
     - "cypress"
     - ".feature"
     - "logo.tsx"
+    - "setupTests.ts"
+    - "frontend/src/index.tsx"
+
+modules:
+  - name: tslint
+    enabled: true
+    rules:
+      - key: "jsx-alignment"
+        enabled: false
+      - key: "avoid-http-string"
+        enabled: false
+      - key: "avoid-magic-numbers"
+        enabled: false
