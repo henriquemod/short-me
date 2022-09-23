@@ -23,9 +23,9 @@ modules:
   - name: tslint
     enabled: true
     rules:
-      - key: "jsx-alignment"
+      - key: "TSLINT-TS-180"
         enabled: false
-      - key: "avoid-http-string"
+      - key: "TSLINT-TS-133"
         enabled: false
-      - key: "avoid-magic-numbers"
+      - key: "TSLINT-TS-3"
         enabled: false
