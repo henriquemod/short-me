@@ -8,6 +8,6 @@ export class DbDeleteUrl implements DeleteUrl {
   constructor(private readonly deleteUrlRepository: DeleteUrl) {}
 
   async delete({ id }: InputDeleteUrlDto): Promise<OutputDeleteUrlDto> {
-    return await this.deleteUrlRepository.delete({ id })
+    return this.deleteUrlRepository.delete({ id })
   }
 }

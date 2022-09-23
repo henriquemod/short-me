@@ -45,7 +45,7 @@ const makeFakeBodyResponse = (props?: OverrideTypes): HttpResponse['body'] => ({
 const makeCreateUser = (): CreateUser => {
   class CreateUserStub implements CreateUser {
     async create(_input: InputCreateUserDto): Promise<OutputCreateUserDto> {
-      return await new Promise((resolve) => resolve(makeFakeBodyResponse()))
+      return new Promise((resolve) => resolve(makeFakeBodyResponse()))
     }
   }
   return new CreateUserStub()

@@ -12,11 +12,11 @@ interface SutTypes {
 const makeEncrypterStub = (): Encrypter => {
   class EncrypterStub implements Encrypter {
     async encrypt(value: string): Promise<string> {
-      return await new Promise((resolve) => resolve('hashed_password'))
+      return new Promise((resolve) => resolve('hashed_password'))
     }
 
     async compare(value: string, hash: string): Promise<boolean> {
-      return await new Promise((resolve) => resolve(true))
+      return new Promise((resolve) => resolve(true))
     }
   }
 

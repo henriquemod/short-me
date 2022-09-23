@@ -9,13 +9,13 @@ export class DbUpdateUser implements UpdateUser {
   constructor(private readonly updateUserRepository: UpdateUser) {}
 
   async update(input: InputUpdateUserDto): Promise<OutputUpdateUserDto> {
-    return await this.updateUserRepository.update(input)
+    return this.updateUserRepository.update(input)
   }
 
   async updatePassword(
     input: InputUpdatePasswordDto
   ): Promise<OutputUpdateUserDto> {
-    return await this.updateUserRepository.updatePassword({
+    return this.updateUserRepository.updatePassword({
       id: input.id,
       currentPassword: input.currentPassword,
       newPassword: input.newPassword

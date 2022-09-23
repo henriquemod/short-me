@@ -8,6 +8,6 @@ export class DbDeleteUser implements DeleteUser {
   constructor(private readonly deleteUserRepository: DeleteUser) {}
 
   async delete(input: InputDeleteUserDto): Promise<OutputDeleteUserDto> {
-    return await this.deleteUserRepository.delete({ id: input.id })
+    return this.deleteUserRepository.delete({ id: input.id })
   }
 }

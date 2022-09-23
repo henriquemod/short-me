@@ -1,3 +1,4 @@
+import { equals } from 'ramda'
 import { OutputCreateUserDto } from '../../../domain/usecase/user'
 import { CreateUser } from '../../../domain/usecase/user/user'
 import { CustomMessageError, MissingParamError } from '../../error'
@@ -18,7 +19,9 @@ export default class CreateUserController implements Controller {
 
       const { username, password, passwordConfirmation } = httpRequest.body
 
-      if (password !== passwordConfirmation) {
+      const isPwEquals = equals(password, passwordConfirmation)
+
+      if (!isPwEquals) {
         return badRequest(
           new CustomMessageError('Password confirmation does not match')
         )

@@ -3,10 +3,10 @@ import { Encrypter } from '../../../presentation/protocols/encrypter'
 
 export class EncrypterAdapter implements Encrypter {
   async encrypt(value: string): Promise<string> {
-    return await argon2d.hash(value)
+    return argon2d.hash(value)
   }
 
   async compare(value: string, hash: string): Promise<boolean> {
-    return await argon2d.verify(hash, value)
+    return argon2d.verify(hash, value)
   }
 }

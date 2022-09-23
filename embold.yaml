@@ -15,3 +15,4 @@ sources:
     - ".spec.ts"
     - "cypress"
     - ".feature"
+    - "logo.tsx"

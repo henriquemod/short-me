@@ -20,6 +20,7 @@ const ButtonLabel = styled.div`
 `
 
 const BUTTON_STYLE = { height: '100%', minWidth: '107px' }
+const CIRCULAR_PROGRESS_SIZE = 25
 
 interface IProps {
     validateUrl: (url: string) => boolean
@@ -57,7 +58,10 @@ export const InsertUrlInput = ({
     const buttonLabel = useMemo(
         () =>
             loading ? (
-                <CircularProgress size={25} id='circular-progress' />
+                <CircularProgress
+                    size={CIRCULAR_PROGRESS_SIZE}
+                    id='circular-progress'
+                />
             ) : (
                 <ButtonLabel>
                     Short me <PhotoSizeSelectSmall fontSize='small' />

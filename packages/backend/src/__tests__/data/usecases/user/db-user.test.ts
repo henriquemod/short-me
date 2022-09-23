@@ -88,11 +88,11 @@ const makeFakeUpdateUserRequest = (
 const makeEncrypter = (): Encrypter => {
   class EncrypterStub implements Encrypter {
     async encrypt(_value: string): Promise<string> {
-      return await Promise.resolve('hashed_password')
+      return Promise.resolve('hashed_password')
     }
 
     async compare(_value: string, _hash: string): Promise<boolean> {
-      return await Promise.resolve(true)
+      return Promise.resolve(true)
     }
   }
 
@@ -107,9 +107,7 @@ const makeCreateUserRepository = (): CreateUserRepository => {
         password: userData.password
       }
 
-      return await new Promise((resolve) =>
-        resolve(makeFakeUserResponse(fakeUser))
-      )
+      return new Promise((resolve) => resolve(makeFakeUserResponse(fakeUser)))
     }
   }
 
@@ -119,7 +117,7 @@ const makeCreateUserRepository = (): CreateUserRepository => {
 const makeFakeDeleteUserRepository = (): DeleteUserRepository => {
   class DeleteUserRepositoryStub implements DeleteUserRepository {
     async delete(_input: InputDeleteUserDto): Promise<OutputDeleteUserDto> {
-      return await new Promise((resolve) => resolve({ deleted: true }))
+      return new Promise((resolve) => resolve({ deleted: true }))
     }
   }
 
@@ -129,7 +127,7 @@ const makeFakeDeleteUserRepository = (): DeleteUserRepository => {
 const makeFindUserRepository = (): FindUserRepository => {
   class FindUserRepositoryStub implements FindUserRepository {
     async find(_input: InputFindUserDto): Promise<OutputFindUserDto> {
-      return await new Promise((resolve) =>
+      return new Promise((resolve) =>
         resolve(Object.assign(makeFakeUserResponse()))
       )
     }
@@ -141,7 +139,7 @@ const makeFindUserRepository = (): FindUserRepository => {
 const makeFindAllUsersRepository = (): FindAllUsersRepository => {
   class FindAllUsersRepositoryStub implements FindAllUsersRepository {
     async findAll(): Promise<OutputFindAllUsersDto> {
-      return await new Promise((resolve) =>
+      return new Promise((resolve) =>
         resolve({ users: [makeFakeUserResponse()] })
       )
     }
@@ -153,13 +151,13 @@ const makeFindAllUsersRepository = (): FindAllUsersRepository => {
 const makeUpdateUserRepository = (): UpdateUserRepository => {
   class UpdateUserRepositoryStub implements UpdateUserRepository {
     async update(_input: InputUpdateUserDto): Promise<OutputUpdateUserDto> {
-      return await new Promise((resolve) => resolve(makeFakeUserResponse()))
+      return new Promise((resolve) => resolve(makeFakeUserResponse()))
     }
 
     async updatePassword(
       _input: InputUpdatePasswordDto
     ): Promise<OutputUpdateUserDto> {
-      return await new Promise((resolve) => resolve(makeFakeUserResponse()))
+      return new Promise((resolve) => resolve(makeFakeUserResponse()))
     }
   }
 

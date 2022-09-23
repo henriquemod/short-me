@@ -5,6 +5,6 @@ export class DbFindUrl implements FindUrl {
   constructor(private readonly findUrlRepository: FindUrl) {}
 
   async find(input: InputFindUrlDto): Promise<OutputFindUrlDto | undefined> {
-    return await this.findUrlRepository.find({ key: input.key })
+    return this.findUrlRepository.find({ key: input.key })
   }
 }

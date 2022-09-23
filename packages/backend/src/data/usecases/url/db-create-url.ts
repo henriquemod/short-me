@@ -8,7 +8,7 @@ export class DbCreateUrl implements CreateUrl {
   constructor(private readonly createUserRepository: CreateUrl) {}
 
   async create(input: InputCreateUrlDto): Promise<OutputCreateUrlDto> {
-    return await this.createUserRepository.create({
+    return this.createUserRepository.create({
       url: input.url
     })
   }

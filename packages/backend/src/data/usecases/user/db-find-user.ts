@@ -8,6 +8,6 @@ export class DbFindUser implements FindUser {
   constructor(private readonly findUserRepository: FindUser) {}
 
   async find(input: InputFindUserDto): Promise<OutputFindUserDto | undefined> {
-    return await this.findUserRepository.find({ id: input.id })
+    return this.findUserRepository.find({ id: input.id })
   }
 }

@@ -43,7 +43,7 @@ const makeFakeBodyResponse = (props?: OverrideTypes): HttpResponse['body'] => ({
 const makeCreateUrl = (): CreateUrl => {
   class CreateUrlStub implements CreateUrl {
     async create(_input: InputCreateUrlDto): Promise<OutputCreateUrlDto> {
-      return await new Promise((resolve) => resolve(makeFakeBodyResponse()))
+      return new Promise((resolve) => resolve(makeFakeBodyResponse()))
     }
   }
   return new CreateUrlStub()

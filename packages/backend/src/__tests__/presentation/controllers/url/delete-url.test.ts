@@ -40,7 +40,7 @@ const makeFakeBodyResponse = (props?: OverrideTypes): HttpResponse['body'] => ({
 const makeDeleteUrl = (): DeleteUrl => {
   class DeleteUrlStub implements DeleteUrl {
     async delete(_input: InputDeleteUrlDto): Promise<OutputDeleteUrlDto> {
-      return await new Promise((resolve) => resolve(makeFakeBodyResponse()))
+      return new Promise((resolve) => resolve(makeFakeBodyResponse()))
     }
   }
   return new DeleteUrlStub()

@@ -19,6 +19,8 @@ module.exports = {
     '@typescript-eslint/method-signature-style': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/indent': ['off'],
-    '@typescript-eslint/space-before-function-paren': ['off']
+    '@typescript-eslint/space-before-function-paren': ['off'],
+    'no-return-await': 'off',
+    '@typescript-eslint/return-await': 'off'
   }
 }

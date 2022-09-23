@@ -61,9 +61,7 @@ const makeCreateUrlRepository = (): CreateUrlRepository => {
         url: urlData.url
       }
 
-      return await new Promise((resolve) =>
-        resolve(makeFakeUrlResponse(fakeUrl))
-      )
+      return new Promise((resolve) => resolve(makeFakeUrlResponse(fakeUrl)))
     }
   }
 
@@ -73,7 +71,7 @@ const makeCreateUrlRepository = (): CreateUrlRepository => {
 const makeFindUrlRepository = (): FindUrlRepository => {
   class FindUrlRepositoryStub implements FindUrlRepository {
     async find(_input: InputFindUrlDto): Promise<OutputFindUrlDto> {
-      return await new Promise((resolve) =>
+      return new Promise((resolve) =>
         resolve(Object.assign(makeFakeUrlResponse()))
       )
     }
@@ -85,7 +83,7 @@ const makeFindUrlRepository = (): FindUrlRepository => {
 const makeFakeDeleteUserRepository = (): DeleteUrlRepository => {
   class DeleteUrlRepositoryStub implements DeleteUrlRepository {
     async delete(_input: InputDeleteUrlDto): Promise<OutputDeleteUrlDto> {
-      return await new Promise((resolve) => resolve(makeFakeFindUrlResponse()))
+      return new Promise((resolve) => resolve(makeFakeFindUrlResponse()))
     }
   }
 

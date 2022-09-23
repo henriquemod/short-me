@@ -13,7 +13,7 @@ export class DbCreateUser implements CreateUser {
 
   async create(input: InputCreateUserDto): Promise<OutputCreateUserDto> {
     const hashedPassword = await this.encrypter.encrypt(input.password)
-    return await this.createUserRepository.create({
+    return this.createUserRepository.create({
       username: input.username,
       password: hashedPassword
     })

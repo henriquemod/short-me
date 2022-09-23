@@ -41,7 +41,7 @@ const makeFakeBodyResponse = (props?: OverrideTypes): HttpResponse['body'] => ({
 const makeFindUrl = (): FindUrl => {
   class FindUrlStub implements FindUrl {
     async find(_input: InputFindUrlDto): Promise<OutputFindUrlDto> {
-      return await new Promise((resolve) => resolve(makeFakeBodyResponse()))
+      return new Promise((resolve) => resolve(makeFakeBodyResponse()))
     }
   }
   return new FindUrlStub()

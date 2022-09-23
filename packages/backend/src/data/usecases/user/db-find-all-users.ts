@@ -5,6 +5,6 @@ export class DbFindAllUsers implements FindAllUsers {
   constructor(private readonly findUserRepository: FindAllUsers) {}
 
   async findAll(): Promise<OutputFindAllUsersDto> {
-    return await this.findUserRepository.findAll()
+    return this.findUserRepository.findAll()
   }
 }
