@@ -109,6 +109,9 @@
       "!src/App.tsx",
       "!src/global.d.ts",
       "!src/reportWebVitals.ts"
+    ],
+    "coveragePathIgnorePatterns" : [
+      "lib/messages.ts"
     ]
   },
   "cypress-cucumber-preprocessor": {

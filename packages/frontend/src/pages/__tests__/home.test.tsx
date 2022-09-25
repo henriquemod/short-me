@@ -3,6 +3,7 @@ import userEvent from '@testing-library/user-event'
 import { rest } from 'msw'
 import { setupServer } from 'msw/node'
 import { act } from 'react-dom/test-utils'
+import * as AppContext from '../../lib/app/app-context'
 import { Home } from '../home'
 
 const server = setupServer(

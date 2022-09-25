@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { AppContainer } from '../app-container'
 
-describe('App context unit tests', () => {
+describe('App container unit tests', () => {
     test('should render child', async () => {
         const child = (
             <div>

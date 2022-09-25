@@ -1,4 +1,4 @@
-import { Fade, Grid } from '@mui/material'
+import { AlertColor, Fade, Grid } from '@mui/material'
 import { Container } from '@mui/system'
 import { useContext } from 'react'
 import styled from 'styled-components'
@@ -28,6 +28,10 @@ export const Home = () => {
     const { create, remove, urlList, loading } = useUrl()
     const { notify } = useContext(AppContext)
 
+    const dispatchNotification = (message: string, severity: AlertColor) => {
+        notify?.(message, severity)
+    }
+
     return (
         <Grid {...GRID_PROPS} container maxWidth={768} flexDirection='column'>
             <LogoContainer>
@@ -36,7 +40,7 @@ export const Home = () => {
             <InsertUrlInput
                 validateUrl={UrlValidator}
                 handleCreateShortUrl={create}
-                notify={notify}
+                notify={dispatchNotification}
                 loading={loading}
             />
             <Fade in={urlList.length > 0}>
@@ -49,7 +53,7 @@ export const Home = () => {
                         <UrlList
                             handleDeleteUrl={remove}
                             itens={urlList}
-                            notify={notify}
+                            notify={dispatchNotification}
                             copyToClipboard={copyToClipboard}
                         />
                     </Grid>

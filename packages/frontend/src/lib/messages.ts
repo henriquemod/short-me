@@ -4,5 +4,6 @@ export enum Messages {
     Success = 'Your url was successfully shortened.',
     SuccessCopy = 'Url copied to your clipboard.',
     SuccessDelete = 'Url has been deleted.',
-    UrlNotAvailable = 'The URL you tried either is wrong or no longer exists'
+    UrlNotAvailable = 'The URL you tried either is wrong or no longer exists',
+    UrlNotProvided = 'Please inform URL'
 }
