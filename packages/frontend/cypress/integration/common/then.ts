@@ -1,5 +1,7 @@
 import { Then } from '@badeball/cypress-cucumber-preprocessor'
 
+const ENDPOINT: string = Cypress.env('ENDPOINT')
+
 Then(`I see {string} in the title`, title => {
     cy.title().should('include', title)
 })

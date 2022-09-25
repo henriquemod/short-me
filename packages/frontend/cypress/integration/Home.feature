@@ -4,6 +4,9 @@ Feature: Home Page
 
   Background:
     Given I go to home page
+
+  @focus
+  Scenario: I see the page title
     Then I see "Short Me" in the title
 
   @focus
@@ -21,6 +24,17 @@ Feature: Home Page
 
     When I click on 'copy-button'
     Then I should see 'Url copied to your clipboard.'
+
+  @focus
+  Scenario: I try to create a shor url but backend fails
+    When I type 'http://google.com.br' in input id 'insert-url-2'
+    And I click on 'insert-button' but it fails
+    Then I should see 'Network problems, please try again later.'
+
+  @focus
+  Scenario: I try to create a shor url with empty input
+    When I click on 'insert-button' but it fails
+    Then I should see 'Please inform URL.'
 
   @focus
   Scenario: I delete a short url
