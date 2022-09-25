@@ -16,7 +16,7 @@ export const useUrl = () => {
     const [urlList, setUrlList] = useState<IUrl[]>([])
     const [loading, setLoading] = useState(false)
 
-    const create = async (url: string) => {
+    const create = async (url: string): Promise<IUrl | void> => {
         try {
             setLoading(true)
             const request = await axios.post<IUrl>(ENDPOINT + URL_API_PATH, {
@@ -25,8 +25,10 @@ export const useUrl = () => {
 
             setUrlList([...urlList, request.data])
             setLoading(false)
+            return request.data
         } catch (error) {
             captureException(error)
+            setLoading(false)
         }
     }
 

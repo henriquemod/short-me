@@ -9,6 +9,7 @@ import {
 } from '@mui/material'
 import React, { useMemo, useRef, useState } from 'react'
 import styled from 'styled-components'
+import { IUrl } from '../lib/hooks/useUrl'
 import { Messages } from '../lib/messages'
 
 const ButtonLabel = styled.div`
@@ -24,7 +25,7 @@ const CIRCULAR_PROGRESS_SIZE = 25
 
 interface IProps {
     validateUrl: (url: string) => boolean
-    handleCreateShortUrl: (url: string) => Promise<void>
+    handleCreateShortUrl: (url: string) => Promise<IUrl | void>
     loading: boolean
     notify: (message: string, severity: AlertColor) => void
 }
@@ -52,10 +53,14 @@ export const InsertUrlInput = ({
                 inputRef.current?.focus()
                 notify(Messages.UrlNotProvided, 'info')
             } else {
-                await handleCreateShortUrl(value)
-                notify(Messages.Success, 'success')
+                const shortUrl = await handleCreateShortUrl(value)
+                if (shortUrl) {
+                    notify(Messages.Success, 'success')
+                    setValue('')
+                } else {
+                    notify(Messages.NetworkRequestError, 'error')
+                }
             }
-            setValue('')
         } else {
             notify(Messages.DefaultError, 'error')
         }
