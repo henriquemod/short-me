@@ -31,7 +31,7 @@ export const useUrl = () => {
     }
 
     const remove = async (id: string) => {
-        const config: AxiosRequestConfig<any> = {
+        const config: AxiosRequestConfig = {
             data: {
                 id
             }

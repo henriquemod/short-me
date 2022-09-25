@@ -1,7 +1,27 @@
 {
-  "extends": "react-app",
-  "plugins": ["prettier"],
-  "rules": {
-    "prettier/prettier": "error"
-  }
+    "root": true,
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "tsconfigRootDir": "./",
+        "project": ["./tsconfig.json"
+        ]
+    },
+    "plugins": ["@typescript-eslint", "prettier"
+    ],
+    "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking"
+    ],
+    "rules": {
+        "no-restricted-imports": "error",
+        "prettier/prettier": "error",
+        "@typescript-eslint/no-misused-promises": ["error", {
+            "checksVoidReturn": {
+            "arguments": false,
+            "attributes": false
+            }
+        }]
+    },
+    "ignorePatterns": ["**/*.test.tsx"]
 }

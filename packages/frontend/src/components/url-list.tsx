@@ -9,6 +9,8 @@ interface IProps {
     copyToClipboard: (value: string) => void
 }
 
+const ENDPOINT = process.env.ENDPOINT || 'http://localhost:3000'
+
 export const UrlList = ({
     itens,
     handleDeleteUrl,
@@ -23,7 +25,7 @@ export const UrlList = ({
                     id={element.id}
                     notify={notify}
                     copyToClipboard={copyToClipboard}
-                    shortUrl={`${process.env.ENDPOINT}/${element.key}`}
+                    shortUrl={`${ENDPOINT}/${element.key}`}
                     originalUrl={element.url}
                     handleDeleteUrl={handleDeleteUrl}
                 />
