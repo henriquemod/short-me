@@ -29,7 +29,7 @@ export const useFindUrl = (key: string) => {
     }, [])
 
     useEffect(() => {
-        findUrl(key)
+        findUrl(key).catch(captureException)
     }, [key, findUrl])
 
     const handleChangePage = useCallback(() => {
