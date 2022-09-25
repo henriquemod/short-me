@@ -133,4 +133,24 @@ describe('Insert URL Input unit tests', () => {
 
         expect(spyValidate).toHaveBeenCalledWith('https://validurl.com')
     })
+
+    test('should call notify with no url provided message', async () => {
+        const spyNotify = jest.spyOn(Sut, 'notify')
+
+        act(() => {
+            ReactDOM.createRoot(container).render(
+                <InsertUrlInput {...Sut} loading={false} />
+            )
+        })
+
+        const button = container.querySelector('#insert-button')
+
+        if (button) {
+            await act(async () => {
+                userEvent.click(button)
+            })
+        }
+
+        expect(spyNotify).toBeCalledWith(Messages.UrlNotProvided, 'info')
+    })
 })

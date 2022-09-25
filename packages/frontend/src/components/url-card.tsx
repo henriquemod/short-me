@@ -52,7 +52,7 @@ interface IProps {
     id: string
     handleDeleteUrl: (id: string) => Promise<void>
     copyToClipboard: (value: string) => void
-    notify?: (message: string, severity: AlertColor) => void
+    notify: (message: string, severity: AlertColor) => void
 }
 
 export const UrlCard = ({
@@ -72,18 +72,18 @@ export const UrlCard = ({
     const handleCopyToClipboard = () => {
         try {
             copyToClipboard(shortUrl)
-            if (notify) notify(Messages.SuccessCopy, 'info')
+            notify(Messages.SuccessCopy, 'info')
         } catch (error) {
-            if (notify) notify(Messages.DefaultError, 'error')
+            notify(Messages.DefaultError, 'error')
         }
     }
 
     const handleClickDelete = async () => {
         try {
             await handleDeleteUrl(id)
-            if (notify) notify(Messages.SuccessDelete, 'success')
+            notify(Messages.SuccessDelete, 'success')
         } catch (error) {
-            if (notify) notify(Messages.DefaultError, 'error')
+            notify(Messages.DefaultError, 'error')
         }
     }
 

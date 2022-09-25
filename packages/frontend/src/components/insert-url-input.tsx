@@ -7,7 +7,7 @@ import {
     Grid,
     TextField
 } from '@mui/material'
-import React, { useMemo, useState } from 'react'
+import React, { useMemo, useRef, useState } from 'react'
 import styled from 'styled-components'
 import { Messages } from '../lib/messages'
 
@@ -26,7 +26,7 @@ interface IProps {
     validateUrl: (url: string) => boolean
     handleCreateShortUrl: (url: string) => Promise<void>
     loading: boolean
-    notify?: (message: string, severity: AlertColor) => void
+    notify: (message: string, severity: AlertColor) => void
 }
 
 export const InsertUrlInput = ({
@@ -37,6 +37,7 @@ export const InsertUrlInput = ({
 }: IProps) => {
     const [value, setValue] = useState<string>('')
     const [error, setError] = useState(false)
+    const inputRef = useRef<HTMLInputElement>(null)
 
     const handleChangeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { value } = e.target
@@ -46,12 +47,17 @@ export const InsertUrlInput = ({
     }
 
     const handleClickButton = async () => {
-        if (!error && value) {
-            await handleCreateShortUrl(value)
-            if (notify) notify(Messages.Success, 'success')
+        if (!error) {
+            if (value.length === 0) {
+                inputRef.current?.focus()
+                notify(Messages.UrlNotProvided, 'info')
+            } else {
+                await handleCreateShortUrl(value)
+                notify(Messages.Success, 'success')
+            }
             setValue('')
         } else {
-            if (notify) notify(Messages.DefaultError, 'error')
+            notify(Messages.DefaultError, 'error')
         }
     }
 
@@ -84,6 +90,7 @@ export const InsertUrlInput = ({
                         value={value}
                         onChange={handleChangeValue}
                         error={error}
+                        inputRef={inputRef}
                         inputProps={{
                             id: 'insert-url-2',
                             role: 'textbox'

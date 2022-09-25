@@ -5,7 +5,7 @@ import { UrlCard } from './url-card'
 interface IProps {
     itens: IUrl[]
     handleDeleteUrl: (id: string) => Promise<void>
-    notify?: (message: string, severity: AlertColor) => void
+    notify: (message: string, severity: AlertColor) => void
     copyToClipboard: (value: string) => void
 }
 
