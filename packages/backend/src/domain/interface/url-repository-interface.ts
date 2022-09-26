@@ -10,5 +10,6 @@ import {
 export interface UrlRepositoryInterface {
   create: (input: InputCreateUrlDto) => Promise<OutputCreateUrlDto>
   find: (input: InputFindUrlDto) => Promise<OutputFindUrlDto | undefined>
+  findAll: () => Promise<OutputFindUrlDto[]>
   delete: (input: InputDeleteUrlDto) => Promise<OutputDeleteUrlDto>
 }

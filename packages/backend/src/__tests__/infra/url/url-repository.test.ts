@@ -83,6 +83,19 @@ describe('Server repository test', () => {
     })
   })
 
+  it('should find all urls', async () => {
+    const { sut } = makeSut()
+
+    await sut.create({ url: 'valid_url' })
+    await sut.create({ url: 'valid_url2' })
+
+    const urls = await sut.findAll()
+
+    expect(urls).toHaveLength(2)
+    expect(urls[0].url).toEqual('valid_url')
+    expect(urls[1].url).toEqual('valid_url2')
+  })
+
   it('should delete a url', async () => {
     const { sut } = makeSut()
 

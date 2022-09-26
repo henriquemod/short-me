@@ -40,6 +40,11 @@ export default class UrlRepository implements UrlRepositoryInterface {
     }
   }
 
+  async findAll(): Promise<OutputFindUrlDto[]> {
+    const result = await urlModel.find()
+    return result.map(({ id, url, key }) => ({ id, url, key }))
+  }
+
   async delete({ id }: InputDeleteUrlDto): Promise<OutputDeleteUrlDto> {
     const find = await urlModel.findOneOrFail({ where: { id } })
     await urlModel.delete({ id: find.id })
