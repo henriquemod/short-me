@@ -1,8 +1,10 @@
 import { CreateUrlRepository } from '../../../../data/protocols/url/create-url-repository'
 import { FindUrlRepository } from '../../../../data/protocols/url/find-url-repository'
+import { FindAllUrlsRepository } from '../../../../data/protocols/url/find-all-urls-repository'
 import { DeleteUrlRepository } from '../../../../data/protocols/url/delete-url-repository'
 import { DbCreateUrl } from '../../../../data/usecases/url/db-create-url'
 import { DbFindUrl } from '../../../../data/usecases/url/db-find-url'
+import { DbFindAllUrls } from '../../../../data/usecases/url/db-find-all-urls'
 import { DbDeleteUrl } from '../../../../data/usecases/url/db-delete-url'
 import {
   InputCreateUrlDto,
@@ -21,6 +23,11 @@ interface CreateSutTypes {
 interface FindSutTypes {
   sut: DbFindUrl
   findUrlRepositorySut: FindUrlRepository
+}
+
+interface FindAllSutTypes {
+  sut: DbFindAllUrls
+  findAllUrlsRepositorySut: FindAllUrlsRepository
 }
 
 interface DeleteSutTypes {
@@ -80,6 +87,24 @@ const makeFindUrlRepository = (): FindUrlRepository => {
   return new FindUrlRepositoryStub()
 }
 
+const makeFindAllUrlsRepository = (): FindAllUrlsRepository => {
+  class FindAllUrlsRepositoryStub implements FindAllUrlsRepository {
+    async findAll(): Promise<OutputFindUrlDto[]> {
+      return new Promise((resolve) =>
+        resolve(
+          Object.assign([
+            makeFakeUrlResponse(),
+            makeFakeUrlResponse(),
+            makeFakeUrlResponse()
+          ])
+        )
+      )
+    }
+  }
+
+  return new FindAllUrlsRepositoryStub()
+}
+
 const makeFakeDeleteUserRepository = (): DeleteUrlRepository => {
   class DeleteUrlRepositoryStub implements DeleteUrlRepository {
     async delete(_input: InputDeleteUrlDto): Promise<OutputDeleteUrlDto> {
@@ -105,6 +130,15 @@ const makeFindSut = (): FindSutTypes => {
   return {
     sut,
     findUrlRepositorySut
+  }
+}
+
+const makeFindAllSut = (): FindAllSutTypes => {
+  const findAllUrlsRepositorySut = makeFindAllUrlsRepository()
+  const sut = new DbFindAllUrls(findAllUrlsRepositorySut)
+  return {
+    sut,
+    findAllUrlsRepositorySut
   }
 }
 
@@ -148,7 +182,7 @@ describe('CREATE - Url repository test', () => {
 })
 
 describe('FIND - Url repository test', () => {
-  it('it should find user', async () => {
+  it('it should find url', async () => {
     const { sut, findUrlRepositorySut } = makeFindSut()
     jest
       .spyOn(findUrlRepositorySut, 'find')
@@ -159,7 +193,7 @@ describe('FIND - Url repository test', () => {
     expect(find).toEqual(makeFakeUrlResponse())
   })
 
-  it('should call find with correct values', async () => {
+  it('should call find url with correct values', async () => {
     const { sut, findUrlRepositorySut } = makeFindSut()
     const findSpy = jest.spyOn(findUrlRepositorySut, 'find')
 
@@ -167,13 +201,35 @@ describe('FIND - Url repository test', () => {
     expect(findSpy).toBeCalledWith({ key: 'valid_key' })
   })
 
-  it('should throw if find throws', async () => {
+  it('should throw if find url throws', async () => {
     const { sut, findUrlRepositorySut } = makeFindSut()
     jest.spyOn(findUrlRepositorySut, 'find').mockImplementationOnce(() => {
       throw new Error()
     })
 
     const promise = sut.find({ key: 'valid_key' })
+    await expect(promise).rejects.toThrow()
+  })
+})
+
+describe('FIND ALL - Url repository test', () => {
+  it('it should find all urls', async () => {
+    const { sut } = makeFindAllSut()
+
+    const find = await sut.findAll()
+
+    expect(find).toHaveLength(3)
+  })
+
+  it('should throw if find all urls throws', async () => {
+    const { sut, findAllUrlsRepositorySut } = makeFindAllSut()
+    jest
+      .spyOn(findAllUrlsRepositorySut, 'findAll')
+      .mockImplementationOnce(() => {
+        throw new Error()
+      })
+
+    const promise = sut.findAll()
     await expect(promise).rejects.toThrow()
   })
 })
