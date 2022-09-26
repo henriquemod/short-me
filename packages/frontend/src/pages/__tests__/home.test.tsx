@@ -4,9 +4,17 @@ import { rest } from 'msw'
 import { setupServer } from 'msw/node'
 import { act } from 'react-dom/test-utils'
 import * as AppContext from '../../lib/app/app-context'
+import { IUrlList } from '../../lib/hooks/useUrl'
 import { Home } from '../home'
 
 const server = setupServer(
+    rest.get<IUrlList>('http://localhost:8080/api/url', (_, res, ctx) => {
+        return res(
+            ctx.json({
+                urls: []
+            })
+        )
+    }),
     rest.post('http://localhost:8080/api/url', (req, res, ctx) => {
         return res(
             ctx.json({

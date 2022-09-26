@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios'
 import { pipe, reject } from 'ramda'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { captureException } from '@sentry/react'
 
 export interface IUrl {
@@ -9,12 +9,26 @@ export interface IUrl {
     key: string
 }
 
+export interface IUrlList {
+    urls: IUrl[]
+}
+
 const URL_API_PATH = '/api/url'
 const ENDPOINT = process.env.BACKEND_ENDPOINT ?? 'http://localhost:8080'
 
 export const useUrl = () => {
     const [urlList, setUrlList] = useState<IUrl[]>([])
     const [loading, setLoading] = useState(false)
+
+    useEffect(() => {
+        const getData = async () => {
+            const { data } = await axios.get<IUrlList>(ENDPOINT + URL_API_PATH)
+
+            setUrlList(data.urls)
+        }
+
+        void getData()
+    }, [])
 
     const create = async (url: string): Promise<IUrl | void> => {
         try {

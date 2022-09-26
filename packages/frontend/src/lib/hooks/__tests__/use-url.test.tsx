@@ -3,9 +3,16 @@ import flushPromises from 'flush-promises'
 import { rest } from 'msw'
 import { setupServer } from 'msw/node'
 import { act } from 'react-dom/test-utils'
-import { IUrl, useUrl } from '../useUrl'
+import { IUrl, IUrlList, useUrl } from '../useUrl'
 
 const server = setupServer(
+    rest.get<IUrlList>('http://localhost:8080/api/url', (_, res, ctx) => {
+        return res(
+            ctx.json({
+                urls: []
+            })
+        )
+    }),
     rest.post<IUrl>('http://localhost:8080/api/url', (req, res, ctx) => {
         if (req.body.url === '') {
             return res(
