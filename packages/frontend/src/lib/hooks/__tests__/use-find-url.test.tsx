@@ -1,5 +1,5 @@
 /* eslint-disable import/first */
-import { renderHook } from '@testing-library/react'
+import { renderHook, waitFor } from '@testing-library/react'
 import flushPromises from 'flush-promises'
 import { rest } from 'msw'
 import { setupServer } from 'msw/node'
@@ -59,7 +59,7 @@ describe('Use Find Url unit test', () => {
         })
 
         expect(result.current.error).toBeTruthy()
-        expect(result.current.url).toBeUndefined()
+        expect(result.current.url).toBe('')
     })
 
     test('shourl call handleChangePage', async () => {
@@ -87,5 +87,6 @@ describe('Use Find Url unit test', () => {
         })
 
         expect(spy).toBeCalledTimes(1)
+        expect(spy).toHaveBeenCalledWith('https://www.google.com.br')
     })
 })

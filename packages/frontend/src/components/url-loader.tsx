@@ -84,14 +84,9 @@ export const UrlLoader = (props: IProps) => {
         }
     }, [timeLimit])
 
-    return (
-        <Grid
-            {...GRID_PROPS}
-            container
-            maxWidth={768}
-            flexDirection='row'
-            marginTop={5}>
-            {error ? (
+    const renderContent = useMemo(() => {
+        if (error) {
+            return (
                 <Grid
                     item
                     xs
@@ -102,7 +97,9 @@ export const UrlLoader = (props: IProps) => {
                         {Messages.UrlNotAvailable}
                     </Typography>
                 </Grid>
-            ) : (
+            )
+        } else {
+            return (
                 <>
                     <Grid item xs={2} display='flex' justifyContent='center'>
                         <CircularProgressWithLabel
@@ -124,7 +121,18 @@ export const UrlLoader = (props: IProps) => {
                         </Button>
                     </Grid>
                 </>
-            )}
+            )
+        }
+    }, [error])
+
+    return (
+        <Grid
+            {...GRID_PROPS}
+            container
+            maxWidth={768}
+            flexDirection='row'
+            marginTop={5}>
+            {renderContent}
         </Grid>
     )
 }

@@ -4,15 +4,15 @@ import { setupServer } from 'msw/node'
 import { UrlLoader } from '../url-loader'
 
 const server = setupServer(
-    rest.get('http://localhost:8080/api/url/', (req, res, ctx) => {
-        return res(
+    rest.get('http://localhost:8080/api/url/', (req, res, ctx) =>
+        res(
             ctx.json({
                 id: '02f68cc0-db56-4539-9ad9-78905a7fa470',
                 url: 'www.google.com.br',
                 key: 'wLzfZ'
             })
         )
-    })
+    )
 )
 
 globalThis.IS_REACT_ACT_ENVIRONMENT = true
@@ -46,5 +46,28 @@ describe('Url list unit tests', () => {
         const button = screen.getByRole('action-button')
         expect(finish).toBeInTheDocument()
         expect(button).not.toBeDisabled()
+    })
+
+    test('should show not found message with incorrect key param', async () => {
+        server.close()
+
+        const serverError = setupServer(
+            rest.get('http://localhost:8080/api/url/', (req, res, ctx) =>
+                res(ctx.status(404))
+            )
+        )
+
+        serverError.listen()
+
+        render(<UrlLoader time={0} />)
+
+        await waitFor(() => {
+            const message = screen.getByText(
+                'The URL you tried either is wrong or no longer exists'
+            )
+            expect(message).toBeInTheDocument()
+        })
+
+        serverError.close()
     })
 })

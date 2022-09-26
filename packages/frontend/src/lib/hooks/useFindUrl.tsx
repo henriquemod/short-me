@@ -12,7 +12,7 @@ const ENDPOINT = process.env.BACKEND_ENDPOINT ?? 'http://localhost:8080'
 export const useFindUrl = (key: string) => {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(false)
-    const [url, setUrl] = useState<string>()
+    const [url, setUrl] = useState<string>('')
 
     const findUrl = useCallback(async (key: string) => {
         setLoading(true)
@@ -33,7 +33,7 @@ export const useFindUrl = (key: string) => {
     }, [key, findUrl])
 
     const handleChangePage = useCallback(() => {
-        if (url) changePage(url)
+        changePage(url)
     }, [url])
 
     return {
