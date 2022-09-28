@@ -29,7 +29,7 @@ if (!isDevelopment) {
   app.use(Sentry.Handlers.errorHandler())
 }
 
-app.use(helmet())
+app.use(helmet({ hsts: false }))
 app.use(cookieParser())
 app.use(express.json())
 
