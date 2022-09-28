@@ -3,6 +3,10 @@ import { mergeDeepRight, omit } from 'ramda'
 import { Config } from '../infra/@shared/types/express'
 dotenv.config()
 
+const DEFAULT_APP_PORT = 8080
+const DEFAULT_DB_PORT = 5432
+const LOG_LEVEL = getLogLevel(process.env.LOG_LEVEL)
+
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 function getLogLevel(level?: string) {
   switch (level) {
@@ -16,33 +20,33 @@ function getLogLevel(level?: string) {
   }
 }
 
-const endpoint = process.env.APP_ENDPOINT
-const logLevel = getLogLevel(process.env.LOG_LEVEL)
-
 const defaultConfig: Config = {
-  port: Number(process.env.PORT) || 8080,
-  endpoint: endpoint ?? 'http://localhost',
+  port: process.env.PORT ? Number(process.env.PORT) : DEFAULT_APP_PORT,
+  endpoint: process.env.APP_ENDPOINT ?? 'http://localhost:8080',
   env: process.env.NODE_ENV ?? 'development',
   dbHost: process.env.DB_HOST ?? 'localhost',
+  dbPort: process.env.DB_PORT ? Number(process.env.DB_PORT) : DEFAULT_DB_PORT,
+  dbName: process.env.DB_NAME ?? 'postgres',
+  dbUser: process.env.DB_USER ?? 'postgres',
+  dbPwd: process.env.DB_PWD ?? '123456',
+  ormType: 'sqlite',
   logs: {
     color: true,
-    level: logLevel,
-    db: logLevel === 'debug' && !process.env.OMIT_DB_LOGS
+    level: LOG_LEVEL,
+    db: LOG_LEVEL === 'debug' && !process.env.OMIT_DB_LOGS
   }
 }
 
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-function overrideConfig(env: string) {
+const overrideConfig = (env: string): Partial<Config> => {
   switch (env) {
-    case 'test':
+    case 'development':
       return {
-        logs: { level: 'error', db: false }
+        logs: { ...defaultConfig.logs, level: 'error', db: false }
       }
     case 'production':
       return {
-        port: process.env.PORT ?? 8080,
-        endpoint: endpoint ?? 'https://shortme.com',
-        logs: { color: false, db: false }
+        logs: { ...defaultConfig.logs, color: false, db: false },
+        ormType: 'postgres'
       }
     default:
       return {}

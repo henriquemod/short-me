@@ -5,6 +5,11 @@ export interface Config {
   endpoint: string
   env: string
   dbHost: string
+  dbPort: number
+  dbName: string
+  dbUser: string
+  dbPwd: string
+  ormType: 'sqlite' | 'postgres'
   logs: {
     color: boolean
     level: 'crit' | 'error' | 'warning' | 'info' | 'debug'
