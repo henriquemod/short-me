@@ -41,6 +41,7 @@
     "type-check": "npx tsc --noEmit",
     "precommit": "yarn type-check && yarn lint && yarn test:ci",
     "serve": "webpack serve --color --progress --config webpack/webpack.js",
+    "release": "webpack --color --progress --config webpack/webpack.js",
     "dev": "NODE_ENV=development yarn serve --open"
   },
   "eslintConfig": {
