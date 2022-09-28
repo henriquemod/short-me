@@ -12,33 +12,25 @@ log.info(`Process id: ${process.pid}`)
 const server = createServer(app)
 const isDevelopment = config.env === 'development'
 
-const typeOrmSettingsDev: DataSourceOptions = {
-  type: 'sqlite',
-  database: ':memory:',
-  synchronize: true,
-  logging: false,
-  entities: [userModel, urlModel],
-  migrations: [],
-  subscribers: []
-}
-
-const typeOrmSettingsHml: DataSourceOptions = {
-  type: 'postgres',
+const typeOrmSettingsDefault: DataSourceOptions = {
+  type: config.ormType,
   synchronize: true,
   logging: true,
   entities: [userModel, urlModel],
   migrations: [],
   subscribers: [],
   host: config.dbHost,
-  port: 5432,
-  username: 'postgres',
-  password: '123456',
-  database: 'postgres'
+  port: config.dbPort,
+  username: config.dbUser,
+  password: config.dbPwd,
+  database: config.dbName
 }
 
-const datasource = new DataSource(
-  isDevelopment ? typeOrmSettingsDev : typeOrmSettingsHml
-)
+const ormSettings: DataSourceOptions = isDevelopment
+  ? Object.assign({}, typeOrmSettingsDefault, { database: ':memory:' })
+  : typeOrmSettingsDefault
+
+const datasource = new DataSource(ormSettings)
 
 const start = async (): Promise<void> => {
   await datasource.initialize()

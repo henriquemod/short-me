@@ -19,6 +19,9 @@ services:
     ports:
       - "8080:8080"
     restart: always
+    environment:
+      - PORT=8080
+      - NODE_ENV=hml
 
   nginx:
     container_name: nginx
