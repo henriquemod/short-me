@@ -123,7 +123,7 @@ export const UrlLoader = (props: IProps) => {
                 </>
             )
         }
-    }, [error])
+    }, [error, timeLimit])
 
     return (
         <Grid
