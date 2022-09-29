@@ -1,6 +1,7 @@
 import { ContentCopy, Delete } from '@mui/icons-material'
 import { AlertColor, Button, Paper } from '@mui/material'
 import { splitAt } from 'ramda'
+import { useState } from 'react'
 import styled from 'styled-components'
 import { Colors } from '../lib/colors'
 import { Messages } from '../lib/messages'
@@ -63,6 +64,7 @@ export const UrlCard = ({
     notify,
     id
 }: IProps) => {
+    const [loading, setLoading] = useState(false)
     const [head] = splitAt(20, originalUrl)
     const [, tail] = splitAt(originalUrl.length - 20, originalUrl)
 
@@ -80,10 +82,13 @@ export const UrlCard = ({
 
     const handleClickDelete = async () => {
         try {
+            setLoading(true)
             await handleDeleteUrl(id)
             notify(Messages.SuccessDelete, 'success')
+            setLoading(false)
         } catch (error) {
             notify(Messages.DefaultError, 'error')
+            setLoading(false)
         }
     }
 
@@ -137,6 +142,7 @@ export const UrlCard = ({
                         onClick={handleClickDelete}
                         data-testid='delete-button'
                         id='delete-button'
+                        disabled={loading}
                         color='error'>
                         <ButtonLabel>
                             Delete <Delete fontSize='small' />
