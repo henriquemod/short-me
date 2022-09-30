@@ -9,7 +9,8 @@ const config: Config = {
             functions: 100,
             lines: 100
         }
-    }
+    },
+    collectCoverage: true
 }
 
 export default config

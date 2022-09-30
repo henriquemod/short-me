@@ -1,6 +1,6 @@
 import { AlertColor, Fade, Grid } from '@mui/material'
 import { Container } from '@mui/system'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import styled from 'styled-components'
 
 import { InsertUrlInput } from '../components/insert-url-input'
@@ -26,6 +26,7 @@ const copyToClipboard = (value: string) => navigator.clipboard.writeText(value)
 
 export const Home = () => {
     const { create, remove, urlList, loading } = useUrl()
+    const [lock, setLock] = useState(false)
     const { notify } = useContext(AppContext)
 
     const dispatchNotification = (message: string, severity: AlertColor) => {
@@ -42,6 +43,7 @@ export const Home = () => {
                 handleCreateShortUrl={create}
                 notify={dispatchNotification}
                 loading={loading}
+                lock={lock}
             />
             <Fade in={urlList.length > 0}>
                 <Container>
@@ -55,6 +57,7 @@ export const Home = () => {
                             itens={urlList}
                             notify={dispatchNotification}
                             copyToClipboard={copyToClipboard}
+                            setLock={setLock}
                         />
                     </Grid>
                 </Container>

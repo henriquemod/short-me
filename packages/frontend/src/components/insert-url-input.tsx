@@ -27,6 +27,7 @@ interface IProps {
     validateUrl: (url: string) => boolean
     handleCreateShortUrl: (url: string) => Promise<IUrl | void>
     loading: boolean
+    lock: boolean
     notify: (message: string, severity: AlertColor) => void
 }
 
@@ -34,7 +35,8 @@ export const InsertUrlInput = ({
     validateUrl,
     handleCreateShortUrl,
     notify,
-    loading
+    loading,
+    lock
 }: IProps) => {
     const [value, setValue] = useState<string>('')
     const [error, setError] = useState(false)
@@ -68,7 +70,7 @@ export const InsertUrlInput = ({
 
     const buttonLabel = useMemo(
         () =>
-            loading ? (
+            loading && !lock ? (
                 <CircularProgress
                     size={CIRCULAR_PROGRESS_SIZE}
                     id='circular-progress'
@@ -91,7 +93,7 @@ export const InsertUrlInput = ({
                         data-testid='insert-url'
                         label='URL'
                         variant='outlined'
-                        disabled={loading}
+                        disabled={loading || lock}
                         value={value}
                         onChange={handleChangeValue}
                         error={error}

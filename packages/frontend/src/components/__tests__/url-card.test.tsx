@@ -1,5 +1,5 @@
 import { AlertColor } from '@mui/material'
-import { act, render, screen } from '@testing-library/react'
+import { act, render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import ReactDOM from 'react-dom/client'
 import { Messages } from '../../lib/messages'
@@ -24,13 +24,15 @@ const handleDeleteUrlStub = (_: string) => Promise.resolve()
 const copyToClipboardStub = (value: string) =>
     navigator.clipboard.writeText(value)
 const notifyStub = (_: string, __: AlertColor) => {}
+const setLockStub = (_: React.SetStateAction<boolean>) => {}
 
 const mockValidCard = {
     id: 'valid_id',
     shortUrl: 'valid_short_url',
     handleDeleteUrl: handleDeleteUrlStub,
     copyToClipboard: copyToClipboardStub,
-    notify: notifyStub
+    notify: notifyStub,
+    setLock: setLockStub
 }
 
 beforeEach(() => {
@@ -162,59 +164,50 @@ describe('URL Card unit tests - Body content', () => {
 describe('URL Card unit tests - Buttons', () => {
     test('should display copy button', () => {
         render(<UrlCard {...mockValidCard} originalUrl={VALID_URL_US} />)
-
         const button = screen.getByTestId('copy-button')
-
         expect(button).toBeInTheDocument()
     })
-
     test('should call copy to clipboard with correct values', () => {
         const spyCopy = jest.spyOn(mockValidCard, 'copyToClipboard')
-
         render(<UrlCard {...mockValidCard} originalUrl={VALID_URL_US} />)
-
         const button = screen.getByTestId('copy-button')
         userEvent.click(button)
-
         expect(spyCopy).toBeCalledWith(mockValidCard.shortUrl)
     })
 
     test('should display delete button', () => {
         render(<UrlCard {...mockValidCard} originalUrl={VALID_URL_US} />)
-
         const button = screen.getByTestId('delete-button')
-
         expect(button).toBeInTheDocument()
     })
-
     test('should delete a card', () => {
         const spyDelete = jest.spyOn(mockValidCard, 'handleDeleteUrl')
-
         render(<UrlCard {...mockValidCard} originalUrl={VALID_URL_US} />)
 
         const button = screen.getByTestId('delete-button')
-        userEvent.click(button)
 
-        expect(spyDelete).toBeCalledTimes(1)
+        act(() => {
+            userEvent.click(button)
+        })
+
+        waitFor(() => {
+            expect(spyDelete).toBeCalledTimes(1)
+        })
     })
 
     test('should call notify with correct values when deleting', async () => {
         const spyNotify = jest.spyOn(mockValidCard, 'notify')
-
         act(() => {
             ReactDOM.createRoot(container).render(
                 <UrlCard {...mockValidCard} originalUrl={VALID_URL_US} />
             )
         })
-
         const button = container.querySelector('#delete-button')
-
         if (button) {
             await act(async () => {
                 userEvent.click(button)
             })
         }
-
         expect(spyNotify).toHaveBeenCalledWith(
             Messages.SuccessDelete,
             'success'
@@ -223,45 +216,36 @@ describe('URL Card unit tests - Buttons', () => {
 
     test('should call notify with correct values when deleting throws', async () => {
         const spyNotify = jest.spyOn(mockValidCard, 'notify')
-
         jest.spyOn(mockValidCard, 'handleDeleteUrl').mockImplementationOnce(
             () => Promise.reject()
         )
-
         act(() => {
             ReactDOM.createRoot(container).render(
                 <UrlCard {...mockValidCard} originalUrl={VALID_URL_US} />
             )
         })
-
         const button = container.querySelector('#delete-button')
-
         if (button) {
             await act(async () => {
                 userEvent.click(button)
             })
         }
-
         expect(spyNotify).toHaveBeenCalledWith(Messages.DefaultError, 'error')
     })
 
     test('should call notify with correct values when copying', async () => {
         const spyNotify = jest.spyOn(mockValidCard, 'notify')
-
         act(() => {
             ReactDOM.createRoot(container).render(
                 <UrlCard {...mockValidCard} originalUrl={VALID_URL_US} />
             )
         })
-
         const button = container.querySelector('#copy-button')
-
         if (button) {
             await act(async () => {
                 userEvent.click(button)
             })
         }
-
         expect(spyNotify).toHaveBeenCalledWith(Messages.SuccessCopy, 'info')
     })
 })

@@ -1,10 +1,12 @@
 import { ContentCopy, Delete } from '@mui/icons-material'
 import { AlertColor, Button, Paper } from '@mui/material'
-import { splitAt } from 'ramda'
+import { ap, splitAt } from 'ramda'
 import { useState } from 'react'
 import styled from 'styled-components'
 import { Colors } from '../lib/colors'
 import { Messages } from '../lib/messages'
+
+const PAPER_STYLE = { padding: '15px', marginBottom: '25px' }
 
 const CardContainer = styled.div`
     display: flex;
@@ -54,6 +56,7 @@ interface IProps {
     handleDeleteUrl: (id: string) => Promise<void>
     copyToClipboard: (value: string) => void
     notify: (message: string, severity: AlertColor) => void
+    setLock: (value: boolean) => void
 }
 
 export const UrlCard = ({
@@ -62,7 +65,8 @@ export const UrlCard = ({
     handleDeleteUrl,
     copyToClipboard,
     notify,
-    id
+    id,
+    setLock
 }: IProps) => {
     const [loading, setLoading] = useState(false)
     const [head] = splitAt(20, originalUrl)
@@ -80,15 +84,17 @@ export const UrlCard = ({
         }
     }
 
+    const handleLoad = (value: boolean) => ap([setLoading, setLock], [value])
+
     const handleClickDelete = async () => {
         try {
-            setLoading(true)
+            handleLoad(true)
             await handleDeleteUrl(id)
             notify(Messages.SuccessDelete, 'success')
-            setLoading(false)
+            handleLoad(false)
         } catch (error) {
             notify(Messages.DefaultError, 'error')
-            setLoading(false)
+            handleLoad(false)
         }
     }
 
@@ -102,10 +108,7 @@ export const UrlCard = ({
     }
 
     return (
-        <Paper
-            elevation={5}
-            style={{ padding: '15px', marginBottom: '25px' }}
-            className='url-card'>
+        <Paper elevation={5} style={PAPER_STYLE} className='url-card'>
             <CardContainer>
                 <CardContent>
                     <h2>{handleExtractDomain(originalUrl)}</h2>

@@ -7,6 +7,7 @@ interface IProps {
     handleDeleteUrl: (id: string) => Promise<void>
     notify: (message: string, severity: AlertColor) => void
     copyToClipboard: (value: string) => void
+    setLock: (status: boolean) => void
 }
 
 const ENDPOINT = process.env.ENDPOINT || 'http://localhost:3000'
@@ -15,7 +16,8 @@ export const UrlList = ({
     itens,
     handleDeleteUrl,
     notify,
-    copyToClipboard
+    copyToClipboard,
+    setLock
 }: IProps) => {
     return (
         <Grid item xs>
@@ -28,6 +30,7 @@ export const UrlList = ({
                     shortUrl={`${ENDPOINT}/${element.key}`}
                     originalUrl={element.url}
                     handleDeleteUrl={handleDeleteUrl}
+                    setLock={setLock}
                 />
             ))}
         </Grid>

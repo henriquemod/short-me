@@ -29,12 +29,14 @@ const mockUrlList: IUrl[] = generateFakeData(3)
 const handleDeleteUrlStub = (id: string) => Promise.resolve()
 const notifyStub = (_: string, __: AlertColor) => {}
 const copyToClipboardStub = (_: string) => {}
+const setLockStub = (_: boolean) => {}
 
 const Sut = {
     itens: mockUrlList,
     handleDeleteUrl: handleDeleteUrlStub,
     notify: notifyStub,
-    copyToClipboard: copyToClipboardStub
+    copyToClipboard: copyToClipboardStub,
+    setLock: setLockStub
 }
 
 describe('Url list unit tests', () => {

@@ -23,7 +23,8 @@ const notifyStub = (_: string, __: AlertColor) => {}
 const Sut = {
     validateUrl: handleValidateUrlStub,
     handleCreateShortUrl: handleCreateShortUrlStub,
-    notify: notifyStub
+    notify: notifyStub,
+    lock: false
 }
 
 let container: HTMLDivElement
