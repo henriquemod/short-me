@@ -17,8 +17,8 @@ jobs:
 
       - name: Run docker images
         run: |
-          docker run -d --rm -e POSTGRES_PASSWORD=123456 -p5432:5432 postgres:11.13
-          docker run -d --rm -e PORT=8080 -e NODE_ENV=hml -p8080:8080 henriquemod/shortme-backend
+          docker run -d -e POSTGRES_PASSWORD=123456 --network host postgres:11.13
+          docker run -d --restart=always -e PORT=8080 -e NODE_ENV=hml --network host henriquemod/shortme-backend
 
       - name: Install dependencies
         run: |
