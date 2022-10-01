@@ -17,8 +17,10 @@ jobs:
 
       - name: Run docker images
         run: |
-          docker run -d -e POSTGRES_PASSWORD=123456 --network host postgres:11.13
-          docker run -d --restart=always -e PORT=8080 -e NODE_ENV=hml --network host henriquemod/shortme-backend
+          docker network create -d bridge shortme-network
+          docker run -d --name postgres --network=shortme-network -e POSTGRES_PASSWORD=123456 postgres:11.13
+          docker run -d --name shortme-backend --network=shortme-network -e PORT=8080 -e NODE_ENV=hml henriquemod/shortme-backend:latest
+          docker run -d --network=shortme-network -p80:80 -v $(pwd)/packages/backend/nginx/local.conf:/etc/nginx/conf.d/default.conf nginx
 
       - name: Install dependencies
         run: |
