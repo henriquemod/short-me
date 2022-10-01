@@ -1,0 +1,41 @@
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  k6_transpile_bundle_test:
+    name: K6 - Transpile, bundle and run
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install docker compose
+        run: |
+          sudo apt update
+          sudo apt install -y docker-compose
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Run docker images
+        run: |
+          cd ./packages/backend
+          docker-compose up -d
+
+      - name: Install dependencies
+        run: |
+          cd packages/loadingtest
+          yarn --frozen-lockfile
+
+      - name: Transpile and bundle test script
+        run: |
+          cd packages/loadingtest
+          yarn webpack
+
+      - name: Run local k6 test
+        uses: grafana/k6-action@v0.2.0
+        with:
+          filename: packages/loadingtest/dist/index.js
