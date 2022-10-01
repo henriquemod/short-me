@@ -12,18 +12,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Install docker compose
-        run: |
-          sudo apt update
-          sudo apt install -y docker-compose
-
       - name: Checkout
         uses: actions/checkout@v3
 
       - name: Run docker images
         run: |
-          cd ./packages/backend
-          docker-compose up -d
+          docker run -d --rm -e POSTGRES_PASSWORD=123456 -p5432:5432 postgres:11.13
+          docker run -d --rm -e PORT=8080 -e NODE_ENV=hml -p8080:8080 henriquemod/shortme-backend
 
       - name: Install dependencies
         run: |
