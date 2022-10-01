@@ -3,7 +3,7 @@ interface Config {
 }
 
 const config: Config = {
-    endpoint: __ENV.ENDPOINT || 'http://localhost:8080'
+    endpoint: __ENV.ENDPOINT || 'http://localhost'
 }
 
 export default config
