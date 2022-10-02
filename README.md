@@ -3,6 +3,7 @@
 [![Build Backend Image](https://github.com/henriquemod/short-me/actions/workflows/backend-image.yml/badge.svg)](https://github.com/henriquemod/short-me/actions/workflows/backend-image.yml)
 [![Build Frontend Image](https://github.com/henriquemod/short-me/actions/workflows/frontend-image.yml/badge.svg)](https://github.com/henriquemod/short-me/actions/workflows/frontend-image.yml)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/7c69e781-2f32-4865-83e0-edbcf8e32b82/deploy-status)](https://app.netlify.com/sites/shortm3/deploys)
+[![Loading Tests](https://github.com/henriquemod/short-me/actions/workflows/loadingtest.yml/badge.svg)](https://github.com/henriquemod/short-me/actions/workflows/loadingtest.yml)
 
 <p align="center">
   <a href="https://example.com/">
