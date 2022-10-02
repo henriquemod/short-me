@@ -6,11 +6,13 @@ import { DeleteUrl } from '../../../../domain/usecase/url/url'
 import { MissingParamError } from '../../../../presentation/error'
 import {
   badRequest,
+  notFoundRequest,
   ok,
   serverError
 } from '../../../../presentation/helpers/http-helper'
 import DeleteUrlController from '../../../../presentation/controllers/url/delete-url'
 import { HttpRequest, HttpResponse } from '../../../../presentation/protocols'
+import { ExceptionHandler } from '../../../../presentation/protocols/exception-handler'
 
 interface SutTypes {
   sut: DeleteUrlController
@@ -46,9 +48,18 @@ const makeDeleteUrl = (): DeleteUrl => {
   return new DeleteUrlStub()
 }
 
+const makeExceptionHandler = (): ExceptionHandler => {
+  class ExceptionHandlerStub implements ExceptionHandler {
+    validate = (_: Error) => jest.fn()
+  }
+
+  return new ExceptionHandlerStub()
+}
+
 const makeSut = (): SutTypes => {
   const deleteUrlStub = makeDeleteUrl()
-  const sut = new DeleteUrlController(deleteUrlStub)
+  const exceptionHandlerStub = makeExceptionHandler()
+  const sut = new DeleteUrlController(deleteUrlStub, exceptionHandlerStub)
   return {
     sut,
     deleteUrlStub
@@ -66,6 +77,13 @@ describe('Delete Url Controller', () => {
     const { sut } = makeSut()
     const httpResponse = await sut.handle(makeFakeRequest())
     expect(httpResponse).toEqual(ok(makeFakeBodyResponse()))
+  })
+
+  it('should return 404 if no id not found', async () => {
+    const { sut, deleteUrlStub } = makeSut()
+    jest.spyOn(deleteUrlStub, 'delete').mockResolvedValue(undefined)
+    const httpResponse = await sut.handle(makeFakeRequest())
+    expect(httpResponse).toEqual(notFoundRequest(new Error('Not found')))
   })
 
   it('should call DeleteUrl with correct values', async () => {

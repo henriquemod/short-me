@@ -28,7 +28,7 @@ describe('Url Routes', () => {
       .expect(200)
   })
 
-  it('Should return a bad request error on missing url', async () => {
+  it('Should return missing param missing url', async () => {
     await request(app).post('/api/url').send({}).expect(400)
   })
 })
