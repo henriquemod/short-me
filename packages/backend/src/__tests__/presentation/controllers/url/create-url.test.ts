@@ -13,6 +13,7 @@ import CreateUrlController from '../../../../presentation/controllers/url/create
 import { HttpRequest, HttpResponse } from '../../../../presentation/protocols'
 import { InvalidParamError } from '../../../../presentation/error/invalid-param-error'
 import { UrlValidator } from '../../../../presentation/protocols/url-validator'
+import { ExceptionHandler } from '../../../../presentation/protocols/exception-handler'
 
 interface SutTypes {
   sut: CreateUrlController
@@ -59,10 +60,23 @@ const makeValidator = (): UrlValidator => {
   return new ValidatorStub()
 }
 
+const makeExceptionHandler = (): ExceptionHandler => {
+  class ExceptionHandlerStub implements ExceptionHandler {
+    validate = (_: Error) => jest.fn()
+  }
+
+  return new ExceptionHandlerStub()
+}
+
 const makeSut = (): SutTypes => {
   const createUrlStub = makeCreateUrl()
   const urlValidatorStub = makeValidator()
-  const sut = new CreateUrlController(createUrlStub, urlValidatorStub)
+  const exceptionHandlerStub = makeExceptionHandler()
+  const sut = new CreateUrlController(
+    createUrlStub,
+    urlValidatorStub,
+    exceptionHandlerStub
+  )
   return {
     sut,
     createUrlStub,

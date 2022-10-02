@@ -12,6 +12,7 @@ import {
 } from '../../../../presentation/helpers/http-helper'
 import FindAllUrlsController from '../../../../presentation/controllers/url/find-all-urls'
 import { HttpRequest, HttpResponse } from '../../../../presentation/protocols'
+import { ExceptionHandler } from '../../../../presentation/protocols/exception-handler'
 
 interface SutTypes {
   sut: FindAllUrlsController
@@ -44,9 +45,18 @@ const makeFindAllUrls = (): FindAllUrls => {
   return new FindAllUrlsStub()
 }
 
+const makeExceptionHandler = (): ExceptionHandler => {
+  class ExceptionHandlerStub implements ExceptionHandler {
+    validate = (_: Error) => jest.fn()
+  }
+
+  return new ExceptionHandlerStub()
+}
+
 const makeSut = (): SutTypes => {
   const findAllUrlsStub = makeFindAllUrls()
-  const sut = new FindAllUrlsController(findAllUrlsStub)
+  const exceptionHandlerStub = makeExceptionHandler()
+  const sut = new FindAllUrlsController(findAllUrlsStub, exceptionHandlerStub)
   return {
     sut,
     findAllUrlsStub

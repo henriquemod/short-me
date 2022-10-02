@@ -1,4 +1,3 @@
-import { captureException } from '@sentry/node'
 import { OutputFindUrlDto } from '../../../domain/usecase/url'
 import { FindUrl } from '../../../domain/usecase/url/url'
 import { MissingParamError } from '../../error'
@@ -9,9 +8,13 @@ import {
   serverError
 } from '../../helpers/http-helper'
 import { Controller, HttpRequest, HttpResponse } from '../../protocols'
+import { ExceptionHandler } from '../../protocols/exception-handler'
 
 export default class FindUrlController implements Controller {
-  constructor(private readonly findUrl: FindUrl) {}
+  constructor(
+    private readonly findUrl: FindUrl,
+    private readonly exceptionHandler: ExceptionHandler
+  ) {}
 
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
@@ -38,9 +41,7 @@ export default class FindUrlController implements Controller {
 
       return ok(urlDto)
     } catch (error) {
-      if (process.env.NODE_ENV !== 'development') {
-        captureException(error)
-      }
+      this.exceptionHandler.validate(error as Error)
       return serverError(error as Error)
     }
   }

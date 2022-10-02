@@ -1,16 +1,17 @@
-import { captureException } from '@sentry/node'
 import { OutputCreateUrlDto } from '../../../domain/usecase/url'
 import { CreateUrl } from '../../../domain/usecase/url/url'
 import { MissingParamError } from '../../error'
 import { InvalidParamError } from '../../error/invalid-param-error'
 import { badRequest, ok, serverError } from '../../helpers/http-helper'
 import { Controller, HttpRequest, HttpResponse } from '../../protocols'
+import { ExceptionHandler } from '../../protocols/exception-handler'
 import { UrlValidator } from '../../protocols/url-validator'
 
 export default class CreateUrlController implements Controller {
   constructor(
     private readonly createUrl: CreateUrl,
-    private readonly urlValidator: UrlValidator
+    private readonly urlValidator: UrlValidator,
+    private readonly exceptionHandler: ExceptionHandler
   ) {}
 
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
@@ -40,9 +41,7 @@ export default class CreateUrlController implements Controller {
 
       return ok(urlDto)
     } catch (error) {
-      if (process.env.NODE_ENV !== 'development') {
-        captureException(error)
-      }
+      this.exceptionHandler.validate(error as Error)
       return serverError(error as Error)
     }
   }

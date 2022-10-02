@@ -1,7 +1,6 @@
 import { createServer } from 'http'
 import { DataSource, DataSourceOptions } from 'typeorm'
 import urlModel from '../infra/url/model/url-model'
-import userModel from '../infra/user/model/user-model'
 import config from './config'
 import app from './config/app'
 import log from './logger'
@@ -16,7 +15,7 @@ const typeOrmSettingsDefault: DataSourceOptions = {
   type: config.ormType,
   synchronize: true,
   logging: true,
-  entities: [userModel, urlModel],
+  entities: [urlModel],
   migrations: [],
   subscribers: [],
   host: config.dbHost,
