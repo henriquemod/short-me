@@ -1,13 +1,12 @@
 import { Options } from 'k6/options'
-import getUrl200Test from './url/get-200-status-test'
-import getUrl404Test from './url/get-404-status-test'
+import postUrlTest from './url/post-url-test'
+import getUrlTest from './url/get-url-test'
 
 export const options: Options = {
-    vus: 500,
-    duration: '10s',
+    vus: 50,
+    duration: '120s',
     thresholds: {
-        // http errors should be less than 5%
-        http_req_failed: ['rate<0.05']
+        'checks{kind:success}': ['rate>0.9']
     },
     ext: {
         loadimpact: {
@@ -18,6 +17,6 @@ export const options: Options = {
 }
 
 export default () => {
-    getUrl200Test()
-    getUrl404Test()
+    postUrlTest()
+    getUrlTest()
 }

@@ -4,15 +4,7 @@ import config from '../config'
 
 const PATH = '/api/url'
 
-const getAllUrlsTest = () => {
-    const res = http.get(config.endpoint + PATH)
-    check(res, {
-        'status is 200': () => res.status === 200
-    })
-    sleep(1)
-}
-
-const createUrlTest = () => {
+export default () => {
     const payload = JSON.stringify({
         url: 'www.google.com.br'
     })
@@ -24,13 +16,13 @@ const createUrlTest = () => {
     }
 
     const res = http.post(config.endpoint + PATH, payload, params)
-    check(res, {
-        'status is 200': () => res.status === 200
-    })
-    sleep(1)
-}
+    check(
+        res,
+        {
+            'status is 200': () => res.status === 200
+        },
+        { kind: 'success' }
+    )
 
-export default () => {
-    getAllUrlsTest()
-    createUrlTest()
+    sleep(1)
 }

@@ -29,7 +29,7 @@
   "scripts": {
     "clean": "rm -rf ./dist",
     "build": "webpack",
-    "k6": "docker run --rm -i --network host grafana/k6 run - <dist/index.js",
+    "k6": "sh init-k6.sh",
     "start": "yarn clean && yarn build && yarn k6",
     "lint": "eslint -c .eslintrc 'src/**/*.ts'"
   }
