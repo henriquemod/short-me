@@ -22,7 +22,6 @@ jobs:
         run: |
           cd ./packages/backend
           docker-compose up -d
-          echo "Hello ${{ github.event.inputs.container_name }}"
           cd ../../
 
       - name: Run Cypress
