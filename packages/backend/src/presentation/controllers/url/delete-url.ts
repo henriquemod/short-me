@@ -1,8 +1,13 @@
 import { captureException } from '@sentry/node'
 import { OutputDeleteUrlDto } from '../../../domain/usecase/url'
 import { DeleteUrl } from '../../../domain/usecase/url/url'
-import { MissingParamError } from '../../error'
-import { badRequest, ok, serverError } from '../../helpers/http-helper'
+import { CustomMessageError, MissingParamError } from '../../error'
+import {
+  badRequest,
+  notFoundRequest,
+  ok,
+  serverError
+} from '../../helpers/http-helper'
 import { Controller, HttpRequest, HttpResponse } from '../../protocols'
 
 export default class DeleteUrlController implements Controller {
@@ -20,6 +25,10 @@ export default class DeleteUrlController implements Controller {
       const { id } = httpRequest.body
 
       const url = await this.DeleteUrl.delete({ id })
+
+      if (!url) {
+        return notFoundRequest(new CustomMessageError('Not found'))
+      }
 
       const urlDto: OutputDeleteUrlDto = {
         id: url.id,

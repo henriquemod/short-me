@@ -20,5 +20,5 @@ export interface FindAllUrls {
 }
 
 export interface DeleteUrl {
-  delete: (input: InputDeleteUrlDto) => Promise<OutputDeleteUrlDto>
+  delete: (input: InputDeleteUrlDto) => Promise<OutputDeleteUrlDto | undefined>
 }
