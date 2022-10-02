@@ -1,4 +1,4 @@
-name: K6 Grafana Loading Tests
+name: Loading Tests
 
 on:
   push:
@@ -10,14 +10,14 @@ on:
 
 jobs:
   k6_transpile_bundle_test:
-    name: K6 - Transpile, bundle and run
+    name: Transpile, bundle and run
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Install k6
+      - name: Download K6
         run: |
           curl https://github.com/loadimpact/k6/releases/download/v0.26.2/k6-v0.26.2-linux64.tar.gz -L | tar xvz --strip-components 1
 
@@ -31,7 +31,7 @@ jobs:
           cd packages/loadingtest
           yarn webpack
 
-      - name: Run docker images
+      - name: Build backend and run K6
         run: |
           docker network create -d bridge shortme-network
           docker run -d --name postgres --network=shortme-network -e POSTGRES_PASSWORD=123456 postgres:11.13
