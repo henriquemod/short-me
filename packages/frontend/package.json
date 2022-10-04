@@ -110,7 +110,9 @@
       "!src/index.tsx",
       "!src/App.tsx",
       "!src/global.d.ts",
-      "!src/reportWebVitals.ts"
+      "!src/reportWebVitals.ts",
+      "!src/styles/**/*.ts",
+      "!src/**/*.d.ts"
     ],
     "coveragePathIgnorePatterns": [
       "lib/messages.ts"

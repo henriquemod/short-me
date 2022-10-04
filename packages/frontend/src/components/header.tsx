@@ -34,9 +34,8 @@ const Header = ({ handleChangeTheme }: IProps) => {
                 <Switch
                     {...label}
                     checked={isDark}
-                    onChange={() => {
-                        handleChangeTheme()
-                    }}
+                    role='theme-switch'
+                    onChange={handleChangeTheme}
                 />
             </Toolbar>
         </AppBar>

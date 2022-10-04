@@ -1,5 +1,5 @@
 import { AlertColor, Grid } from '@mui/material'
-import { IUrl } from '../lib/hooks/useUrl'
+import { IUrl } from '../lib/hooks/use-url'
 import { UrlCard } from './url-card'
 
 interface IProps {

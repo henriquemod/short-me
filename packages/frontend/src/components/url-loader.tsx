@@ -6,8 +6,8 @@ import CircularProgress, {
 import { useMemo } from 'react'
 import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
-import { useFindUrl } from '../lib/hooks/useFindUrl'
-import { useTimer } from '../lib/hooks/useTimer'
+import { useFindUrl } from '../lib/hooks/use-find-url'
+import { useTimer } from '../lib/hooks/use-timer'
 import { Messages } from '../lib/messages'
 
 const GRID_PROPS = {

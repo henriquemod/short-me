@@ -2,7 +2,7 @@ import { AlertColor } from '@mui/material'
 import userEvent from '@testing-library/user-event'
 import ReactDOM from 'react-dom/client'
 import { act } from 'react-dom/test-utils'
-import { IUrl } from '../../lib/hooks/useUrl'
+import { IUrl } from '../../lib/hooks/use-url'
 import { Messages } from '../../lib/messages'
 import { InsertUrlInput } from '../insert-url-input'
 

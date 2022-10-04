@@ -39,12 +39,12 @@ const CardContent = styled.div<{ color?: string }>`
     }
 
     & p {
-        font-size: 0.7em;
+        font-size: 0.75em;
         font-weight: 700;
     }
 
     & span {
-        font-size: 1.2em;
+        font-size: 1.5em;
         font-weight: 500;
         margin-left: 5px;
     }

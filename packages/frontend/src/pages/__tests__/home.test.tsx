@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event'
 import { rest } from 'msw'
 import { setupServer } from 'msw/node'
 import { act } from 'react-dom/test-utils'
-import { IUrlList } from '../../lib/hooks/useUrl'
+import { IUrlList } from '../../lib/hooks/use-url'
 import { Home } from '../home'
 
 const server = setupServer(

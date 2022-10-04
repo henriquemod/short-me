@@ -1,5 +1,5 @@
 import { render, renderHook, waitFor } from '@testing-library/react'
-import { useNotification } from '../../hooks/useNotification'
+import { useNotification } from '../../hooks/use-notification'
 import AppContext, { IAppContext } from '../app-context'
 
 const mockAppSettings: IAppContext = {
