@@ -1,34 +1,47 @@
-import { ThemeProvider, createTheme } from '@mui/material'
-import { Colors } from './lib/colors'
-import { Home } from './pages/home'
-import { AppContainer } from './lib/app/app-container'
-import { Routes, Route } from 'react-router-dom'
-import { LandingPage } from './pages/landing-page'
+import { ThemeProvider as MuiThemeProvider } from '@mui/material'
 import * as Sentry from '@sentry/react'
+import { useMemo } from 'react'
+import { Route, Routes } from 'react-router-dom'
+import { DefaultTheme, ThemeProvider } from 'styled-components'
+import { AppContainer } from './lib/app/app-container'
+import usePersistedState from './lib/hooks/usePersistedState'
+import { Home } from './pages/home'
+import { LandingPage } from './pages/landing-page'
+import { darkThemeMui, muiThemeDefault } from './styles'
+import { dark, light, GlobalStyle } from './styles'
 
 const SentryRoutes = Sentry.withSentryReactRouterV6Routing(Routes)
 
-const theme = createTheme({
-    palette: {
-        primary: {
-            main: Colors.primary
-        },
-        text: {
-            primary: Colors.primary
-        }
-    }
-})
-
 export const App = () => {
+    const [appTheme, setAppTheme] = usePersistedState<DefaultTheme>(
+        'theme',
+        light
+    )
+
+    const getUiTheme = useMemo(
+        () => (appTheme.title === 'light' ? muiThemeDefault : darkThemeMui),
+        [appTheme.title]
+    )
+
+    const toggleTheme = () => {
+        setAppTheme(appTheme.title === 'light' ? dark : light)
+    }
+
     return (
-        <ThemeProvider theme={theme}>
-            <AppContainer>
-                <SentryRoutes>
-                    <Route path='/' element={<Home />} />
-                    <Route path='/:key' element={<LandingPage />} />
-                </SentryRoutes>
-            </AppContainer>
-        </ThemeProvider>
+        <MuiThemeProvider theme={getUiTheme}>
+            <ThemeProvider theme={appTheme}>
+                <GlobalStyle />
+                <AppContainer>
+                    <SentryRoutes>
+                        <Route
+                            path='/'
+                            element={<Home handleChangeTheme={toggleTheme} />}
+                        />
+                        <Route path='/:key' element={<LandingPage />} />
+                    </SentryRoutes>
+                </AppContainer>
+            </ThemeProvider>
+        </MuiThemeProvider>
     )
 }
 

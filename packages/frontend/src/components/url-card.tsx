@@ -1,5 +1,6 @@
 import { ContentCopy, Delete } from '@mui/icons-material'
 import { AlertColor, Button, Paper } from '@mui/material'
+import { useTheme } from '@mui/material/styles'
 import { ap, splitAt } from 'ramda'
 import { useState } from 'react'
 import styled from 'styled-components'
@@ -31,9 +32,9 @@ const ButtonLabel = styled.div`
     align-items: center;
 `
 
-const CardContent = styled.div`
+const CardContent = styled.div<{ color?: string }>`
     & h2 {
-        color: ${Colors.primary};
+        color: ${props => (props.color ? props.color : Colors.primary)};
         margin-bottom: 20px;
     }
 
@@ -68,6 +69,7 @@ export const UrlCard = ({
     id,
     setLock
 }: IProps) => {
+    const theme = useTheme()
     const [loading, setLoading] = useState(false)
     const [head] = splitAt(20, originalUrl)
     const [, tail] = splitAt(originalUrl.length - 20, originalUrl)
@@ -108,9 +110,15 @@ export const UrlCard = ({
     }
 
     return (
-        <Paper elevation={5} style={PAPER_STYLE} className='url-card'>
+        <Paper
+            elevation={5}
+            style={{
+                ...PAPER_STYLE,
+                backgroundColor: theme.palette.background.default
+            }}
+            className='url-card'>
             <CardContainer>
-                <CardContent>
+                <CardContent color={theme.palette.text.primary}>
                     <h2>{handleExtractDomain(originalUrl)}</h2>
                     <p>
                         Short URL:
