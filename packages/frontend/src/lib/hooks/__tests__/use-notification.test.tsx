@@ -6,7 +6,7 @@ import {
     screen,
     waitFor
 } from '@testing-library/react'
-import { useNotification } from '../useNotification'
+import { useNotification } from '../use-notification'
 
 jest.useFakeTimers()
 

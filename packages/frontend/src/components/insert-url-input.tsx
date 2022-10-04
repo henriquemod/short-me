@@ -9,7 +9,7 @@ import {
 } from '@mui/material'
 import React, { useMemo, useRef, useState } from 'react'
 import styled from 'styled-components'
-import { IUrl } from '../lib/hooks/useUrl'
+import { IUrl } from '../lib/hooks/use-url'
 import { Messages } from '../lib/messages'
 
 const ButtonLabel = styled.div`

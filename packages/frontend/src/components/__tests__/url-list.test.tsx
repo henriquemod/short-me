@@ -1,7 +1,7 @@
 import { AlertColor } from '@mui/material'
 import { act } from '@testing-library/react'
 import ReactDOM from 'react-dom/client'
-import { IUrl } from '../../lib/hooks/useUrl'
+import { IUrl } from '../../lib/hooks/use-url'
 import { UrlList } from '../url-list'
 
 globalThis.IS_REACT_ACT_ENVIRONMENT = true

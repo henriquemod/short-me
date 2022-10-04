@@ -4,7 +4,7 @@ import flushPromises from 'flush-promises'
 import { rest } from 'msw'
 import { setupServer } from 'msw/node'
 import { act } from 'react-dom/test-utils'
-import * as hook from '../useFindUrl'
+import * as hook from '../use-find-url'
 jest.useFakeTimers()
 
 const server = setupServer(

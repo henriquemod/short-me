@@ -10,7 +10,7 @@ const LogoSVG = (props: SVGProps<SVGSVGElement>) => (
         // height={1500}
         viewBox='0 0 2000 1500'
         {...props}>
-        <rect width={2000} height={1500} fill='#ffffff' />
+        <rect width={2000} height={1500} fillOpacity='0' />
         <g transform='matrix(0.75,0,0,0.75,249.090909090909,282.7536437246963)'>
             <svg
                 xmlns='http://www.w3.org/2000/svg'

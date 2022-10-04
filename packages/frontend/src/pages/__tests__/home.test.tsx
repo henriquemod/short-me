@@ -3,8 +3,7 @@ import userEvent from '@testing-library/user-event'
 import { rest } from 'msw'
 import { setupServer } from 'msw/node'
 import { act } from 'react-dom/test-utils'
-import * as AppContext from '../../lib/app/app-context'
-import { IUrlList } from '../../lib/hooks/useUrl'
+import { IUrlList } from '../../lib/hooks/use-url'
 import { Home } from '../home'
 
 const server = setupServer(
@@ -26,6 +25,8 @@ const server = setupServer(
     })
 )
 
+const handleChangeThemeSut = jest.fn()
+
 beforeEach(() => {
     server.listen()
 })
@@ -40,13 +41,13 @@ afterAll(() => {
 
 describe('Home unit tests', () => {
     test('renders home', () => {
-        render(<Home />)
+        render(<Home handleChangeTheme={handleChangeThemeSut} />)
         const linkElement = screen.getByTestId('insert-url')
         expect(linkElement).toBeInTheDocument()
     })
     jest.mock('../home.tsx')
     test('should call copy to clipboard', async () => {
-        render(<Home />)
+        render(<Home handleChangeTheme={handleChangeThemeSut} />)
 
         const insertInput = screen.getByRole('textbox')
         const insertButton = screen.getByTestId('insert-button')

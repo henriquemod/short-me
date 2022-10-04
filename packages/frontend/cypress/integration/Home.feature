@@ -10,6 +10,12 @@ Feature: Home Page
     Then I see "Short Me" in the title
 
   @focus
+  Scenario: I change the theme
+    Then Background should be light
+    When I click on element role 'theme-switch'
+    Then Background should be dark
+
+  @focus
   Scenario: I create a short link
     When I type 'http://google.com.br' in input id 'insert-url-2'
     And I click on 'insert-button'

@@ -1,6 +1,6 @@
 import { Container } from '@mui/material'
 import AppContext, { IAppContext } from './app-context'
-import { useNotification } from '../hooks/useNotification'
+import { useNotification } from '../hooks/use-notification'
 
 interface IProps {
     children: JSX.Element

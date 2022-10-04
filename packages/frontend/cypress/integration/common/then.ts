@@ -23,3 +23,15 @@ Then('I wait timer finishes', () => {
         cy.waitUntil(() => cy.contains(el as unknown as number).should('exist'))
     })
 })
+
+Then('Background should be light', () => {
+    cy.get('body')
+        .should('have.css', 'background-color')
+        .and('eq', 'rgb(245, 245, 245)')
+})
+
+Then('Background should be dark', () => {
+    cy.get('body')
+        .should('have.css', 'background-color')
+        .and('eq', 'rgb(34, 34, 34)')
+})

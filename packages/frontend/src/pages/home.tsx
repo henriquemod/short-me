@@ -2,11 +2,11 @@ import { AlertColor, Fade, Grid } from '@mui/material'
 import { Container } from '@mui/system'
 import { useContext, useState } from 'react'
 import styled from 'styled-components'
-
+import Header from '../components/header'
 import { InsertUrlInput } from '../components/insert-url-input'
 import { UrlList } from '../components/url-list'
 import AppContext from '../lib/app/app-context'
-import { useUrl } from '../lib/hooks/useUrl'
+import { useUrl } from '../lib/hooks/use-url'
 import LogoSVG from '../lib/svgs/logo'
 import UrlValidator from '../lib/url-validator'
 
@@ -24,7 +24,11 @@ const LogoContainer = styled.div`
 
 const copyToClipboard = (value: string) => navigator.clipboard.writeText(value)
 
-export const Home = () => {
+interface IProps {
+    handleChangeTheme: () => void
+}
+
+export const Home = ({ handleChangeTheme }: IProps) => {
     const { create, remove, urlList, loading } = useUrl()
     const [lock, setLock] = useState(false)
     const { notify } = useContext(AppContext)
@@ -35,6 +39,7 @@ export const Home = () => {
 
     return (
         <Grid {...GRID_PROPS} container maxWidth={768} flexDirection='column'>
+            <Header handleChangeTheme={handleChangeTheme} />
             <LogoContainer>
                 <LogoSVG />
             </LogoContainer>

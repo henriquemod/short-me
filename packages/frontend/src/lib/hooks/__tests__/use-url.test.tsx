@@ -3,7 +3,7 @@ import flushPromises from 'flush-promises'
 import { rest } from 'msw'
 import { setupServer } from 'msw/node'
 import { act } from 'react-dom/test-utils'
-import { IUrl, IUrlList, useUrl } from '../useUrl'
+import { IUrl, IUrlList, useUrl } from '../use-url'
 
 const server = setupServer(
     rest.get<IUrlList>('http://localhost:8080/api/url', (_, res, ctx) => {

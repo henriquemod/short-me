@@ -1,7 +1,7 @@
 import { captureException } from '@sentry/react'
 import axios from 'axios'
 import { useCallback, useEffect, useState } from 'react'
-import { IUrl } from './useUrl'
+import { IUrl } from './use-url'
 
 const URL_API_PATH = '/api/url/'
 
