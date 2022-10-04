@@ -37,7 +37,12 @@ export const App = () => {
                             path='/'
                             element={<Home handleChangeTheme={toggleTheme} />}
                         />
-                        <Route path='/:key' element={<LandingPage />} />
+                        <Route
+                            path='/:key'
+                            element={
+                                <LandingPage handleChangeTheme={toggleTheme} />
+                            }
+                        />
                     </SentryRoutes>
                 </AppContainer>
             </ThemeProvider>

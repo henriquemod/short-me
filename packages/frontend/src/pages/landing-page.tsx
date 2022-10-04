@@ -1,5 +1,6 @@
 import { Grid } from '@mui/material'
 import styled from 'styled-components'
+import Header from '../components/header'
 import { UrlLoader } from '../components/url-loader'
 import LogoSVG from '../lib/svgs/logo'
 
@@ -17,7 +18,11 @@ const GRID_PROPS = {
     display: 'flex'
 }
 
-export const LandingPage = () => {
+interface IProps {
+    handleChangeTheme: () => void
+}
+
+export const LandingPage = ({ handleChangeTheme }: IProps) => {
     return (
         <Grid
             {...GRID_PROPS}
@@ -25,6 +30,7 @@ export const LandingPage = () => {
             maxWidth={GRID_MAX_WIDTH}
             flexDirection='column'
             data-testid='landingpage-grid'>
+            <Header handleChangeTheme={handleChangeTheme} />
             <LogoContainer>
                 <LogoSVG />
             </LogoContainer>
