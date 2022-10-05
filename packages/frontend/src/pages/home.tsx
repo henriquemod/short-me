@@ -2,6 +2,7 @@ import { AlertColor, Fade, Grid } from '@mui/material'
 import { Container } from '@mui/system'
 import { useContext, useState } from 'react'
 import styled from 'styled-components'
+import Footer from '../components/footer'
 import Header from '../components/header'
 import { InsertUrlInput } from '../components/insert-url-input'
 import { UrlList } from '../components/url-list'
@@ -67,6 +68,7 @@ export const Home = ({ handleChangeTheme }: IProps) => {
                     </Grid>
                 </Container>
             </Fade>
+            <Footer />
         </Grid>
     )
 }
