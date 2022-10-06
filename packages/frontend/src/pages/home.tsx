@@ -10,6 +10,7 @@ import AppContext from '../lib/app/app-context'
 import { useUrl } from '../lib/hooks/use-url'
 import LogoSVG from '../lib/svgs/logo'
 import UrlValidator from '../lib/url-validator'
+import { useTheme } from '@mui/material/styles'
 
 const GRID_PROPS = {
     marginBottom: 2,
@@ -19,7 +20,7 @@ const GRID_PROPS = {
 }
 
 const LogoContainer = styled.div`
-    max-width: 20vw;
+    width: 350px;
     align-self: center;
 `
 
@@ -30,9 +31,11 @@ interface IProps {
 }
 
 export const Home = ({ handleChangeTheme }: IProps) => {
+    const theme = useTheme()
     const { create, remove, urlList, loading } = useUrl()
     const [lock, setLock] = useState(false)
     const { notify } = useContext(AppContext)
+    const isDark = theme.palette.mode === 'dark'
 
     const dispatchNotification = (message: string, severity: AlertColor) => {
         notify?.(message, severity)
@@ -68,7 +71,7 @@ export const Home = ({ handleChangeTheme }: IProps) => {
                     </Grid>
                 </Container>
             </Fade>
-            <Footer />
+            <Footer isDark={isDark} />
         </Grid>
     )
 }
