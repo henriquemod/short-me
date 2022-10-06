@@ -3,7 +3,7 @@ import { act, render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import ReactDOM from 'react-dom/client'
 import { Messages } from '../../lib/messages'
-import { UrlCard } from '../url-card'
+import { CardContent, UrlCard } from '../url-card'
 
 globalThis.IS_REACT_ACT_ENVIRONMENT = true
 let container: HTMLDivElement
@@ -32,12 +32,17 @@ const mockValidCard = {
     handleDeleteUrl: handleDeleteUrlStub,
     copyToClipboard: copyToClipboardStub,
     notify: notifyStub,
-    setLock: setLockStub
+    setLock: setLockStub,
+    bottom: false
 }
 
 beforeEach(() => {
     container = document.createElement('div')
     document.body.appendChild(container)
+})
+
+afterEach(() => {
+    container.innerHTML = ''
 })
 
 describe('URL Card unit tests - Different domains', () => {
@@ -247,5 +252,37 @@ describe('URL Card unit tests - Buttons', () => {
             })
         }
         expect(spyNotify).toHaveBeenCalledWith(Messages.SuccessCopy, 'info')
+    })
+})
+
+describe('URL Card - CardContent Unit Test', () => {
+    it('should render FooterGrid without color', () => {
+        act(() => {
+            ReactDOM.createRoot(container).render(
+                <CardContent data-testid='test-card'>
+                    <h2 data-testid='test-title'>Test</h2>
+                </CardContent>
+            )
+        })
+
+        const element = screen.getByTestId('test-title')
+        const style = getComputedStyle(element)
+
+        expect(style.color).toBe('rgb(101, 37, 196)')
+    })
+
+    it('should render FooterGrid with color', () => {
+        act(() => {
+            ReactDOM.createRoot(container).render(
+                <CardContent color='#000' data-testid='test-card'>
+                    <h2 data-testid='test-title'>Test</h2>
+                </CardContent>
+            )
+        })
+
+        const element = screen.getByTestId('test-title')
+        const style = getComputedStyle(element)
+
+        expect(style.color).toBe('rgb(0, 0, 0)')
     })
 })

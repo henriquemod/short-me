@@ -7,7 +7,7 @@ import styled from 'styled-components'
 import { Colors } from '../lib/colors'
 import { Messages } from '../lib/messages'
 
-const PAPER_STYLE = { padding: '15px', marginBottom: '25px' }
+const PAPER_STYLE = { padding: '15px' }
 
 const CardContainer = styled.div`
     display: flex;
@@ -32,7 +32,7 @@ const ButtonLabel = styled.div`
     align-items: center;
 `
 
-const CardContent = styled.div<{ color?: string }>`
+export const CardContent = styled.div<{ color?: string }>`
     & h2 {
         color: ${props => (props.color ? props.color : Colors.primary)};
         margin-bottom: 20px;
@@ -54,6 +54,7 @@ interface IProps {
     shortUrl: string
     originalUrl: string
     id: string
+    bottom: boolean
     handleDeleteUrl: (id: string) => Promise<void>
     copyToClipboard: (value: string) => void
     notify: (message: string, severity: AlertColor) => void
@@ -67,7 +68,8 @@ export const UrlCard = ({
     copyToClipboard,
     notify,
     id,
-    setLock
+    setLock,
+    bottom
 }: IProps) => {
     const theme = useTheme()
     const [loading, setLoading] = useState(false)
@@ -111,9 +113,10 @@ export const UrlCard = ({
 
     return (
         <Paper
-            elevation={5}
+            elevation={2}
             style={{
                 ...PAPER_STYLE,
+                marginBottom: bottom ? '100px' : '25px',
                 backgroundColor: theme.palette.background.default
             }}
             className='url-card'>

@@ -21,7 +21,7 @@ export const UrlList = ({
 }: IProps) => {
     return (
         <Grid item xs>
-            {itens.map(element => (
+            {itens.map((element, i) => (
                 <UrlCard
                     key={element.id}
                     id={element.id}
@@ -31,6 +31,7 @@ export const UrlList = ({
                     originalUrl={element.url}
                     handleDeleteUrl={handleDeleteUrl}
                     setLock={setLock}
+                    bottom={i === itens.length - 1}
                 />
             ))}
         </Grid>
