@@ -14,13 +14,14 @@
         "plugin:@typescript-eslint/recommended-requiring-type-checking"
     ],
     "rules": {
-        "no-restricted-imports": "error",
         "prettier/prettier": "error",
         "no-duplicate-imports": "error",
         "no-unexpected-multiline": "error",
         "@typescript-eslint/no-unused-vars": "error",
         "require-await": "error",
         "no-console": "error",
+        "no-restricted-imports": "off",
+        "@typescript-eslint/no-restricted-imports": "warn",
         "no-unreachable": "warn",
         "no-use-before-define": "warn",
         "camelcase": "error",

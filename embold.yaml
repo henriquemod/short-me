@@ -18,6 +18,7 @@ sources:
     - "logo.tsx"
     - "setupTests.ts"
     - "frontend/src/index.tsx"
+    - "packages/loadingtest"
 
 modules:
   - name: tslint
