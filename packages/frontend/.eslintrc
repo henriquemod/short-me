@@ -16,6 +16,14 @@
     "rules": {
         "no-restricted-imports": "error",
         "prettier/prettier": "error",
+        "no-duplicate-imports": "error",
+        "no-unexpected-multiline": "error",
+        "@typescript-eslint/no-unused-vars": "error",
+        "require-await": "error",
+        "no-console": "error",
+        "no-unreachable": "warn",
+        "no-use-before-define": "warn",
+        "camelcase": "error",
         "@typescript-eslint/no-misused-promises": ["error", {
             "checksVoidReturn": {
             "arguments": false,

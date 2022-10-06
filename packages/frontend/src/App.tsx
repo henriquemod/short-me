@@ -7,8 +7,13 @@ import { AppContainer } from './lib/app/app-container'
 import usePersistedState from './lib/hooks/use-persisted-state'
 import { Home } from './pages/home'
 import { LandingPage } from './pages/landing-page'
-import { darkThemeMui, muiThemeDefault } from './styles'
-import { dark, light, GlobalStyle } from './styles'
+import {
+    darkThemeMui,
+    muiThemeDefault,
+    dark,
+    light,
+    GlobalStyle
+} from './styles'
 
 const SentryRoutes = Sentry.withSentryReactRouterV6Routing(Routes)
 

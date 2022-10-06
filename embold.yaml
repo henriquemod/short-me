@@ -29,3 +29,7 @@ modules:
         enabled: false
       - key: "TSLINT-TS-3"
         enabled: false
+      - key: "TSLINT-TS-141"
+        enabled: false
+      - key: "TSLINT-TS-183"
+        enabled: false
