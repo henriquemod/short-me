@@ -27,15 +27,17 @@ const DEFAULT_SNACK_STATE: ISnack = {
 
 export const useNotification = () => {
     const [snackState, setSnackState] = useState<ISnack>(DEFAULT_SNACK_STATE)
+
+    const handleCloseSnack = () =>
+        setSnackState(prev => ({ ...prev, open: false }))
+
     const snack = useMemo(() => {
         return (
             <Snackbar
                 anchorOrigin={snackState.anchorOrigin}
                 open={snackState.open}
                 autoHideDuration={snackState.autoHideDuration}
-                onClose={() => {
-                    setSnackState({ ...snackState, open: false })
-                }}>
+                onClose={handleCloseSnack}>
                 <Alert severity={snackState.severity}>
                     {snackState.message}
                 </Alert>
@@ -44,7 +46,7 @@ export const useNotification = () => {
     }, [snackState])
 
     const notify = (message: string, severity: AlertColor) => {
-        setSnackState({ ...snackState, open: true, message, severity })
+        setSnackState(prev => ({ ...prev, open: true, message, severity }))
     }
 
     return { snack, notify }

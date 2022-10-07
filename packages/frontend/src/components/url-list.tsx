@@ -21,19 +21,23 @@ export const UrlList = ({
 }: IProps) => {
     return (
         <Grid item xs>
-            {itens.map((element, i) => (
-                <UrlCard
-                    key={element.id}
-                    id={element.id}
-                    notify={notify}
-                    copyToClipboard={copyToClipboard}
-                    shortUrl={`${ENDPOINT}/${element.key}`}
-                    originalUrl={element.url}
-                    handleDeleteUrl={handleDeleteUrl}
-                    setLock={setLock}
-                    bottom={i === itens.length - 1}
-                />
-            ))}
+            {itens.map((element, i) => {
+                const isBottom = i === itens.length - 1
+
+                return (
+                    <UrlCard
+                        key={element.id}
+                        id={element.id}
+                        notify={notify}
+                        copyToClipboard={copyToClipboard}
+                        shortUrl={`${ENDPOINT}/${element.key}`}
+                        originalUrl={element.url}
+                        handleDeleteUrl={handleDeleteUrl}
+                        setLock={setLock}
+                        bottom={isBottom}
+                    />
+                )
+            })}
         </Grid>
     )
 }

@@ -1,6 +1,6 @@
 import { AlertColor, Fade, Grid } from '@mui/material'
 import { Container } from '@mui/system'
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import Footer from '../components/footer'
 import Header from '../components/header'
@@ -33,9 +33,14 @@ interface IProps {
 export const Home = ({ handleChangeTheme }: IProps) => {
     const theme = useTheme()
     const { create, remove, urlList, loading } = useUrl()
+    const [open, setOpen] = useState(false)
     const [lock, setLock] = useState(false)
     const { notify } = useContext(AppContext)
     const isDark = theme.palette.mode === 'dark'
+
+    useEffect(() => {
+        setOpen(urlList.length > 0)
+    }, [urlList.length])
 
     const dispatchNotification = (message: string, severity: AlertColor) => {
         notify?.(message, severity)
@@ -54,7 +59,7 @@ export const Home = ({ handleChangeTheme }: IProps) => {
                 loading={loading}
                 lock={lock}
             />
-            <Fade in={urlList.length > 0}>
+            <Fade in={open}>
                 <Container>
                     <Grid
                         container

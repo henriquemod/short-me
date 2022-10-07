@@ -34,3 +34,9 @@ modules:
         enabled: false
       - key: "TSLINT-TS-183"
         enabled: false
+      - key: "TSLINT-TS-64"
+        enabled: false
+      - key: "TSLINT-TS-30"
+        enabled: false
+      - key: "TSLINT-TS-20"
+        enabled: false
