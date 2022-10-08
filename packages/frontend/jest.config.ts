@@ -4,8 +4,8 @@ const config: Config = {
     verbose: true,
     coverageThreshold: {
         global: {
-            statements: 100,
-            branches: 95,
+            statements: -5,
+            branches: 100,
             functions: 100,
             lines: 100
         }
