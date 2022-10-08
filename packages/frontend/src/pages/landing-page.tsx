@@ -3,6 +3,8 @@ import styled from 'styled-components'
 import Header from '../components/header'
 import { UrlLoader } from '../components/url-loader'
 import LogoSVG from '../lib/svgs/logo'
+import { useTheme } from '@mui/material/styles'
+import Footer from '../components/footer'
 
 const GRID_MAX_WIDTH = 768
 
@@ -23,6 +25,8 @@ interface IProps {
 }
 
 export const LandingPage = ({ handleChangeTheme }: IProps) => {
+    const theme = useTheme()
+    const isDark = theme.palette.mode === 'dark'
     return (
         <Grid
             {...GRID_PROPS}
@@ -35,6 +39,7 @@ export const LandingPage = ({ handleChangeTheme }: IProps) => {
                 <LogoSVG />
             </LogoContainer>
             <UrlLoader />
+            <Footer isDark={isDark} />
         </Grid>
     )
 }
