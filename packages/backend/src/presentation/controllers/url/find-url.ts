@@ -1,12 +1,7 @@
 import { OutputFindUrlDto } from '../../../domain/usecase/url'
 import { FindUrl } from '../../../domain/usecase/url/url'
 import { MissingParamError } from '../../error'
-import {
-  badRequest,
-  notFoundRequest,
-  ok,
-  serverError
-} from '../../helpers/http-helper'
+import * as http from '../../helpers/http-helper'
 import { Controller, HttpRequest, HttpResponse } from '../../protocols'
 import { ExceptionHandler } from '../../protocols/exception-handler'
 
@@ -21,7 +16,7 @@ export default class FindUrlController implements Controller {
       const requiredFields = ['key']
       for (const field of requiredFields) {
         if (!httpRequest.params[field]) {
-          return badRequest(new MissingParamError(field))
+          return http.badRequest(new MissingParamError(field))
         }
       }
 
@@ -30,7 +25,7 @@ export default class FindUrlController implements Controller {
       const url = await this.findUrl.find({ key })
 
       if (!url) {
-        return notFoundRequest(new Error('Entity not found'))
+        return http.notFoundRequest(new Error('Entity not found'))
       }
 
       const urlDto: OutputFindUrlDto = {
@@ -39,10 +34,10 @@ export default class FindUrlController implements Controller {
         key: url.key
       }
 
-      return ok(urlDto)
+      return http.ok(urlDto)
     } catch (error) {
       this.exceptionHandler.validate(error as Error)
-      return serverError(error as Error)
+      return http.serverError(error as Error)
     }
   }
 }
