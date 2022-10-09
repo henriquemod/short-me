@@ -24,41 +24,47 @@ const ButtonLabel = styled.div`
     align-items: center;
 `
 
+const CONTAINER_STYLE = {
+    position: 'relative',
+    display: 'inline-flex'
+}
+
+const TIMER_LABEL_STYLE = {
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
+    position: 'absolute',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
+}
+
 const CircularProgressWithLabel = (
     props: CircularProgressProps & { value: number }
-) => (
-    <Box
-        sx={{
-            position: 'relative',
-            display: 'inline-flex'
-        }}>
-        <CircularProgress variant='determinate' {...props} />
-        <Box
-            sx={{
-                top: 0,
-                left: 0,
-                bottom: 0,
-                right: 0,
-                position: 'absolute',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-            }}>
-            <Typography
-                variant='caption'
-                component='div'
-                fontWeight={700}
-                fontSize='1.25em'
-                color='text.primary'>{`${Math.round(
-                Number(
-                    [...props.value.toString()].length > 2
-                        ? 10
-                        : [...props.value.toString()][0]
-                )
-            )}s`}</Typography>
+) => {
+    const time = Number(
+        [...props.value.toString()].length > 2
+            ? 10
+            : [...props.value.toString()][0]
+    )
+
+    return (
+        <Box sx={CONTAINER_STYLE}>
+            <CircularProgress variant='determinate' {...props} />
+            <Box sx={TIMER_LABEL_STYLE}>
+                <Typography
+                    variant='caption'
+                    component='div'
+                    fontWeight={700}
+                    fontSize='1.25em'
+                    color='text.primary'>
+                    {`${time}s`}
+                </Typography>
+            </Box>
         </Box>
-    </Box>
-)
+    )
+}
 
 interface IProps {
     time?: number
@@ -123,7 +129,7 @@ export const UrlLoader = (props: IProps) => {
                 </>
             )
         }
-    }, [error, timeLimit])
+    }, [error, handleChangePage, renderLabel, timeLimit])
 
     return (
         <Grid

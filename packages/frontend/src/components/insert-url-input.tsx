@@ -7,7 +7,13 @@ import {
     Grid,
     TextField
 } from '@mui/material'
-import React, { KeyboardEvent, useMemo, useRef, useState } from 'react'
+import React, {
+    KeyboardEvent,
+    useCallback,
+    useMemo,
+    useRef,
+    useState
+} from 'react'
 import styled from 'styled-components'
 import { IUrl } from '../lib/hooks/use-url'
 import { Messages } from '../lib/messages'
@@ -22,6 +28,10 @@ const ButtonLabel = styled.div`
 
 const BUTTON_STYLE = { height: '100%', minWidth: '107px' }
 const CIRCULAR_PROGRESS_SIZE = 25
+const INPUT_PROPS = {
+    id: 'insert-url-2',
+    role: 'textbox'
+}
 
 interface IProps {
     validateUrl: (url: string) => boolean
@@ -42,12 +52,15 @@ export const InsertUrlInput = ({
     const [error, setError] = useState(false)
     const inputRef = useRef<HTMLInputElement>(null)
 
-    const handleChangeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { value } = e.target
-        const isValidUrl = validateUrl(value)
-        setError(!isValidUrl)
-        setValue(value)
-    }
+    const handleChangeValue = useCallback(
+        (e: React.ChangeEvent<HTMLInputElement>) => {
+            const { value } = e.target
+            const isValidUrl = validateUrl(value)
+            setError(!isValidUrl)
+            setValue(value)
+        },
+        [validateUrl]
+    )
 
     const handleClickButton = async () => {
         if (!error) {
@@ -80,7 +93,7 @@ export const InsertUrlInput = ({
                     Short me <PhotoSizeSelectSmall fontSize='small' />
                 </ButtonLabel>
             ),
-        [loading]
+        [loading, lock]
     )
 
     const handleKeyDown = async (event: KeyboardEvent<HTMLDivElement>) => {
@@ -105,10 +118,7 @@ export const InsertUrlInput = ({
                         onChange={handleChangeValue}
                         error={error}
                         inputRef={inputRef}
-                        inputProps={{
-                            id: 'insert-url-2',
-                            role: 'textbox'
-                        }}
+                        inputProps={INPUT_PROPS}
                     />
                 </Grid>
                 <Grid xs={3} item>

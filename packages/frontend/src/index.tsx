@@ -13,6 +13,7 @@ import App from './App'
 import reportWebVitals from './reportWebVitals'
 
 Sentry.init({
+    // eslint-disable-next-line max-len
     dsn: 'https://3fc66be0a830481482fffd338ed2f21b@o1410595.ingest.sentry.io/6748098',
     integrations: [
         new BrowserTracing({

@@ -40,3 +40,7 @@ modules:
         enabled: false
       - key: "TSLINT-TS-20"
         enabled: false
+      - key: "TSLINT-TS-191"
+        enabled: false
+      - key: "TSLINT-TS-89"
+        enabled: false

@@ -7,8 +7,6 @@ import styled from 'styled-components'
 import { Colors } from '../lib/colors'
 import { Messages } from '../lib/messages'
 
-const PAPER_STYLE = { padding: '15px' }
-
 const CardContainer = styled.div`
     display: flex;
     justify-content: space-between;
@@ -79,6 +77,12 @@ export const UrlCard = ({
     const newString = head + '...' + tail
     const finalUrl = originalUrl.length > 40 ? newString : originalUrl
 
+    const PAPER_STYLE = {
+        padding: '15px',
+        marginBottom: bottom ? '100px' : '25px',
+        backgroundColor: theme.palette.background.default
+    }
+
     const handleCopyToClipboard = () => {
         try {
             copyToClipboard(shortUrl)
@@ -112,14 +116,7 @@ export const UrlCard = ({
     }
 
     return (
-        <Paper
-            elevation={2}
-            style={{
-                ...PAPER_STYLE,
-                marginBottom: bottom ? '100px' : '25px',
-                backgroundColor: theme.palette.background.default
-            }}
-            className='url-card'>
+        <Paper elevation={2} style={PAPER_STYLE} className='url-card'>
             <CardContainer>
                 <CardContent color={theme.palette.text.primary}>
                     <h2>{handleExtractDomain(originalUrl)}</h2>

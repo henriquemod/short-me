@@ -81,12 +81,20 @@ const Footer = ({ isDark }: IProps) => {
             </LogoGrid>
             <ContentGrid>
                 <SocialLink color={Colors.white}>
-                    <a href={LINKEDIN_URL} target='_blank' role='social-link'>
+                    <a
+                        href={LINKEDIN_URL}
+                        target='_blank'
+                        role='social-link'
+                        rel='noreferrer'>
                         <LinkedInIcon fontSize='small' />
                     </a>
                 </SocialLink>
                 <SocialLink color={Colors.white}>
-                    <a href={GITHUB_URL} target='_blank' role='social-link'>
+                    <a
+                        href={GITHUB_URL}
+                        target='_blank'
+                        role='social-link'
+                        rel='noreferrer'>
                         <GitHubIcon fontSize='small' />
                     </a>
                 </SocialLink>
