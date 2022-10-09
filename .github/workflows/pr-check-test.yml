@@ -7,7 +7,7 @@ on:
     branches: ["dev"]
 
 jobs:
-  build:
+  pr_check:
     runs-on: ubuntu-latest
 
     strategy:
@@ -18,32 +18,60 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Setup Node ${{ matrix.node-version }}
+      - name: PR Check with Node ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Install dependencies Node ${{ matrix.node-version }}
-        run: yarn --frozen-lockfile
+      - name: Install dependencies
+        run: yarn
+      
+      - name: Backend PR Check
+        run: |
+          cd ./packages/backend
+          yarn lint
+          yarn type-check
 
-      - name: PR Check Frontend using Node ${{ matrix.node-version }}
+      - name: Frontend PR Check
         run: |
           cd ./packages/frontend
           yarn lint
           yarn type-check
 
-      - name: PR Check Backend using Node ${{ matrix.node-version }}
+  unit_tests:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x, 18.x]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Unit Tests with Node ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Frontend Unit Test
+        run: |
+          cd ./packages/frontend
+          yarn lint
+          yarn type-check
+
+      - name: Frontend Unit Test
         run: |
           cd ./packages/backend
           yarn lint
           yarn type-check
 
       - name: Backend Unit Test using Node ${{ matrix.node-version }}
-      - run: |
+        run: |
           cd ./packages/backend
           NODE_ENV=development yarn test:ci
 
       - name: Frontend Unit Test using Node ${{ matrix.node-version }}
-      - run: |
+        run: |
           cd ./packages/frontend
           yarn test:coverage
