@@ -24,10 +24,10 @@ jobs:
         run: |
           cd packages/frontend
           yarn lint
-          type-check
+          yarn type-check
 
       - name: Backend Check
         run: |
           cd packages/backend
           yarn lint
-          type-check
+          yarn type-check
