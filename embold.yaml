@@ -44,3 +44,5 @@ modules:
         enabled: false
       - key: "TSLINT-TS-89"
         enabled: false
+      - key: "TSLINT-TS-157"
+        enabled: false
