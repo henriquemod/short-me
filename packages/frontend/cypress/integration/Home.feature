@@ -16,9 +16,16 @@ Feature: Home Page
     Then Background should be dark
 
   @focus
-  Scenario: I create a short link
+  Scenario: I create a short link when click on button
     When I type 'http://google.com.br' in input id 'insert-url-2'
     And I click on 'insert-button'
+    Then I should see 'Your url was successfully shortened.'
+    And I should see 'http://google.com.br'
+
+  @focus
+  Scenario: I create a short link pressing Enter
+    When I type 'http://google.com.br' in input id 'insert-url-2'
+    And I press 'enter' on 'insert-url-2'
     Then I should see 'Your url was successfully shortened.'
     And I should see 'http://google.com.br'
 

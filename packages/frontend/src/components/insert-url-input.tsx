@@ -7,7 +7,7 @@ import {
     Grid,
     TextField
 } from '@mui/material'
-import React, { useMemo, useRef, useState } from 'react'
+import React, { KeyboardEvent, useMemo, useRef, useState } from 'react'
 import styled from 'styled-components'
 import { IUrl } from '../lib/hooks/use-url'
 import { Messages } from '../lib/messages'
@@ -83,6 +83,12 @@ export const InsertUrlInput = ({
         [loading]
     )
 
+    const handleKeyDown = async (event: KeyboardEvent<HTMLDivElement>) => {
+        if (event.key === 'Enter') {
+            await handleClickButton()
+        }
+    }
+
     return (
         <Container>
             <Grid display='flex' container spacing={2}>
@@ -95,6 +101,7 @@ export const InsertUrlInput = ({
                         variant='outlined'
                         disabled={loading || lock}
                         value={value}
+                        onKeyDown={handleKeyDown}
                         onChange={handleChangeValue}
                         error={error}
                         inputRef={inputRef}

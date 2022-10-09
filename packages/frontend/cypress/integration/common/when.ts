@@ -19,3 +19,10 @@ When('I click on {string} but it fails', (element: string) => {
 
     cy.get(`button[id=${element}]`).realClick()
 })
+
+When(
+    'I press {string} on {string}',
+    (keyboardAction: string, input: string) => {
+        cy.get(`input[id=${input}`).type(`{${keyboardAction}}`)
+    }
+)

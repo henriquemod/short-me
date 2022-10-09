@@ -1,4 +1,5 @@
 import { AlertColor } from '@mui/material'
+import { fireEvent } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import ReactDOM from 'react-dom/client'
 import { act } from 'react-dom/test-utils'
@@ -116,6 +117,27 @@ describe('Insert URL Input unit tests', () => {
             await act(async () => {
                 userEvent.type(input, VALID_URL)
                 userEvent.click(button)
+            })
+        }
+
+        expect(spyCreateShortUrl).toHaveBeenCalledWith('https://validurl.com')
+    })
+
+    test('should call handleCreateShortUrl when pressing enter', async () => {
+        const spyCreateShortUrl = jest.spyOn(Sut, 'handleCreateShortUrl')
+
+        act(() => {
+            ReactDOM.createRoot(container).render(
+                <InsertUrlInput {...Sut} loading={false} />
+            )
+        })
+
+        const input = container.querySelector('#insert-url-2')
+
+        if (input) {
+            await act(async () => {
+                userEvent.type(input, VALID_URL)
+                userEvent.keyboard('{Enter}')
             })
         }
 
