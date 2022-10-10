@@ -18,32 +18,37 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Setup Node ${{ matrix.node-version }}
+      - name: Install dependencies Node ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-
-      - name: Install dependencies Node ${{ matrix.node-version }}
         run: yarn --frozen-lockfile
 
       - name: PR Check Frontend using Node ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
         run: |
           cd ./packages/frontend
           yarn lint
           yarn type-check
 
       - name: PR Check Backend using Node ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
         run: |
           cd ./packages/backend
           yarn lint
           yarn type-check
 
-      - name: Backend Unit Test using Node ${{ matrix.node-version }}
+      - name: Unit Test using Node ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
       - run: |
           cd ./packages/backend
           NODE_ENV=development yarn test:ci
-
-      - name: Frontend Unit Test using Node ${{ matrix.node-version }}
       - run: |
           cd ./packages/frontend
           yarn test:coverage
