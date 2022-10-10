@@ -1,4 +1,4 @@
-name: PR Check and Tests
+name: Check and Test
 
 on:
   push:
@@ -43,6 +43,7 @@ jobs:
           yarn type-check
 
   unit_tests:
+    name: Unit Tests
     runs-on: ubuntu-latest
 
     strategy:
