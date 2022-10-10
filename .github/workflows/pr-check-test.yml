@@ -7,13 +7,12 @@ on:
     branches: ["dev"]
 
 jobs:
-  pr_check_back:
-    name: PR Check Backend
+  pr_check:
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        node-version: [16.x]
+        node-version: [16.x, 18.x]
 
     steps:
       - name: Checkout
@@ -24,42 +23,18 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Prepare ambient
-        run: |
-          rm -f package.json
+      - name: Install dependencies
+        run: yarn
       
-      - name: PR Check
+      - name: Backend PR Check
         run: |
           cd ./packages/backend
-          yarn --frozen-lockfile
           yarn lint
           yarn type-check
 
-  pr_check_front:
-    name: PR Check Frontend
-    runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [16.x]
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: PR Check with Node ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-      
-      - name: Prepare ambient
-        run: |
-          rm -f package.json
-      
-      - name: PR Check
+      - name: Frontend PR Check
         run: |
           cd ./packages/frontend
-          yarn --frozen-lockfile
           yarn lint
           yarn type-check
 
@@ -79,8 +54,17 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Install dependencies
-        run: yarn --frozen-lockfile
+      - name: Frontend Unit Test
+        run: |
+          cd ./packages/frontend
+          yarn lint
+          yarn type-check
+
+      - name: Frontend Unit Test
+        run: |
+          cd ./packages/backend
+          yarn lint
+          yarn type-check
 
       - name: Backend Unit Test using Node ${{ matrix.node-version }}
         run: |
