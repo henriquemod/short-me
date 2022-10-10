@@ -7,13 +7,13 @@ on:
     branches: ["dev"]
 
 jobs:
-  pr_check_back:
-    name: PR Check Backend
+  pr_check:
+    name: PR Check
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        node-version: [16.x]
+        node-version: [16.x, 18.x]
 
     steps:
       - name: Checkout
@@ -27,38 +27,17 @@ jobs:
       - name: Prepare ambient
         run: |
           rm -f package.json
-      
-      - name: PR Check
+
+      - name: PR Check Frontend
         run: |
-          cd ./packages/backend
+          cd ./packages/frontend
           yarn --frozen-lockfile
           yarn lint
           yarn type-check
-
-  pr_check_front:
-    name: PR Check Frontend
-    runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [16.x]
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: PR Check with Node ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
       
-      - name: Prepare ambient
+      - name: PR Check Backend
         run: |
-          rm -f package.json
-      
-      - name: PR Check
-        run: |
-          cd ./packages/frontend
+          cd ./packages/backend
           yarn --frozen-lockfile
           yarn lint
           yarn type-check
