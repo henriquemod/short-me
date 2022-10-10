@@ -1,4 +1,4 @@
-name: PR Check and Tests
+name: PR Check
 
 on:
   push:
