@@ -12,7 +12,7 @@ export const options: Options = {
     },
     ext: {
         loadimpact: {
-            projectID: 3603320,
+            projectID: 3612858,
             name: 'Short Me Loading Test'
         }
     }
