@@ -2,8 +2,9 @@ name: Loading Tests
 
 on:
   pull_request:
-    branches:
-      - hml
+    branches: ["main", "hml"]
+  push:
+    branches: ["hml"]
 
 jobs:
   k6_transpile_bundle_test:
